@@ -1,7 +1,10 @@
 function Profile() {
+
     return (
-        <h2>Profile page</h2>
-    );
+        <>
+            <h1>Day la trang Profile</h1>
+        </>
+    )
 }
 
-export default Profile;
+export default Profile

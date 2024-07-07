@@ -1,17 +1,10 @@
+import OnlyHeaderLayout from "../components/Layout/OnlyHeaderLayout";
+import Following from "../pages/Following";
 import Home from "../pages/Home";
-import Following from '../pages/Following'
-import Profile from '../pages/Profile'
-import Upload from "../pages/Upload";
+import Profile from "../pages/Profile";
 
-export const publicRoutes = [
-    { path: '/', component: Home },
-    { path: '/following', component: Following },
-    { path: '/profile', component: Profile },
-    { path: '/upload', component: Upload, layout: null },
+export const publicRoute = [
+    { path: '/', element: Home },
+    { path: '/following', element: Following },
+    { path: '/profile', element: Profile, layout: OnlyHeaderLayout },
 ]
-
-export const privateRoutes = [
-
-]
-
-

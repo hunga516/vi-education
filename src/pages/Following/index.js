@@ -1,7 +1,10 @@
 function Following() {
+
     return (
-        <h2>Following page</h2>
-    );
+        <>
+            <h1>Day la trang Following</h1>
+        </>
+    )
 }
 
-export default Following;
+export default Following
