@@ -1,10 +1,10 @@
-import OnlyHeaderLayout from "../components/Layout/OnlyHeaderLayout";
-import Following from "../pages/Following";
-import Home from "../pages/Home";
-import Profile from "../pages/Profile";
+import DefautLayout from "../components/Layout/DefaultLayout";
+import AccountPage from "../pages/AccountPage";
+import FollowingPage from "../pages/FollowingPage";
+import HomePage from "../pages/HomePage";
 
 export const publicRoute = [
-    { path: '/', element: Home },
-    { path: '/following', element: Following },
-    { path: '/profile', element: Profile, layout: OnlyHeaderLayout },
+    { path: '/', element: HomePage, layout: DefautLayout },
+    { path: '/following', element: FollowingPage },
+    { path: '/account', element: AccountPage },
 ]

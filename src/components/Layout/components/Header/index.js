@@ -1,61 +1,58 @@
-import React, { useRef } from 'react';
-import images from '../../../../assets/images';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faCircle } from '@fortawesome/free-regular-svg-icons';
-import { useEffect } from 'react';
-
+import images from "../../../../assets/images"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark, faCircle, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useRef } from "react";
 function Header() {
-    const search = useRef()
-    const searchIconRef = useRef()
 
+    const searchRef = useRef(null)
+    const searchIconRef = useRef(null)
     useEffect(() => {
         const handleOver = () => {
-            searchIconRef.current.classList.add('bg-[#1618230f]')
-            search.current.classList.add('border-[1px]', 'border-[#1618230f]')
+            searchIconRef.current.classList.add('bg-[#1618231F]')
+            searchRef.current.classList.add('border-[#1618231F]')
+            searchRef.current.classList.remove('border-transparent')
         }
+
         const handleOut = () => {
-            searchIconRef.current.classList.remove('bg-[#1618230f]')
-            search.current.classList.remove('border-[1px]', 'border-[#1618230f]')
+            searchIconRef.current.classList.remove('bg-[#1618231F]')
+            searchRef.current.classList.remove('border-[#1618231F]')
+            searchRef.current.classList.add('border-transparent')
         }
-        search.current.addEventListener('mouseover', handleOver)
-        search.current.addEventListener('mouseout', handleOut)
-        return () => {
-            search.current.removeEventListener('mouseover', handleOver)
-            search.current.removeEventListener('mouseout', handleOut)
-        }
+
+        searchRef.current.addEventListener('mouseover', handleOver)
+        searchRef.current.addEventListener('mouseout', handleOut)
     }, [])
 
-
     return (
-        <header className="wrapper h-default-layout-header flex justify-center bg-white border-b-2 border-black">
-            <div className="inner flex justify-between h-full w-default-layout-width">
-                <div className="logo w-64 h-[58px]">
-                    <img src={images.logo} alt="tiktok" />
+        <>
+            <div className="wrapper flex justify-center">
+                <div className="flex justify-between items-center content h-[60px] w-[1380px]">
+                    <div className="logo h-[42px] w-[118px]">
+                        <img src={images.logo}></img>
+                    </div>
+                    <div
+                        ref={searchRef}
+                        className="search flex items-center w-[500px] h-[46px] border-[1px] border-transparent bg-[#1618230F] pl-[16px] py-[12px] rounded-[92px]">
+                        <input
+                            placeholder="Nhap noi dung tim kiem ..."
+                            className="input bg-transparent w-full text-[16px] h-[21px]"
+                        />
+                        <button className="deleteIcon w-[40px] text-[#A6A7AB]">
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                        {/* <FontAwesomeIcon icon={faCircle} /> */}
+                        <span className="w-[1px] h-[28px] bg-[#1618231F]"></span>
+                        <button
+                            ref={searchIconRef}
+                            className="searchIcon pl-[11px] pr-[16px] py-[11px] rounded-r-[92px] text-[#4D4E57]">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: '20px', height: '20px' }} />
+                        </button>
+                    </div>
+                    <div className="action"></div>
                 </div>
-                <div
-                    ref={search}
-                    className="search flex items-center content-center border-[2px] border-transparent pl-[16px] bg-[#F1F1F2] self-center w-[361px] h-[46px] rounded-[92px]"
-                >
-                    <input
-                        className="input focus:outline-none h-full bg-transparent w-full"
-                        placeholder="Tìm video hoặc người dùng..."
-                    />
-                    <button className="clear">
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
-                    <FontAwesomeIcon icon={faCircle} />
-                    <button
-                        ref={searchIconRef}
-                        className="search-icon  w-[52px] py-[11px] pl-[12px] pr-[16px] color-[#a7a7ab] rounded-r-[92px] hover:bg-[#1618230f]"
-                    >
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                </div>
-                <div className="menu w-[200px] bg-slate-500"></div>
             </div>
-        </header>
-    );
+        </>
+    )
 }
 
-export default Header;
+export default Header

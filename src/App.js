@@ -6,24 +6,25 @@ function App() {
 
   return (
     <>
-      <div className="App">
+      <div className="app">
         <BrowserRouter>
           <Routes>
             {publicRoute.map((route, index) => {
-              const Page = route.element
               const Layout = route.layout ? route.layout : DefaultLayout
-              return <Route key={index} path={route.path} element={
-                <Layout>
-                  <Page />
-                </Layout>}
-              />
+              const Page = route.element
+              return (
+                <Route key={index} path={route.path} element={
+                  <Layout>
+                    <Page />
+                  </Layout>}
+                />
+              )
             })}
           </Routes>
         </BrowserRouter>
       </div>
     </>
   )
-
 }
 
 export default App;
