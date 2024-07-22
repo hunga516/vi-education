@@ -6,8 +6,6 @@
     --text-color: #333;
 }
 
-
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,12 +28,12 @@ body {
     height: 60px;
 }
 
-input,
-button {
-    outline: none;
-    border: none;
-}
+// input,
+// button {
+//     outline: none;
+//     border: none;
+// }
 
 a[href] {
-    color: var(--text-color)
+    color: var(--text-color);
 }

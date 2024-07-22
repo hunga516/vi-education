@@ -1,6 +1,6 @@
 import images from "../../../../assets/images"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faCircle, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef } from "react";
 function Header() {
 
@@ -25,7 +25,7 @@ function Header() {
 
     return (
         <>
-            <div className="wrapper flex justify-center">
+            <div className="wrapper flex justify-center border-b-[1px] border-[#1618231F]">
                 <div className="flex justify-between items-center content h-[60px] w-[1380px]">
                     <div className="logo h-[42px] w-[118px]">
                         <img src={images.logo}></img>
@@ -48,7 +48,18 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: '20px', height: '20px' }} />
                         </button>
                     </div>
-                    <div className="action"></div>
+                    <div className="action flex items-center gap-[16px]">
+                        <button className="upload px-[16px] h-[36px] hover:bg-[#f8f8f8] border-[1px] border-[#1618231E]">
+                            <i className="mr-[8px]">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </i>
+                            Tải lên
+                        </button>
+                        <button className="sign-in w-[100px] h-[36px] mx-auto my-auto hover:bg-[#ef2a51] rounded-[4px] bg-[#fe2c55] text-white">Đăng nhập</button>
+                        <i className="px-[4px]">
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </i>
+                    </div>
                 </div>
             </div>
         </>
