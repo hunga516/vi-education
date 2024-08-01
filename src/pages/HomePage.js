@@ -9,6 +9,7 @@ function HomePage() {
                     <img
                         src={images.sony}
                         className="rounded-full"
+                        alt="avatar"
                     />
                 </div>
                 <div className="content"></div>
