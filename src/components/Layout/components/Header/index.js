@@ -1,32 +1,22 @@
 import images from "../../../../assets/images"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import styles from './Header.module.css'
+import Tippy from '@tippyjs/react/headless';
+import { Wrapper as PopperWrapper } from "../../../Popper";
 function Header() {
+    const [searchResult, setSearchResult] = useState([])
+    useEffect(() => {
+        setTimeout(() => {
+            if (searchResult.length == 0) {
+                setSearchResult(["Ngoc Loc", "Bao Tran"])
+                return
+            }
+            setSearchResult([])
+        }, 3000);
+    }, [searchResult]);
 
-    const searchRef = useRef(null)
-    const searchIconRef = useRef(null)
-    const inputRef = useRef(null)
-    const [hasInput, setHasInput] = useState(false)
-
-    const handleInput = (e) => {
-        setHasInput(e.target.value.trim() !== '');
-    };
-
-    // const handleOver = () => {
-    //     searchIconRef.current.classList.add('bg-[#1618231F]')
-    //     searchRef.current.classList.add('border-[#1618231F]')
-    //     searchRef.current.classList.remove('border-transparent')
-    // }
-
-    // const handleOut = () => {
-    //     searchIconRef.current.classList.remove('bg-[#1618231F]')
-    //     searchRef.current.classList.remove('border-[#1618231F]')
-    //     searchRef.current.classList.add('border-transparent')
-    // }
-
-    // searchRef.current.addEventListener('mouseover', handleOver)
-    // searchRef.current.addEventListener('mouseout', handleOut)
 
     return (
         <>
@@ -36,23 +26,37 @@ function Header() {
                         <img src={images.logo} alt="logo"></img>
                     </div>
                     <div
-                        ref={searchRef}
                         className="search flex items-center w-[500px] h-[46px] border-[1px] border-transparent bg-[#1618230F] pl-[16px] py-[12px] rounded-[92px] focus-within:border-[#1618231F] hove">
-                        <input
-                            placeholder="Tìm kiếm"
-                            className="input bg-transparent w-full h-[21px] outline-none caret-red-500 text-[#8a8b90] font-light text-[16px] tracking-wide"
-                            ref={inputRef}
-                            onInput={handleInput}
-                        />
-                        <button className="deleteIcon w-[40px] text-[#A6A7AB]">
+                        <Tippy
+                            className="bg-white min-w-[200px] h-full"
+                            visible={searchResult.length > 0}
+                            interactive={true}
+                            render={attrs => (
+                                <PopperWrapper>
+                                    <div className="search-result" tabIndex="-1" {...attrs}>
+                                        <ul>
+                                            {searchResult.map(item => (
+                                                <li>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </PopperWrapper>
+                            )}>
+                            <input
+                                placeholder="Tìm kiếm"
+                                className={`${styles.input} bg-transparent w-full h-[21px] outline-none caret-red-500  text-[#8a8b90] font-light text-[16px] tracking-wide`}
+                            />
+                        </Tippy>
+                        <button className="deleteIcon w-[40px] text-[#777778]">
                             <FontAwesomeIcon icon={faCircleXmark} />
                         </button>
                         {/* <FontAwesomeIcon icon={faCircle} /> */}
                         <span className="w-[1px] h-[28px] bg-[#1618231F]"></span>
                         <button
-                            ref={searchIconRef}
-                            className={`searchIcon pl-[11px] pr-[16px] py-[11px] rounded-r-[92px] ${hasInput ? 'text-[#565656]' : 'text-[#A6A7AB]'}`}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: '20px', height: '20px' }} />
+                            className={`${styles.searchIcon} pl-[12px] pr-[16px] py-[11px] rounded-r-[92px] text-[#A6A7AB] hover:bg-gray-200`}>
+                            <div style={{ width: '24px', height: '24px' }} >
+                                <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: '22px', height: '22px' }} />
+                            </div>
                         </button>
                     </div>
                     <div className="action flex items-center gap-[16px]">
