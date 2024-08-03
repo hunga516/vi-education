@@ -55,7 +55,7 @@ function Header() {
                         <button
                             className={`${styles.searchIcon} pl-[12px] pr-[16px] py-[11px] rounded-r-[92px] text-[#A6A7AB] hover:bg-gray-200`}>
                             <div style={{ width: '24px', height: '24px' }} >
-                                <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: '22px', height: '22px' }} />
+                                <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: '22px', height: '22px', strokeWidth: "0px" }} />
                             </div>
                         </button>
                     </div>

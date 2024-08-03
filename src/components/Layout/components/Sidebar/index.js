@@ -1,42 +1,30 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHouse, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 import { faCompass, faUser, faCirclePlay, faClock } from "@fortawesome/free-regular-svg-icons"
+import { FaHome, FaRegHeart } from "react-icons/fa";
+import { FaRegCompass } from "react-icons/fa6";
+import { RiUserFollowLine } from "react-icons/ri";
+import { IoMdTrendingUp } from "react-icons/io";
 
 function Sidebar() {
 
     return (
         <>
             <ul className="nav flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
-                <li>
-                    <i className="mr-[10px]">
-                        <FontAwesomeIcon icon={faHouse} />
-                    </i>
-                    Dành cho bạn
+                <li className="flex items-center gap-[16px]">
+                    <FaHome size="24px" /> Dành cho bạn
                 </li>
-                <li>
-                    <i className="mr-[10px]">
-                        {/* <FontAwesomeIcon icon={faUserGroup} /> */}
-                        <FontAwesomeIcon icon={faClock} />
-                    </i>
-                    Đang follow
+                <li className="flex items-center gap-[16px]">
+                    <RiUserFollowLine size="24px" /> Đang theo dõi
                 </li>
-                <li>
-                    <i className="mr-[10px]">
-                        <FontAwesomeIcon icon={faCompass} />
-                    </i>
-                    Khám phá
+                <li className="flex items-center gap-[16px]">
+                    <FaRegCompass size="24px" /> Khám phá
                 </li>
-                <li>
-                    <i className="mr-[10px]">
-                        <FontAwesomeIcon icon={faCirclePlay} />
-                    </i>
-                    Live
+                <li className="flex items-center gap-[16px]">
+                    <FaRegHeart size="24px" /> Yêu thích
                 </li>
-                <li>
-                    <i className="mr-[10px]">
-                        <FontAwesomeIcon icon={faUser} />
-                    </i>
-                    Hồ sơ
+                <li className="flex items-center gap-[16px]">
+                    <IoMdTrendingUp size="24px" /> Thịnh hành
                 </li>
             </ul>
             <div className="require-login py-[20px] border-b-[1px] border-[#1618231F]">
