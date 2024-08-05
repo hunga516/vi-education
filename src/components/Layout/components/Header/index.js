@@ -1,10 +1,17 @@
 import images from "../../../../assets/images"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FaRegLightbulb } from "react-icons/fa";
+import { FaRegKeyboard } from "react-icons/fa6";
+import { IoLanguage } from "react-icons/io5";
+import { MdOutlineContactSupport } from "react-icons/md";
+import { IoMoonOutline } from "react-icons/io5";
+
 import { useEffect, useState } from "react";
 import styles from './Header.module.css'
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from "../../../Popper";
+import Button from "../../../Button";
 function Header() {
     const [searchResult, setSearchResult] = useState([])
     // useEffect(() => {
@@ -96,16 +103,49 @@ function Header() {
                         </button>
                     </div>
                     <div className="action flex items-center gap-[16px]">
-                        <button className="upload px-[16px] h-[36px] hover:bg-[#f8f8f8] border-[1px] border-[#1618231E]">
+                        <button className="upload  hover:bg-[#f8f8f8] border-[1px] border-[#1618231E]">
                             <i className="mr-[8px]">
                                 <FontAwesomeIcon icon={faPlus} />
                             </i>
                             Tải lên
                         </button>
-                        <button className="sign-in w-[100px] h-[36px] mx-auto my-auto hover:bg-[#ef2a51] rounded-[4px] bg-[#fe2c55] text-white">Đăng nhập</button>
-                        <i className="px-[4px]">
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </i>
+                        <Button size="medium" type={"primary"}>Đăng nhập</Button>
+                        <Button to="test">Test</Button>
+                        <Tippy
+                            interactive={true}
+                            render={attrs => (
+                                <PopperWrapper>
+                                    <div className="menu flex justify-center text-[16px] font-medium leading-[21px]">
+                                        <ul>
+                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
+                                                <FaRegLightbulb className="text-[20px]" />
+                                                <span>Trung tâm nhà sáng tạo LIVE</span>
+                                            </li>
+                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
+                                                <IoLanguage className="text-[20px]" />
+                                                <span>Tiếng Việt</span>
+                                            </li>
+                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
+                                                <MdOutlineContactSupport className="text-[20px]" />
+                                                <span>Phản hồi và trợ giúp</span>
+                                            </li>
+                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
+                                                <FaRegKeyboard className="text-[20px]" />
+                                                <span>Phím tắt trên bàn phím</span>
+                                            </li>
+                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
+                                                <IoMoonOutline className="text-[20px]" />
+                                                <span>Chế độ tối</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </PopperWrapper>
+                            )}
+                        >
+                            <i className="px-[4px]">
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </i>
+                        </Tippy>
                     </div>
                 </div>
             </div >
