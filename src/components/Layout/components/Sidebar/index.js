@@ -5,6 +5,7 @@ import { FaHome, FaRegHeart } from "react-icons/fa";
 import { FaRegCompass } from "react-icons/fa6";
 import { RiUserFollowLine } from "react-icons/ri";
 import { IoMdTrendingUp } from "react-icons/io";
+import Button from "../../../Button";
 
 function Sidebar() {
 
@@ -28,10 +29,10 @@ function Sidebar() {
                 </li>
             </ul>
             <div className="require-login py-[20px] border-b-[1px] border-[#1618231F]">
-                <div className="text-[#8a8b90] font-light text-[16px] tracking-wide">Đăng nhập để follow các tác giả, thích video và xem bình luận.</div>
-                <button className="w-full border-[1px] border-red-500 text-[18px] py-[6px] px-[8px] rounded-md mt-[15px]">
-                    <h1 className="text-red-500">Đăng nhập</h1>
-                </button>
+                <div className="text-[#8a8b90] font-light text-[16px] tracking-wide mb-[10px]">Đăng nhập để follow các tác giả, thích video và xem bình luận.</div>
+                <Button className="w-full" size="large" type={"outline-primary"}>
+                    Đăng nhập
+                </Button>
             </div>
             <div className="container relative mt-[20px]">
                 <img src="https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/8152caf0c8e8bc67ae0d.png" className="h-[52px] w-full"></img>

@@ -1,4 +1,10 @@
 import images from "../../../../assets/images"
+import styles from './Header.module.css'
+import Tippy from '@tippyjs/react/headless';
+import Button from "../../../Button";
+import Menu from "../../../Popper/Menu";
+import { Wrapper as PopperWrapper } from "../../../Popper";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FaRegLightbulb } from "react-icons/fa";
@@ -8,10 +14,6 @@ import { MdOutlineContactSupport } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
 
 import { useEffect, useState } from "react";
-import styles from './Header.module.css'
-import Tippy from '@tippyjs/react/headless';
-import { Wrapper as PopperWrapper } from "../../../Popper";
-import Button from "../../../Button";
 function Header() {
     const [searchResult, setSearchResult] = useState([])
     // useEffect(() => {
@@ -22,6 +24,28 @@ function Header() {
     //     }, 1000);
     // }, []);
 
+    const MENU_ITEMS = [
+        {
+            icon: FaRegLightbulb,
+            to: "/fa",
+            content: "Trung tâm nhà sáng tạo LIVE"
+        },
+        {
+            icon: IoLanguage,
+            to: "/fa",
+            content: "Tiếng Việt"
+        },
+        {
+            icon: MdOutlineContactSupport,
+            to: "/fa",
+            content: "Phản hồi và trợ giúp"
+        },
+        {
+            icon: FaRegKeyboard,
+            to: "/fa",
+            content: "Phím tắt trên bàn phím"
+        },
+    ]
 
     return (
         <>
@@ -103,49 +127,24 @@ function Header() {
                         </button>
                     </div>
                     <div className="action flex items-center gap-[16px]">
-                        <button className="upload  hover:bg-[#f8f8f8] border-[1px] border-[#1618231E]">
+                        <Button size="medium" type={"outline-dark"}>
                             <i className="mr-[8px]">
                                 <FontAwesomeIcon icon={faPlus} />
                             </i>
                             Tải lên
-                        </button>
-                        <Button size="medium" type={"primary"}>Đăng nhập</Button>
-                        <Button to="test">Test</Button>
-                        <Tippy
-                            interactive={true}
-                            render={attrs => (
-                                <PopperWrapper>
-                                    <div className="menu flex justify-center text-[16px] font-medium leading-[21px]">
-                                        <ul>
-                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
-                                                <FaRegLightbulb className="text-[20px]" />
-                                                <span>Trung tâm nhà sáng tạo LIVE</span>
-                                            </li>
-                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
-                                                <IoLanguage className="text-[20px]" />
-                                                <span>Tiếng Việt</span>
-                                            </li>
-                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
-                                                <MdOutlineContactSupport className="text-[20px]" />
-                                                <span>Phản hồi và trợ giúp</span>
-                                            </li>
-                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
-                                                <FaRegKeyboard className="text-[20px]" />
-                                                <span>Phím tắt trên bàn phím</span>
-                                            </li>
-                                            <li className="flex items-center py-[10px] pl-[16px] pr-[8px] gap-[8px]">
-                                                <IoMoonOutline className="text-[20px]" />
-                                                <span>Chế độ tối</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </PopperWrapper>
-                            )}
-                        >
-                            <i className="px-[4px]">
+                        </Button>
+                        <Button size="medium" type={"primary"} onClick={() => alert()}>Đăng nhập</Button>
+                        <Menu data={MENU_ITEMS}>
+                            <i className="menu-icon text-[20px] px-2">
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </i>
-                        </Tippy>
+                        </Menu>
+                        <div className="">
+                            <button className="relative group">
+                                My button
+                                <div className="absolute hidden w-[200px] h-[200px] group-hover:block bg-red-500"></div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div >

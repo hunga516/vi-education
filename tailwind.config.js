@@ -14,6 +14,9 @@ module.exports = {
         '4': '1rem', // 16px
         // Các giá trị khác
       },
+      backgroundColor: {
+        "primary": "#fe2c55"
+      }
     },
   },
   plugins: [],
