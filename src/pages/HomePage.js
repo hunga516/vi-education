@@ -9,7 +9,7 @@ function HomePage() {
         <>
             <div className="wrapper flex w-[692px] mt-[20px] mx-auto">
                 <div className="video w-[473px] mr-[20px]">
-                    <video className="rounded-3xl" src={video.sony} controls type="video/mp4" autoplay></video>
+                    <video className="rounded-3xl" src={video.sony} controls type="video/mp4"></video>
                 </div>
                 <div className="social-interaction flex flex-col items-center justify-end ">
                     <div className="avatar relative mb-[16px]">

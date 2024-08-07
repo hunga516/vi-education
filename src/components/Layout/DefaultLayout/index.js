@@ -5,7 +5,7 @@ function DefaultLayout({ children }) {
     return (
         <div>
             <Header />
-            <div className="mx-auto flex justify-center w-[1380px]">
+            <div className="wrapper mx-auto flex justify-center w-[1380px] pl-4 pr-6">
                 <div className="w-[232px] pb-[800px]">
                     <Sidebar />
                 </div>

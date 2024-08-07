@@ -11,7 +11,7 @@ function Sidebar() {
 
     return (
         <>
-            <ul className="nav flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
+            <ul className="sidebar-wrapper flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
                 <li className="flex items-center gap-[16px]">
                     <FaHome size="24px" /> Dành cho bạn
                 </li>

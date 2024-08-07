@@ -10,18 +10,44 @@ import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from "../../Popper"
 import MenuItem from './MenuItem';
 import { render } from '@testing-library/react';
+import Header from './Header';
 
-function Menu({ children, data }) {
+import { useState } from 'react';
+
+function Menu({ children, items }) {
+
+    const [history, setHistory] = useState([{ data: items }])
+    const current = history[history.length - 1]
+
+    const handleOnChange = (menuItem) => {
+        console.log(menuItem);
+    }
 
     return (
         <Tippy
             delay={[0, 700]}
             target
+            visible
             interactive={true}
             render={attrs => (
                 <PopperWrapper>
                     <div className="content">
-                        <MenuItem data={data} />
+                        {history.length > 1 && <Header title="Language" onBack={() => {
+                            setHistory(prev => prev.slice(0, history.length - 1))
+                        }} />}
+                        {current.data.map((item, index) => {
+                            const isParent = !!item.children
+                            return <MenuItem
+                                key={index}
+                                data={item}
+                                onChange={handleOnChange}
+                                onClick={() => {
+                                    if (isParent) {
+                                        setHistory((prev) => [...prev, item.children])
+                                    }
+                                }} />
+                        })
+                        }
                     </div>
                 </PopperWrapper>
             )}

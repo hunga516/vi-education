@@ -1,16 +1,13 @@
 import Button from "../../../Button";
 
-function MenuItem({ data }) {
+function MenuItem({ data, onClick }) {
     return (
-        <ul>
-            {data.map((item, index) => (
-                <Button size="medium" type="menu">
-                    <item.icon className="text-[20px] mr-2" />
-                    <div className="">{item.content}</div>
-                </Button>
-            ))
-            }
-        </ul >
+        <div>
+            <Button onClick={onClick} size="large" type="menu">
+                {data.icon && <data.icon className="text-[20px] mr-2" />}
+                <div className="">{data.title}</div>
+            </Button>
+        </div >
     );
 }
 

@@ -28,29 +28,42 @@ function Header() {
         {
             icon: FaRegLightbulb,
             to: "/fa",
-            content: "Trung tâm nhà sáng tạo LIVE"
+            title: "Trung tâm nhà sáng tạo LIVE"
         },
         {
             icon: IoLanguage,
             to: "/fa",
-            content: "Tiếng Việt"
+            title: "Ngôn ngữ",
+            children: {
+                title: "Ngôn ngữ",
+                data: [
+                    {
+                        code: "vi",
+                        title: "Tiếng Việt"
+                    },
+                    {
+                        code: "en",
+                        title: "Tiếng Anh"
+                    }
+                ]
+            }
         },
         {
             icon: MdOutlineContactSupport,
             to: "/fa",
-            content: "Phản hồi và trợ giúp"
+            title: "Phản hồi và trợ giúp"
         },
         {
             icon: FaRegKeyboard,
             to: "/fa",
-            content: "Phím tắt trên bàn phím"
+            title: "Phím tắt trên bàn phím"
         },
     ]
 
     return (
         <>
-            <div className="wrapper flex justify-center border-b-[1px] border-[#1618231F]">
-                <div className="flex justify-between items-center content h-[60px] w-[1380px]">
+            <div className="header-wrapper flex justify-center border-b-[1px] border-[#1618231F]">
+                <div className="header-inner flex justify-between items-center w-[1380px] h-[60px] pl-4 pr-6">
                     <div className="logo h-[42px] w-[118px]">
                         <img src={images.logo} alt="logo"></img>
                     </div>
@@ -128,13 +141,11 @@ function Header() {
                     </div>
                     <div className="action flex items-center gap-[16px]">
                         <Button size="medium" type={"outline-dark"}>
-                            <i className="mr-[8px]">
-                                <FontAwesomeIcon icon={faPlus} />
-                            </i>
+                            <FontAwesomeIcon className="mr-[8px]" icon={faPlus} />
                             Tải lên
                         </Button>
                         <Button size="medium" type={"primary"} onClick={() => alert()}>Đăng nhập</Button>
-                        <Menu data={MENU_ITEMS}>
+                        <Menu items={MENU_ITEMS}>
                             <i className="menu-icon text-[20px] px-2">
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </i>
