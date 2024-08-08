@@ -14,20 +14,17 @@ import Header from './Header';
 
 import { useState } from 'react';
 
-function Menu({ children, items }) {
+const DefaultFn = () => { }
+
+function Menu({ children, items, onClick = DefaultFn }) {
 
     const [history, setHistory] = useState([{ data: items }])
     const current = history[history.length - 1]
-
-    const handleOnChange = (menuItem) => {
-        console.log(menuItem);
-    }
 
     return (
         <Tippy
             delay={[0, 700]}
             target
-            visible
             interactive={true}
             render={attrs => (
                 <PopperWrapper>
@@ -40,10 +37,15 @@ function Menu({ children, items }) {
                             return <MenuItem
                                 key={index}
                                 data={item}
-                                onChange={handleOnChange}
                                 onClick={() => {
                                     if (isParent) {
                                         setHistory((prev) => [...prev, item.children])
+                                        console.log(isParent);
+
+                                    } else {
+                                        onClick(item)
+                                        console.log(isParent);
+
                                     }
                                 }} />
                         })
@@ -51,6 +53,7 @@ function Menu({ children, items }) {
                     </div>
                 </PopperWrapper>
             )}
+            onHide={() => setHistory(prev => prev.slice(0, 1))}
         >
             {children}
         </Tippy>

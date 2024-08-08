@@ -21,6 +21,10 @@ body {
     color: var(--text-color);
 }
 
+body .tippy-box {
+    background-color: #ff0000;
+}
+
 .default {
     height: 60px;
 }

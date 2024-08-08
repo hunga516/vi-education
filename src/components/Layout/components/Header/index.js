@@ -1,9 +1,7 @@
-import images from "../../../../assets/images"
-import styles from './Header.module.css'
-import Tippy from '@tippyjs/react/headless';
-import Button from "../../../Button";
-import Menu from "../../../Popper/Menu";
-import { Wrapper as PopperWrapper } from "../../../Popper";
+import Tippy from '@tippyjs/react';
+import TippyHeadless from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css'; // optional
+import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -12,8 +10,14 @@ import { FaRegKeyboard } from "react-icons/fa6";
 import { IoLanguage } from "react-icons/io5";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
+import { FiSend } from "react-icons/fi";
+import { RiInboxArchiveLine } from "react-icons/ri";
 
-import { useEffect, useState } from "react";
+import Menu from "../../../Popper/Menu";
+import Button from "../../../Button";
+import { Wrapper as PopperWrapper } from "../../../Popper";
+import styles from './Header.module.css'
+import images from "../../../../assets/images"
 function Header() {
     const [searchResult, setSearchResult] = useState([])
     // useEffect(() => {
@@ -60,6 +64,13 @@ function Header() {
         },
     ]
 
+    const handleOnChange = (menuItem) => {
+        console.log(menuItem);
+
+    }
+
+    const currentUser = true
+
     return (
         <>
             <div className="header-wrapper flex justify-center border-b-[1px] border-[#1618231F]">
@@ -69,7 +80,7 @@ function Header() {
                     </div>
                     <div
                         className="search flex items-center w-[500px] h-[46px] border-[1px] border-transparent bg-[#1618230F] pl-[16px] py-[12px] rounded-[92px] focus-within:border-[#1618231F] hove">
-                        <Tippy
+                        <TippyHeadless
                             className="bg-white min-w-[200px] h-full"
                             visible={false}
                             placement="bottom"
@@ -126,7 +137,7 @@ function Header() {
                                 placeholder="Tìm kiếm"
                                 className={`${styles.input} bg-transparent w-full h-[21px] outline-none caret-red-500  text-[#8a8b90] font-light text-[16px] tracking-wide`}
                             />
-                        </Tippy>
+                        </TippyHeadless>
                         <button className="deleteIcon w-[40px] text-[#777778]">
                             <FontAwesomeIcon icon={faCircleXmark} />
                         </button>
@@ -139,25 +150,41 @@ function Header() {
                             </div>
                         </button>
                     </div>
-                    <div className="action flex items-center gap-[16px]">
+
+                    <div className="action flex items-center gap-[24px]">
                         <Button size="medium" type={"outline-dark"}>
                             <FontAwesomeIcon className="mr-[8px]" icon={faPlus} />
                             Tải lên
                         </Button>
-                        <Button size="medium" type={"primary"} onClick={() => alert()}>Đăng nhập</Button>
-                        <Menu items={MENU_ITEMS}>
-                            <i className="menu-icon text-[20px] px-2">
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </i>
-                        </Menu>
-                        <div className="">
-                            <button className="relative group">
-                                My button
-                                <div className="absolute hidden w-[200px] h-[200px] group-hover:block bg-red-500"></div>
-                            </button>
-                        </div>
+                        {currentUser ? (
+                            <>
+                                <Tippy content="Tin nhắn" placement='bottom' visible>
+                                    <div className="messages">
+                                        <FiSend className="w-[25px] h-[25px] ml-[8px]" />
+                                    </div>
+                                </Tippy>
+                                <Tippy content="Thông báo" placement='bottom' >
+                                    <div className="notice relative">
+                                        <RiInboxArchiveLine className="w-[25px] h-[25px]" />
+                                        <span className="absolute top-[-4px] right-[-4px] w-[16px] h-[16px] bg-primary text-white text-xs flex items-center justify-center rounded-full">
+                                            9
+                                        </span>
+                                    </div>
+                                </Tippy>
+                                <img className="w-[32px] h-[32px] rounded-full" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t1.15752-9/453596637_1136257037437506_6512093711973103295_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ve4AfuynBTgQ7kNvgH5tnsd&_nc_ht=scontent.fhan4-3.fna&oh=03_Q7cD1QGYDQ6rj1YKY8r6DmEttuC0a2VdcIjhk9zvMKEUhZolGA&oe=66DC340E"></img>
+                            </>
+                        ) : (
+                            <>
+                                <Button size="medium" type={"primary"} onClick={() => alert()}>Đăng nhập</Button>
+                                <Menu items={MENU_ITEMS} onClick={handleOnChange}>
+                                    <i className="menu-icon text-[20px] px-2">
+                                        <FontAwesomeIcon icon={faEllipsisVertical} />
+                                    </i>
+                                </Menu>
+                            </>
+                        )}
                     </div>
-                </div>
+                </div >
             </div >
         </>
     )
