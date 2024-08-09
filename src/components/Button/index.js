@@ -11,7 +11,7 @@ function Button({ children, to, href, className, onClick, size = "medium", type,
         'flex disabled:opacity-50 items-center justify-center text-[#fff] rounded-[4px] bg-primary hover:bg-[#ef2a51]': type === 'primary',
         'flex disabled:opacity-50 items-center justify-center border-[1px] border-[#1618231E] hover:bg-[#f8f8f8]': type === 'outline-dark',
         'flex disabled:opacity-50 items-center justify-center text-[18px] text-red-500 border-[1px] border-red-500 rounded-md': type === 'outline-primary',
-        'w-full flex justify-start items-center py-[10px] pl-[16px] pr-[8px] text-[16px] font-normal leading-[21px] border-none hover:bg-[#f8f8f8]': type === "menu",
+        'w-full flex items-center py-[10px] pl-[16px] pr-[8px] text-[16px] font-normal leading-[21px] border-none hover:bg-[#f8f8f8]': type === "menu",
         'flex disabled:opacity-50 items-center justify-center hover:bg-[#f8f8f8]': type === "outline-none"
     });
 

@@ -25,6 +25,8 @@ function Menu({ children, items, onClick = DefaultFn }) {
         <Tippy
             delay={[0, 700]}
             target
+            visible
+            placement='bottom'
             interactive={true}
             render={attrs => (
                 <PopperWrapper>

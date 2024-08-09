@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faEllipsisVertical, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FaRegLightbulb } from "react-icons/fa";
+import { FaRegLightbulb, FaRegUser, FaRegBookmark, FaRegMoon } from "react-icons/fa";
 import { FaRegKeyboard } from "react-icons/fa6";
-import { IoLanguage } from "react-icons/io5";
-import { MdOutlineContactSupport } from "react-icons/md";
-import { IoMoonOutline } from "react-icons/io5";
+import { IoLanguage, IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineContactSupport, MdLiveTv, MdLogout } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
 
@@ -62,6 +61,40 @@ function Header() {
             to: "/fa",
             title: "Phím tắt trên bàn phím"
         },
+    ]
+
+    const AVATAR_ITEMS = [
+        {
+            icon: FaRegUser,
+            to: "/",
+            title: "Xem hồ sơ"
+        },
+        {
+            icon: FaRegBookmark,
+            to: "/",
+            title: "Yêu thích"
+        },
+        {
+            icon: MdLiveTv,
+            to: "/",
+            title: "LIVE Studio"
+        },
+        {
+            icon: IoSettingsOutline,
+            to: "/",
+            title: "Cài đặt"
+        },
+        {
+            icon: FaRegMoon,
+            to: "/",
+            title: "Chế độ tối"
+        },
+        ...MENU_ITEMS,
+        {
+            icon: MdLogout,
+            to: "/",
+            title: "Đăng xuất"
+        }
     ]
 
     const handleOnChange = (menuItem) => {
@@ -158,7 +191,7 @@ function Header() {
                         </Button>
                         {currentUser ? (
                             <>
-                                <Tippy content="Tin nhắn" placement='bottom' visible>
+                                <Tippy content="Tin nhắn" placement='bottom'>
                                     <div className="messages">
                                         <FiSend className="w-[25px] h-[25px] ml-[8px]" />
                                     </div>
@@ -171,7 +204,9 @@ function Header() {
                                         </span>
                                     </div>
                                 </Tippy>
-                                <img className="w-[32px] h-[32px] rounded-full" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t1.15752-9/453596637_1136257037437506_6512093711973103295_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ve4AfuynBTgQ7kNvgH5tnsd&_nc_ht=scontent.fhan4-3.fna&oh=03_Q7cD1QGYDQ6rj1YKY8r6DmEttuC0a2VdcIjhk9zvMKEUhZolGA&oe=66DC340E"></img>
+                                <Menu items={AVATAR_ITEMS}>
+                                    <img className="avatar-img w-[32px] h-[32px] rounded-full" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t1.15752-9/453596637_1136257037437506_6512093711973103295_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ve4AfuynBTgQ7kNvgH5tnsd&_nc_ht=scontent.fhan4-3.fna&oh=03_Q7cD1QGYDQ6rj1YKY8r6DmEttuC0a2VdcIjhk9zvMKEUhZolGA&oe=66DC340E"></img>
+                                </Menu>
                             </>
                         ) : (
                             <>
