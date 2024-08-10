@@ -1,9 +1,14 @@
+import classNames from "classnames";
 import Button from "../../../Button";
 
 function MenuItem({ data, onClick }) {
+    const classes = classNames({
+        'border-t-[1px] border-[#e3e3e4]': data.separate
+    })
+
     return (
         <div>
-            <Button onClick={onClick} size="large" type="menu">
+            <Button onClick={onClick} className={classes} size="large" type="menu">
                 {data.icon && <data.icon className="text-[20px] mr-2" />}
                 <div className="">{data.title}</div>
             </Button>

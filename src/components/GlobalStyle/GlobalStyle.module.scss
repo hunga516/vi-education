@@ -3,7 +3,7 @@
 
 :root {
     --primary: rgb(254, 44, 85);
-    --text-color: #333;
+    --text-color: #161823;
 }
 
 * {
@@ -27,13 +27,13 @@ body .tippy-box {
 
 //Font
 @font-face {
-    font-family: TiktokFront;
+    font-family: 'TiktokFront';
     src: url('../../assets/font/TikTokFont-Regular.woff2');
     font-weight: 400;
 }
 
 @font-face {
-    font-family: TiktokFront;
+    font-family: 'TiktokFront';
     src: url('../../assets/font/TikTokFont-Semibold.woff2');
     font-weight: 600;
 }

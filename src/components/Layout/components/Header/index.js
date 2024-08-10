@@ -93,7 +93,8 @@ function Header() {
         {
             icon: MdLogout,
             to: "/",
-            title: "Đăng xuất"
+            title: "Đăng xuất",
+            separate: true
         }
     ]
 
