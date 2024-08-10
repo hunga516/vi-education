@@ -15,7 +15,7 @@
 
 
 body {
-    font-family: 'Roboto';
+    font-family: 'TiktokFront', 'Roboto';
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     color: var(--text-color);
@@ -23,6 +23,19 @@ body {
 
 body .tippy-box {
     background-color: #ff0000;
+}
+
+//Font
+@font-face {
+    font-family: TiktokFront;
+    src: url('../../assets/font/TikTokFont-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: TiktokFront;
+    src: url('../../assets/font/TikTokFont-Semibold.woff2');
+    font-weight: 600;
 }
 
 .default {
