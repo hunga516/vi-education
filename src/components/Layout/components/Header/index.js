@@ -89,9 +89,9 @@ function Header() {
     ]
 
     const handleOnChange = (menuItem) => {
-        console.log(menuItem);
+        console.log('Selected Item:', menuItem);
+    };
 
-    }
 
     const currentUser = true
 
@@ -125,14 +125,14 @@ function Header() {
                                         </span>
                                     </div>
                                 </Tippy>
-                                <Menu items={AVATAR_ITEMS}>
+                                <Menu items={AVATAR_ITEMS} onChangeeee={handleOnChange}>
                                     <img className="avatar-img w-[32px] h-[32px] rounded-full" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t1.15752-9/453596637_1136257037437506_6512093711973103295_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ve4AfuynBTgQ7kNvgH5tnsd&_nc_ht=scontent.fhan4-3.fna&oh=03_Q7cD1QGYDQ6rj1YKY8r6DmEttuC0a2VdcIjhk9zvMKEUhZolGA&oe=66DC340E"></img>
                                 </Menu>
                             </>
                         ) : (
                             <>
                                 <Button size="medium" type={"primary"} onClick={() => alert()}>Đăng nhập</Button>
-                                <Menu items={MENU_ITEMS} onClick={handleOnChange}>
+                                <Menu items={MENU_ITEMS} onChangeeee={handleOnChange}>
                                     <i className="menu-icon text-[20px] px-2">
                                         <FontAwesomeIcon icon={faEllipsisVertical} />
                                     </i>

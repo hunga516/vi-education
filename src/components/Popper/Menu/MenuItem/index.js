@@ -1,7 +1,9 @@
 import classNames from "classnames";
 import Button from "../../../Button";
 
-function MenuItem({ data, onClick }) {
+const DefaultFn = {}
+
+function MenuItem({ data, onClick = DefaultFn }) {
     const classes = classNames({
         'border-t-[1px] border-[#e3e3e4]': data.separate
     })

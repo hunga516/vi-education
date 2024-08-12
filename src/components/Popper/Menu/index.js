@@ -14,9 +14,8 @@ import Header from './Header';
 
 import { useState } from 'react';
 
-const DefaultFn = () => { }
 
-function Menu({ children, items, onClick = DefaultFn }) {
+function Menu({ children, items, onChangeeee }) {
 
     const [history, setHistory] = useState([{ data: items }])
     const current = history[history.length - 1]
@@ -41,15 +40,13 @@ function Menu({ children, items, onClick = DefaultFn }) {
                                 data={item}
                                 onClick={() => {
                                     if (isParent) {
-                                        setHistory((prev) => [...prev, item.children])
-                                        console.log(isParent);
-
+                                        setHistory((prev) => [...prev, item.children]);
                                     } else {
-                                        onClick(item)
-                                        console.log(isParent);
-
+                                        onChangeeee(item);
+                                        // console.log('Item Selected:', item); // Log item để kiểm tra
                                     }
-                                }} />
+                                }}
+                            />
                         })
                         }
                     </div>
