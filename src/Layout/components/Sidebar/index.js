@@ -5,7 +5,7 @@ import { FaHome, FaRegHeart } from "react-icons/fa";
 import { FaRegCompass } from "react-icons/fa6";
 import { RiUserFollowLine } from "react-icons/ri";
 import { IoMdTrendingUp } from "react-icons/io";
-import Button from "../../../Button";
+import Button from "../../../components/Button";
 
 function Sidebar() {
 

@@ -10,9 +10,9 @@ import { MdOutlineContactSupport, MdLiveTv, MdLogout } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
 
-import Menu from "../../../Popper/Menu";
-import Button from "../../../Button";
-import images from "../../../../assets/images"
+import Menu from "../../../components/Popper/Menu";
+import Button from "../../../components/Button";
+import images from "../../../assets/images"
 import Search from './Search';
 function Header() {
 

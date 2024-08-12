@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 
-import { Wrapper as PopperWrapper } from "../../../../Popper";
+import { Wrapper as PopperWrapper } from "../../../../components/Popper";
 import TippyHeadless from '@tippyjs/react/headless';
 import styles from '../Header.module.css'
 import 'tippy.js/dist/tippy.css'; // optional
