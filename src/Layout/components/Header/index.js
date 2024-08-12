@@ -14,6 +14,7 @@ import Menu from "../../../components/Popper/Menu";
 import Button from "../../../components/Button";
 import images from "../../../assets/images"
 import Search from './Search';
+import Images from '../../../components/Images';
 function Header() {
 
 
@@ -126,7 +127,7 @@ function Header() {
                                     </div>
                                 </Tippy>
                                 <Menu items={AVATAR_ITEMS} onChangeeee={handleOnChange}>
-                                    <img className="avatar-img w-[32px] h-[32px] rounded-full" src="https://scontent.fhan4-3.fna.fbcdn.net/v/t1.15752-9/453596637_1136257037437506_6512093711973103295_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ve4AfuynBTgQ7kNvgH5tnsd&_nc_ht=scontent.fhan4-3.fna&oh=03_Q7cD1QGYDQ6rj1YKY8r6DmEttuC0a2VdcIjhk9zvMKEUhZolGA&oe=66DC340E"></img>
+                                    <Images className="avatar-img w-[32px] h-[32px] rounded-full" src=""></Images>
                                 </Menu>
                             </>
                         ) : (
