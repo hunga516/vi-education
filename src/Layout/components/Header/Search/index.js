@@ -2,28 +2,49 @@ import { useEffect, useRef, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { HiMiniXCircle } from "react-icons/hi2";
 
 
 import { Wrapper as PopperWrapper } from "../../../../components/Popper";
 import TippyHeadless from '@tippyjs/react/headless';
 import styles from '../Header.module.css'
 import 'tippy.js/dist/tippy.css'; // optional
+import AccountItem from "../../../../components/AccounItem";
+import { useDebounced } from "../../../../hooks";
+
 
 
 function Search() {
     const [searchValue, setSearchValue] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [showResult, setShowResult] = useState(true)
+    const [delayChanged, setDelayChanged] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const Debounced = useDebounced(searchValue, 800)
 
     const inputRef = useRef()
 
     useEffect(() => {
-        setTimeout(() => {
-            if (searchResult.length === 0) {
-                setSearchResult(["Ngoc Loc", "Bao Tran"])
-            }
-        }, 1000);
-    }, []);
+        if (!searchValue.trim()) {
+            setSearchResult([])
+            return;
+        }
+
+        setLoading(true)
+
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then(res => res.json())
+            .then(res => {
+                setSearchResult(res.data)
+                setLoading(false)
+            })
+            .catch(() => {
+                setLoading(false)
+            })
+
+    }, [Debounced]);
 
     const handleOnChange = (e) => {
         setSearchValue(e.target.value)
@@ -46,48 +67,17 @@ function Search() {
                 render={attrs => (
                     <PopperWrapper>
                         <div className="search-result" tabIndex="-1" {...attrs}>
-                            <ul>
+                            {/* <ul>
                                 {searchResult.map(item => (
                                     <li>{item}</li>
                                 ))}
-                            </ul>
+                            </ul> */}
 
-                            <h2 className="">Accounts</h2>
-                            <div className="account-item py-[9px] px-[16px] flex">
-                                <img className="avatar mr-[12px] w-[36px] h-[40px] rounded-[150px]" src="https://media.licdn.com/dms/image/D4E0BAQG-i2j7Q2WFIA/company-logo_200_200/0/1694593112031/img_logo?e=2147483647&v=beta&t=o1304VK0Zbh3CBA-8_LNYNZZCNrQjMIBS-nwKrAMzbY" alt=""></img>
-                                <div className="account-body flex-1">
-                                    <h4 className="text-[16px] font-medium leading-[16px]">Ngoc Loc</h4>
-                                    <span className="text-[14px] leading-[13px] font-medium text-gray-500/50 font-sans">ngloc156</span>
-                                </div>
-                            </div>
-                            <div className="account-item py-[9px] px-[16px] flex">
-                                <img className="avatar mr-[12px] w-[36px] h-[40px] rounded-[150px]" src="https://media.licdn.com/dms/image/D4E0BAQG-i2j7Q2WFIA/company-logo_200_200/0/1694593112031/img_logo?e=2147483647&v=beta&t=o1304VK0Zbh3CBA-8_LNYNZZCNrQjMIBS-nwKrAMzbY" alt=""></img>
-                                <div className="account-body flex-1">
-                                    <h4 className="text-[16px] font-medium leading-[16px]">Ngoc Loc</h4>
-                                    <span className="text-[14px] leading-[13px] font-medium text-gray-500/50 font-sans">ngloc156</span>
-                                </div>
-                            </div>
-                            <div className="account-item py-[9px] px-[16px] flex">
-                                <img className="avatar mr-[12px] w-[36px] h-[40px] rounded-[150px]" src="https://media.licdn.com/dms/image/D4E0BAQG-i2j7Q2WFIA/company-logo_200_200/0/1694593112031/img_logo?e=2147483647&v=beta&t=o1304VK0Zbh3CBA-8_LNYNZZCNrQjMIBS-nwKrAMzbY" alt=""></img>
-                                <div className="account-body flex-1">
-                                    <h4 className="text-[16px] font-medium leading-[16px]">Ngoc Loc</h4>
-                                    <span className="text-[14px] leading-[13px] font-medium text-gray-500/50 font-sans">ngloc156</span>
-                                </div>
-                            </div>
-                            <div className="account-item py-[9px] px-[16px] flex">
-                                <img className="avatar mr-[12px] w-[36px] h-[40px] rounded-[150px]" src="https://media.licdn.com/dms/image/D4E0BAQG-i2j7Q2WFIA/company-logo_200_200/0/1694593112031/img_logo?e=2147483647&v=beta&t=o1304VK0Zbh3CBA-8_LNYNZZCNrQjMIBS-nwKrAMzbY" alt=""></img>
-                                <div className="account-body flex-1">
-                                    <h4 className="text-[16px] font-medium leading-[16px]">Ngoc Loc</h4>
-                                    <span className="text-[14px] leading-[13px] font-medium text-gray-500/50 font-sans">ngloc156</span>
-                                </div>
-                            </div>
-                            <div className="account-item py-[9px] px-[16px] flex">
-                                <img className="avatar mr-[12px] w-[36px] h-[40px] rounded-[150px]" src="https://media.licdn.com/dms/image/D4E0BAQG-i2j7Q2WFIA/company-logo_200_200/0/1694593112031/img_logo?e=2147483647&v=beta&t=o1304VK0Zbh3CBA-8_LNYNZZCNrQjMIBS-nwKrAMzbY" alt=""></img>
-                                <div className="account-body flex-1">
-                                    <h4 className="text-[16px] font-medium leading-[16px]">Ngoc Loc</h4>
-                                    <span className="text-[14px] leading-[13px] font-medium text-gray-500/50 font-sans">ngloc156</span>
-                                </div>
-                            </div>
+                            <h2 className="text-[14px] text-[#51525b] font-semibold px-3 pt-1">Accounts</h2>
+
+                            {searchResult.map(item => (
+                                <AccountItem data={item} key={item.id} />
+                            ))}
                         </div>
                     </PopperWrapper>
                 )}>
@@ -100,14 +90,16 @@ function Search() {
                     onFocus={() => setShowResult(true)}
                 />
             </TippyHeadless>
-            {
-                searchValue && (
-                    <button onClick={handleDelete} className="deleteIcon w-[40px] text-[#777778]">
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
-                )
-            }
-            {/* <FontAwesomeIcon icon={faCircle} /> */}
+            <button onClick={handleDelete} className="flex items-center justify-center w-[40px] text-[#777778]">
+                {
+                    searchValue && !loading && (
+                        <HiMiniXCircle className="delete-icon text-[20px]" />
+                    )
+                }
+                {loading && (
+                    <AiOutlineLoading3Quarters className="loading-icon text-[16px] animate-spin " />
+                )}
+            </button>
             <span className="w-[1px] h-[28px] bg-[#1618231F]"></span>
             <button
                 className={`${styles.searchIcon} pl-[12px] pr-[16px] py-[11px] rounded-r-[92px] text-[#A6A7AB] hover:bg-gray-200`}>
