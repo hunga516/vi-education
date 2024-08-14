@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import TippyHeadless from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -7,11 +9,11 @@ import { HiMiniXCircle } from "react-icons/hi2";
 
 
 import { Wrapper as PopperWrapper } from "../../../../components/Popper";
-import TippyHeadless from '@tippyjs/react/headless';
 import styles from '../Header.module.css'
-import 'tippy.js/dist/tippy.css'; // optional
 import AccountItem from "../../../../components/AccounItem";
 import { useDebounced } from "../../../../hooks";
+import request from "../../../../utils/request";
+import axios from "axios";
 
 
 
@@ -19,7 +21,6 @@ function Search() {
     const [searchValue, setSearchValue] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [showResult, setShowResult] = useState(true)
-    const [delayChanged, setDelayChanged] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const Debounced = useDebounced(searchValue, 800)
@@ -34,10 +35,14 @@ function Search() {
 
         setLoading(true)
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
-            .then(res => res.json())
+        request.get('/users/search', {
+            params: {
+                q: searchValue,
+                type: 'less'
+            }
+        })
             .then(res => {
-                setSearchResult(res.data)
+                setSearchResult(res.data.data)
                 setLoading(false)
             })
             .catch(() => {
