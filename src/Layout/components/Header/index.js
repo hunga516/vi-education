@@ -109,7 +109,7 @@ function Header() {
                     <div className="action flex items-center gap-[24px]">
                         <Button size="medium" type={"outline-dark"}>
                             <FontAwesomeIcon className="mr-[8px]" icon={faPlus} />
-                            Tải lên
+                            Anh nho em qua a ...
                         </Button>
                         {currentUser ? (
                             <>
