@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import TippyHeadless from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
+import axios from "axios";
+import * as request from "../../../../utils/request";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -12,8 +14,6 @@ import { Wrapper as PopperWrapper } from "../../../../components/Popper";
 import styles from '../Header.module.css'
 import AccountItem from "../../../../components/AccounItem";
 import { useDebounced } from "../../../../hooks";
-import request from "../../../../utils/request";
-import axios from "axios";
 
 
 
@@ -42,7 +42,7 @@ function Search() {
             }
         })
             .then(res => {
-                setSearchResult(res.data.data)
+                setSearchResult(res.data)
                 setLoading(false)
             })
             .catch(() => {

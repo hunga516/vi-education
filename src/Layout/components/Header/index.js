@@ -109,7 +109,7 @@ function Header() {
                     <div className="action flex items-center gap-[24px]">
                         <Button size="medium" type={"outline-dark"}>
                             <FontAwesomeIcon className="mr-[8px]" icon={faPlus} />
-                            Anh nho em qua a ...
+                            Tải lên
                         </Button>
                         {currentUser ? (
                             <>
@@ -127,7 +127,7 @@ function Header() {
                                     </div>
                                 </Tippy>
                                 <Menu items={AVATAR_ITEMS} onChangeeee={handleOnChange}>
-                                    <Images className="avatar-img w-[32px] h-[32px] rounded-full" src=""></Images>
+                                    <Images className="avatar-img w-[32px] h-[32px] rounded-full" src={images.sony}></Images>
                                 </Menu>
                             </>
                         ) : (
