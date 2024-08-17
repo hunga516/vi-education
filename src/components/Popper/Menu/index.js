@@ -15,7 +15,7 @@ import Header from './Header';
 import { useState } from 'react';
 
 
-function Menu({ children, items, onChangeeee }) {
+function Menu({ children, items, onChange }) {
 
     const [history, setHistory] = useState([{ data: items }])
     const current = history[history.length - 1]
@@ -42,7 +42,7 @@ function Menu({ children, items, onChangeeee }) {
                                     if (isParent) {
                                         setHistory((prev) => [...prev, item.children]);
                                     } else {
-                                        onChangeeee(item);
+                                        onChange(item);
                                         // console.log('Item Selected:', item); // Log item để kiểm tra
                                     }
                                 }}
