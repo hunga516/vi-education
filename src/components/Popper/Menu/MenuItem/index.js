@@ -4,8 +4,9 @@ import Button from "../../../Button";
 const DefaultFn = {}
 
 function MenuItem({ data, onClick = DefaultFn }) {
+
     const classes = classNames({
-        'border-t-[1px] border-[#e3e3e4]': data.separate
+        'border-t-[1px] border-[#e3e3e4]': data.separate,
     })
 
     return (

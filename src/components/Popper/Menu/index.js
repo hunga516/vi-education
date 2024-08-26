@@ -19,6 +19,7 @@ function Menu({ children, items, onChange }) {
 
     const [history, setHistory] = useState([{ data: items }])
     const current = history[history.length - 1]
+    const [isChildren, setIsChildren] = useState(false)
 
     return (
         <Tippy
@@ -30,7 +31,7 @@ function Menu({ children, items, onChange }) {
             render={attrs => (
                 <PopperWrapper>
                     <div className="content">
-                        {history.length > 1 && <Header title="Language" onBack={() => {
+                        {history.length > 1 && <Header title="Ngôn ngữ" onBack={() => {
                             setHistory(prev => prev.slice(0, history.length - 1))
                         }} />}
                         {current.data.map((item, index) => {
@@ -43,7 +44,6 @@ function Menu({ children, items, onChange }) {
                                         setHistory((prev) => [...prev, item.children]);
                                     } else {
                                         onChange(item);
-                                        // console.log('Item Selected:', item); // Log item để kiểm tra
                                     }
                                 }}
                             />

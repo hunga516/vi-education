@@ -34,8 +34,8 @@ function Sidebar() {
     ]
 
     return (
-        <>
-            <ul className="sidebar-wrapper flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
+        <div className="sidebar-wrapper fixed mt-[60px] w-[232px]">
+            <ul className="nav flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
                 {NAV_ITEMS.map((item, index) => (
                     <li key={index} className="flex items-center gap-[16px]">
                         {loadingContextValue ? (
@@ -64,7 +64,7 @@ function Sidebar() {
                     </div>
                 </>
             )}
-        </>
+        </div>
     )
 }
 

@@ -99,8 +99,8 @@ function Header() {
 
     return (
         <>
-            <div className="header-wrapper flex justify-center border-b-[1px] border-[#1618231F]">
-                <div className="header-inner flex justify-between items-center w-[1380px] h-[60px] pl-4 pr-6">
+            <div className="header-wrapper fixed w-full flex justify-center border-b-[1px] bg-white border-[#1618231F]">
+                <div className="header-inner flex justify-between items-center w-full h-[60px] pl-4 pr-6">
                     <div className="logo h-[42px] w-[118px]">
                         {loadingContextValue ? (
                             <Skeleton width={118} height={42} />
