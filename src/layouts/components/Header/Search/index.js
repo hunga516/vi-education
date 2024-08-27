@@ -16,6 +16,7 @@ import { Wrapper as PopperWrapper } from "../../../../components/Popper";
 import styles from '../Header.module.css'
 import AccountItem from "../../../../components/AccounItem";
 import Skeleton from "react-loading-skeleton";
+import { LoadingContext } from "../../../../context";
 
 
 
@@ -25,7 +26,7 @@ function Search() {
     const [searchResult, setSearchResult] = useState([])
     const [showResult, setShowResult] = useState(true)
     const [loading, setLoading] = useState(false)
-    const loadingContextValue = useContext(loadingContext)
+    const LoadingContextValue = useContext(LoadingContext)
 
     const Debounced = useDebounced(searchValue, 800)
 
@@ -69,7 +70,7 @@ function Search() {
     return (
         <div
             className="search flex items-center w-[500px] h-[46px] border-[1px] border-transparent bg-[#1618230F] pl-[16px] py-[12px] rounded-[92px] focus-within:border-[#1618231F] hove">
-            {loadingContextValue ? (
+            {LoadingContextValue ? (
                 <Skeleton />
             ) : (
                 <>

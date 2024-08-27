@@ -1,7 +1,6 @@
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import { useContext, useEffect, useState } from 'react';
-import { loadingContext } from '../../../App';
+import { useContext } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +16,13 @@ import Button from "../../../components/Button";
 import images from "../../../assets/images";
 import Search from './Search';
 import Skeleton from "react-loading-skeleton";
+import { AuthContext, LoadingContext } from '../../../context';
 
 function Header() {
+    const LoadingContextValue = useContext(LoadingContext);
+    const AuthContextValue = useContext(AuthContext)
+    const currentUser = AuthContextValue.user
+
     const MENU_ITEMS = [
         {
             icon: FaRegLightbulb,
@@ -84,9 +88,10 @@ function Header() {
         ...MENU_ITEMS,
         {
             icon: MdLogout,
-            to: "/",
+            to: "",
             title: "Đăng xuất",
-            separate: true
+            separate: true,
+            onClick: AuthContextValue.handleSignOut
         }
     ];
 
@@ -94,15 +99,13 @@ function Header() {
         console.log('Selected Item:', menuItem);
     };
 
-    const currentUser = true;
-    const loadingContextValue = useContext(loadingContext);
 
     return (
         <>
             <div className="header-wrapper fixed w-full flex justify-center border-b-[1px] bg-white border-[#1618231F]">
                 <div className="header-inner flex justify-between items-center w-full h-[60px] pl-4 pr-6">
                     <div className="logo h-[42px] w-[118px]">
-                        {loadingContextValue ? (
+                        {LoadingContextValue ? (
                             <Skeleton width={118} height={42} />
                         ) : (
                             <img src={images.logo} alt="logo" />
@@ -112,7 +115,7 @@ function Header() {
                     <Search />
 
                     <div className="action flex items-center gap-[24px]">
-                        {loadingContextValue ? (
+                        {LoadingContextValue ? (
                             <>
                                 <Skeleton circle width={32} height={32} />
                                 <Skeleton width={100} height={40} />
@@ -139,7 +142,7 @@ function Header() {
                                             </div>
                                         </Tippy>
                                         <Menu items={AVATAR_ITEMS} onChange={handleOnChange}>
-                                            <img className="avatar-img w-[32px] h-[32px] rounded-full" src={images.sony} />
+                                            <img className="avatar-img w-[32px] h-[32px] rounded-full" src={AuthContextValue.user.photoURL} />
                                         </Menu>
                                     </>
                                 ) : (

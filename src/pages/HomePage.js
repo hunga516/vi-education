@@ -5,10 +5,11 @@ import video from "../assets/video";
 import Skeleton from "react-loading-skeleton";
 import { useContext } from "react";
 import { loadingContext } from "../App";
+import { LoadingContext } from "../context";
 
 function HomePage() {
 
-    const loadingContextValue = useContext(loadingContext)
+    const LoadingContextValue = useContext(LoadingContext)
 
     const ACTION_ITEMS = [
         {
@@ -48,7 +49,7 @@ function HomePage() {
             {VIDEO_ITEMS.map(item => (
                 <div className="wrapper flex w-[692px] mt-[20px] pb-[25px] mx-auto border-b-[1px]">
                     <div className="video w-[435px] mr-[20px]">
-                        {loadingContextValue ? (
+                        {LoadingContextValue ? (
                             <Skeleton className="rounded-3xl" height={841} />
                         ) : (
                             <video className="rounded-3xl" src={item} controls type="video/mp4"></video>
@@ -56,7 +57,7 @@ function HomePage() {
                     </div>
                     <div className="social-interaction flex flex-col items-center justify-end ">
                         <div className="avatar relative mb-[16px]">
-                            {loadingContextValue ? (
+                            {LoadingContextValue ? (
                                 <Skeleton height={48} width={48} />
                             ) : (
                                 <img className=" h-[48px] w-[48px] rounded-full" src={images.sony} />
@@ -66,14 +67,14 @@ function HomePage() {
                         {ACTION_ITEMS.map((item, index) => (
                             <>
                                 <button className="love-react flex text-[#000] my-[8px] justify-center items-center rounded-full h-[48px] w-[48px] bg-slate-300 text-[21px]">
-                                    {loadingContextValue ? (
+                                    {LoadingContextValue ? (
                                         <Skeleton />
                                     ) : (
                                         <item.icon />
                                     )}
                                 </button>
                                 <span className="text-[14px] font-semibold leading-[21px]">
-                                    {!loadingContextValue && (
+                                    {!LoadingContextValue && (
                                         <>{item.data.count}K</>
                                     )}
                                 </span>

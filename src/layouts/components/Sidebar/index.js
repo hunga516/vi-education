@@ -6,9 +6,10 @@ import Button from "../../../components/Button";
 import { useContext } from "react";
 import { loadingContext } from "../../../App";
 import Skeleton from "react-loading-skeleton";
+import { LoadingContext } from "../../../context";
 
 function Sidebar() {
-    const loadingContextValue = useContext(loadingContext)
+    const LoadingContextValue = useContext(LoadingContext)
 
     const NAV_ITEMS = [
         {
@@ -38,7 +39,7 @@ function Sidebar() {
             <ul className="nav flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
                 {NAV_ITEMS.map((item, index) => (
                     <li key={index} className="flex items-center gap-[16px]">
-                        {loadingContextValue ? (
+                        {LoadingContextValue ? (
                             <>
                                 <Skeleton width={24} height={24} /> <Skeleton width={200} height={24} />
                             </>
@@ -50,7 +51,7 @@ function Sidebar() {
                     </li>
                 ))}
             </ul>
-            {!loadingContextValue && (
+            {!LoadingContextValue && (
                 <>
                     <div className="require-login py-[20px] border-b-[1px] border-[#1618231F]">
                         <div className="text-[#8a8b90] font-light text-[16px] tracking-wide mb-[10px]">Đăng nhập để follow các tác giả, thích video và xem bình luận.</div>
