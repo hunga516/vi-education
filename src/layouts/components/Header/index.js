@@ -17,13 +17,16 @@ import images from "../../../assets/images";
 import Search from './Search';
 import Skeleton from "react-loading-skeleton";
 import { AuthContext, LoadingContext } from '../../../context';
+import { AuthModalContext } from '../../../context';
 import LoginModal from '../../../components/Modal/LoginModal';
 
 function Header() {
-    const [showLoginModal, setShowLoginModal] = useState(false)
     const LoadingContextValue = useContext(LoadingContext);
+
     const AuthContextValue = useContext(AuthContext)
     const currentUser = AuthContextValue.user
+
+    const AuthModalContextValue = useContext(AuthModalContext)
 
     const MENU_ITEMS = [
         {
@@ -101,11 +104,6 @@ function Header() {
         console.log('Selected Item:', menuItem);
     };
 
-    const toggleLoginModal = () => {
-        setShowLoginModal(!showLoginModal)
-    }
-
-
     return (
         <>
             <div className="header-wrapper fixed w-full flex justify-center border-b-[1px] bg-white border-[#1618231F]">
@@ -153,7 +151,7 @@ function Header() {
                                     </>
                                 ) : (
                                     <>
-                                        <Button size="medium" type={"primary"} onClick={toggleLoginModal}>Đăng nhập</Button>
+                                        <Button size="medium" type={"primary"} onClick={AuthModalContextValue.toggleLoginModal}>Đăng nhập</Button>
                                         <Menu items={MENU_ITEMS} onChange={handleOnChange}>
                                             <i className="menu-icon text-[20px] px-2">
                                                 <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -166,7 +164,7 @@ function Header() {
                     </div>
                 </div >
             </div >
-            {showLoginModal && <LoginModal toggleLoginModal={toggleLoginModal} />}
+            {AuthModalContextValue.showLoginModal && <LoginModal toggleLoginModal={AuthModalContextValue.toggleLoginModal} />}
         </>
     );
 }
