@@ -13,12 +13,12 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 console.log("User logged in:", currentUser);
-                setUser(currentUser); // Đảm bảo set user trước khi điều hướng
+                // setUser(currentUser); // Đảm bảo set user trước khi điều hướng
                 navigate("/"); // Điều hướng sau khi user đã được set
             } else {
                 setUser(null);
                 console.log("User not logged in.");
-                navigate("/sign-in");
+                navigate("/");
             }
         });
 

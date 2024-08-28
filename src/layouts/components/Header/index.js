@@ -1,6 +1,6 @@
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +17,10 @@ import images from "../../../assets/images";
 import Search from './Search';
 import Skeleton from "react-loading-skeleton";
 import { AuthContext, LoadingContext } from '../../../context';
+import LoginModal from '../../../components/Modal/LoginModal';
 
 function Header() {
+    const [showLoginModal, setShowLoginModal] = useState(false)
     const LoadingContextValue = useContext(LoadingContext);
     const AuthContextValue = useContext(AuthContext)
     const currentUser = AuthContextValue.user
@@ -99,6 +101,10 @@ function Header() {
         console.log('Selected Item:', menuItem);
     };
 
+    const toggleLoginModal = () => {
+        setShowLoginModal(!showLoginModal)
+    }
+
 
     return (
         <>
@@ -147,7 +153,7 @@ function Header() {
                                     </>
                                 ) : (
                                     <>
-                                        <Button size="medium" type={"primary"} onClick={() => alert()}>Đăng nhập</Button>
+                                        <Button size="medium" type={"primary"} onClick={toggleLoginModal}>Đăng nhập</Button>
                                         <Menu items={MENU_ITEMS} onChange={handleOnChange}>
                                             <i className="menu-icon text-[20px] px-2">
                                                 <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -160,6 +166,7 @@ function Header() {
                     </div>
                 </div >
             </div >
+            {showLoginModal && <LoginModal toggleLoginModal={toggleLoginModal} />}
         </>
     );
 }

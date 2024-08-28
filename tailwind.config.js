@@ -15,7 +15,11 @@ module.exports = {
         // Các giá trị khác
       },
       backgroundColor: {
-        "primary": "#fe2c55"
+        "primary": "#fe2c55",
+        "bluePrimary:": "#007FFF"
+      },
+      textColor: {
+        "bluePrimary": "#007FFF"
       }
     },
   },
