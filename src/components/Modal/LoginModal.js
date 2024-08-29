@@ -19,7 +19,7 @@ function LoginModal({ className, toggleLoginModal }) {
                     <IoArrowBack />
                     <span className="">Trở về trang chủ</span>
                 </button>
-                <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-10">
                     <span>
                         <PiBookOpenUserFill className="mx-auto font-[30px] text-[47px] text-bluePrimary" />
                     </span>

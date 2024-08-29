@@ -1,12 +1,15 @@
-import images from "../assets/images"
-import { FaHeart, FaCommentDots, FaBookmark, FaShare } from "react-icons/fa";
-import { FaCirclePlus } from "react-icons/fa6";
-import video from "../assets/video";
 import Skeleton from "react-loading-skeleton";
 import { useContext } from "react";
-import { loadingContext } from "../App";
 import { LoadingContext } from "../context";
 
+import { FaHeart, FaCommentDots, FaBookmark, FaShare } from "react-icons/fa";
+import { FaCirclePlus } from "react-icons/fa6";
+import { PiMusicNotesSimpleFill } from "react-icons/pi";
+
+import images from "../assets/images"
+import video from "../assets/video";
+import Button from "../components/Button";
+import { AiOutlinePlus } from "react-icons/ai";
 function HomePage() {
 
     const LoadingContextValue = useContext(LoadingContext)
@@ -47,8 +50,8 @@ function HomePage() {
     return (
         <>
             {VIDEO_ITEMS.map(item => (
-                <div className="wrapper flex w-[692px] mt-[20px] pb-[25px] mx-auto border-b-[1px]">
-                    <div className="video w-[435px] mr-[20px]">
+                <div className="wrapper-reel flex justify-between gap-3 ml-60 mt-[20px] pb-[25px] mx-auto border-b-[1px]">
+                    <div className="video w-[600px]">
                         {LoadingContextValue ? (
                             <Skeleton className="rounded-3xl" height={841} />
                         ) : (
@@ -60,7 +63,7 @@ function HomePage() {
                             {LoadingContextValue ? (
                                 <Skeleton height={48} width={48} />
                             ) : (
-                                <img className=" h-[48px] w-[48px] rounded-full" src={images.sony} />
+                                <img className="h-[48px] w-[48px] rounded-full" src={images.sony} alt="avatar" />
                             )}
                             <FaCirclePlus className="absolute bottom-[-15%] translate-x-[50%] text-[#EA284E] text-[24px]" />
                         </div>
@@ -81,8 +84,45 @@ function HomePage() {
                             </>
                         ))}
                     </div>
+                    <div className="wrapper-comment p-4 w-[600px] h-[718px] ring-inset ring-1 ring-black/5 bg-white">
+                        <div className="videoInfo-comment flex flex-col gap-4 p-4 bg-white drop-shadow-md rounded-md">
+                            <div className="container-videoInfo flex justify-between items-center">
+                                <div className="info flex flex-row gap-3">
+                                    <img src={images.sony} alt="avatar" className="rounded-full w-12" />
+                                    <div lassName="container-title flex flex-col justify-between">
+                                        <h1 className="font-semibold">sonymusic</h1>
+                                        <h2 className="text-sm">Sony Viet Nam</h2>
+                                    </div>
+                                </div>
+                                <Button className="" type="outline-primary" size="small">
+                                    <AiOutlinePlus />
+                                    Theo dõi
+                                </Button>
+                            </div>
+                            <span className="tracking-wide">Bạn đã nghe thử SONY XM5 chưaaaaa. Từ ngày 2/9 hãy ghé Nhà Ngọc Lộc để trải nghiệm toàn bộ tai nghe mới nhất nhé!</span>
+                            <div className="music flex items-center gap-2">
+                                <PiMusicNotesSimpleFill />
+                                <span className="text-sm opacity-80">nhạc nền - Dò lẩu dò quẩy</span>
+                            </div>
+                        </div>
+                        <div className="comment mt-4 p-2 bg-yellow-100">
+                            <div className="comment1  bg-slate-100">
+                                <div className="info flex items-center gap-2">
+                                    <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
+                                    <h1 className="font-semibold">sonyseeder</h1>
+                                </div>
+                                <div className="content mt-1">
+                                    <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="search-comment">
+                            <input type="text"></input>
+                        </div>
+                    </div>
                 </div>
             ))}
+
         </>
     )
 }
