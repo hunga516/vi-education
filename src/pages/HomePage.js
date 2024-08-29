@@ -53,9 +53,9 @@ function HomePage() {
                 <div className="wrapper-reel flex justify-between gap-3 ml-60 mt-[20px] pb-[25px] mx-auto border-b-[1px]">
                     <div className="video w-[600px]">
                         {LoadingContextValue ? (
-                            <Skeleton className="rounded-3xl" height={841} />
+                            <Skeleton className="rounded-3xl" height={718} />
                         ) : (
-                            <video className="rounded-3xl" src={item} controls type="video/mp4"></video>
+                            <video className="rounded-3xl h-[718px]" src={item} controls type="video/mp4"></video>
                         )}
                     </div>
                     <div className="social-interaction flex flex-col items-center justify-end ">
@@ -84,12 +84,12 @@ function HomePage() {
                             </>
                         ))}
                     </div>
-                    <div className="wrapper-comment p-4 w-[600px] h-[718px] ring-inset ring-1 ring-black/5 bg-white">
-                        <div className="videoInfo-comment flex flex-col gap-4 p-4 bg-white drop-shadow-md rounded-md">
-                            <div className="container-videoInfo flex justify-between items-center">
-                                <div className="info flex flex-row gap-3">
+                    <div className="comment-wrapper flex flex-col p-4 w-[600px] h-[718px] ring-inset ring-1 ring-black/5 bg-white">
+                        <div className="video-info-comment flex flex-col gap-4 p-4 bg-white drop-shadow-md rounded-md">
+                            <div className="video-info-container flex justify-between items-center">
+                                <div className="user-info flex flex-row gap-3">
                                     <img src={images.sony} alt="avatar" className="rounded-full w-12" />
-                                    <div lassName="container-title flex flex-col justify-between">
+                                    <div className="user-details flex flex-col justify-between">
                                         <h1 className="font-semibold">sonymusic</h1>
                                         <h2 className="text-sm">Sony Viet Nam</h2>
                                     </div>
@@ -99,25 +99,43 @@ function HomePage() {
                                     Theo dõi
                                 </Button>
                             </div>
-                            <span className="tracking-wide">Bạn đã nghe thử SONY XM5 chưaaaaa. Từ ngày 2/9 hãy ghé Nhà Ngọc Lộc để trải nghiệm toàn bộ tai nghe mới nhất nhé!</span>
-                            <div className="music flex items-center gap-2">
+                            <p className="video-description tracking-wide">Bạn đã nghe thử SONY XM5 chưaaaaa. Từ ngày 2/9 hãy ghé Nhà Ngọc Lộc để trải nghiệm toàn bộ tai nghe mới nhất nhé!</p>
+                            <div className="music-info flex items-center gap-2">
                                 <PiMusicNotesSimpleFill />
                                 <span className="text-sm opacity-80">nhạc nền - Dò lẩu dò quẩy</span>
                             </div>
                         </div>
-                        <div className="comment mt-4 p-2 bg-yellow-100">
-                            <div className="comment1  bg-slate-100">
-                                <div className="info flex items-center gap-2">
+                        <div className="comments-section ROUND mt-4 p-2 ">
+                            <div className="comment-item p-2 rounded-md mt-1 bg-slate-100 ">
+                                <div className="commenter-info flex items-center gap-2">
                                     <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                                     <h1 className="font-semibold">sonyseeder</h1>
                                 </div>
-                                <div className="content mt-1">
+                                <div className="comment-content mt-1">
+                                    <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
+                                </div>
+                            </div>
+                            <div className="comment-item p-2 rounded-md mt-1 bg-slate-100">
+                                <div className="commenter-info flex items-center gap-2">
+                                    <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
+                                    <h1 className="font-semibold">sonyseeder</h1>
+                                </div>
+                                <div className="comment-content mt-1">
+                                    <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
+                                </div>
+                            </div>
+                            <div className="comment-item p-2 rounded-md mt-1 bg-slate-100">
+                                <div className="commenter-info flex items-center gap-2">
+                                    <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
+                                    <h1 className="font-semibold">sonyseeder</h1>
+                                </div>
+                                <div className="comment-content mt-1">
                                     <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="search-comment">
-                            <input type="text"></input>
+                        <div className="comment-input mt-auto">
+                            <input type="text" placeholder="Thêm bình luận..." className="w-full p-2 border rounded-md" />
                         </div>
                     </div>
                 </div>
