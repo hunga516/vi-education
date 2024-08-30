@@ -53,9 +53,9 @@ function HomePage() {
                 <div className="wrapper-reel flex justify-between gap-3 ml-60 mt-[20px] pb-[25px] mx-auto border-b-[1px]">
                     <div className="video w-[600px]">
                         {LoadingContextValue ? (
-                            <Skeleton className="rounded-3xl" height={718} />
+                            <Skeleton className="rounded-md" height={718} />
                         ) : (
-                            <video className="rounded-3xl h-[718px]" src={item} controls type="video/mp4"></video>
+                            <video className="rounded-md h-[718px]" src={item} type="video/mp4"></video>
                         )}
                     </div>
                     <div className="social-interaction flex flex-col items-center justify-end ">
@@ -69,7 +69,7 @@ function HomePage() {
                         </div>
                         {ACTION_ITEMS.map((item, index) => (
                             <>
-                                <button className="love-react flex text-[#000] my-[8px] justify-center items-center rounded-full h-[48px] w-[48px] bg-slate-300 text-[21px]">
+                                <button className="love-react flex text-[#000] my-[8px] justify-center items-center rounded-full h-[48px] w-[48px] bg-slate-100 text-[21px]">
                                     {LoadingContextValue ? (
                                         <Skeleton />
                                     ) : (
@@ -91,7 +91,6 @@ function HomePage() {
                     )}
                 </div>
             ))}
-
         </>
     )
 }

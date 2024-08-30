@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             } else {
                 setUser(null);
                 console.log("User not logged in.");
-                navigate("/");
+                navigate("/sign-in");
             }
         });
 
