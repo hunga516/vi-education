@@ -72,8 +72,8 @@ function Sidebar() {
         //         </>
         //     )}
         // </div>
-        <aside class="fixed flex flex-col mt-4 w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
-            <div class="flex flex-col justify-between flex-1 mt-6">
+        <aside class="sticky flex flex-col w-[256px] h-screen px-5 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border">
+            <div class="flex flex-col justify-between flex-1 mt-[8px]">
                 <nav class="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (
                         <>
@@ -88,7 +88,7 @@ function Sidebar() {
                     ) : (
                         <>
                             {NAV_ITEMS.map((item, index) => (
-                                <Link to={item.to} class="flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                                <Link to={item.to} class="flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg dark:text-gray-300 hover:bg-gray-100  hover:text-gray-700" href="#">
                                     <item.icon size="18px" className="text-gray-600" />
 
                                     <span class="mx-2 text-sm font-medium">{item.title}</span>
@@ -101,9 +101,9 @@ function Sidebar() {
 
                 <div>
                     <div class="flex items-center justify-between">
-                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">Khoá học gần đây</h2>
+                        <h2 class="text-base font-semibold text-gray-800">Khoá học gần đây</h2>
 
-                        <button class="p-0.5 hover:bg-gray-100 duration-200 transition-colors text-gray-500 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 border rounded-lg">
+                        <button class="p-0.5 hover:bg-gray-100 duration-200 transition-colors text-gray-500 border rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -111,7 +111,7 @@ function Sidebar() {
                     </div>
 
                     <nav class="mt-4 -mx-3 space-y-3 ">
-                        <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                        <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100  hover:text-gray-700">
                             <div class="flex items-center gap-x-2 ">
                                 <span class="w-2 h-2 bg-pink-500 rounded-full"></span>
                                 <span>Học lập trình Javascript</span>
@@ -133,7 +133,7 @@ function Sidebar() {
                             </svg>
                         </button>
 
-                        <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                        <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100  hover:text-gray-700">
                             <div class="flex items-center gap-x-2 ">
                                 <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
                                 <span>Design Figma UI</span>

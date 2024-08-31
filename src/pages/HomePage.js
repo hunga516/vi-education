@@ -50,12 +50,12 @@ function HomePage() {
     return (
         <>
             {VIDEO_ITEMS.map(item => (
-                <div className="wrapper-reel flex justify-between gap-3 ml-60 mt-[20px] pb-[25px] mx-auto border-b-[1px]">
+                <div className="wrapper-reel pl-10 flex justify-between gap-3 ml-60 mt-[20px] pb-[25px] mx-auto border-b-[1px]">
                     <div className="video w-[600px]">
                         {LoadingContextValue ? (
                             <Skeleton className="rounded-md" height={718} />
                         ) : (
-                            <video className="rounded-md h-[718px]" src={item} type="video/mp4"></video>
+                            <video className="rounded-md" src={item} type="video/mp4"></video>
                         )}
                     </div>
                     <div className="social-interaction flex flex-col items-center justify-end ">

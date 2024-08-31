@@ -2,7 +2,7 @@ function ProfilePage() {
 
     return (
         <>
-            <h1>ProfilePage content</h1>
+            <h1>test content</h1>
         </>
     )
 }

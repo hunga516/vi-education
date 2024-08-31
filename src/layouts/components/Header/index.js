@@ -112,7 +112,8 @@ function Header() {
                         {LoadingContextValue ? (
                             <Skeleton width={118} height={42} />
                         ) : (
-                            <img src={images.logo} alt="logo" />
+                            <div>logo</div>
+                            // <img src={images.logoEducation} alt="logo" />
                         )}
                     </div>
 

@@ -6,10 +6,10 @@ function DefaultLayout({ children }) {
         <div>
             <Header />
             <div className="wrapper mx-auto flex justify-center w-full pl-4 pr-6">
-                <div className="w-[232px] pb-[800px]">
+                <div className="mt-[60px]">
                     <Sidebar />
                 </div>
-                <div className="content w-[1140px] mt-[60px]">
+                <div className="w-[1140px] mt-[68px]">
                     {children}
                 </div>
             </div>
