@@ -115,17 +115,17 @@ function ForumsPage() {
                                             <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                                 <div>
                                                     <h2 class="font-medium text-gray-800">Javascript</h2>
-                                                    <p class="text-sm font-normal text-gray-600">Nameuser</p>
+                                                    <p class="text-sm font-normal text-gray-600"></p>
                                                 </div>
                                             </td>
                                             <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
                                                 <div class="inline px-3 py-1 text-sm font-normal rounded-full">
-                                                    Open
+                                                    Cách làm dark theme trong JS
                                                 </div>
                                             </td>
                                             <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
                                                 <div class="inline px-3 py-1 text-sm font-normal rounded-full">
-                                                    Customer
+                                                    Opening
                                                 </div>
                                             </td>
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
