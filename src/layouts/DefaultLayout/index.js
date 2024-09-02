@@ -9,7 +9,7 @@ function DefaultLayout({ children }) {
                 <div className="mt-[60px]">
                     <Sidebar />
                 </div>
-                <div className="w-[1140px] mt-[68px]">
+                <div className="w-[1265px] mt-[68px] ml-[256px]">
                     {children}
                 </div>
             </div>

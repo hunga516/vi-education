@@ -27,10 +27,11 @@ function Comment() {
                 </div>
             </div>
             <div className="comments-section ROUND mt-4 p-2 ">
-                <div className="comment-item p-2 rounded-md mt-1 bg-slate-100 ">
+                <div className="comment-item p-2 rounded-md mt-1 bg-slate-100/20">
                     <div className="commenter-info flex items-center gap-2">
                         <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                         <h1 className="font-semibold">sonyseeder</h1>
+                        <span className="text-sm opacity-80">3 giờ trước</span>
                     </div>
                     <div className="comment-content mt-1">
                         <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
@@ -40,15 +41,7 @@ function Comment() {
                     <div className="commenter-info flex items-center gap-2">
                         <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                         <h1 className="font-semibold">sonyseeder</h1>
-                    </div>
-                    <div className="comment-content mt-1">
-                        <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
-                    </div>
-                </div>
-                <div className="comment-item p-2 rounded-md mt-1 bg-slate-100">
-                    <div className="commenter-info flex items-center gap-2">
-                        <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
-                        <h1 className="font-semibold">sonyseeder</h1>
+                        <span className="text-sm opacity-80">3 giờ trước</span>
                     </div>
                     <div className="comment-content mt-1">
                         <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
@@ -58,6 +51,17 @@ function Comment() {
                     <div className="commenter-info flex items-center gap-2">
                         <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                         <h1 className="font-semibold">sonyseeder</h1>
+                        <span className="text-sm opacity-80">3 giờ trước</span>
+                    </div>
+                    <div className="comment-content mt-1">
+                        <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
+                    </div>
+                </div>
+                <div className="comment-item p-2 rounded-md mt-1 bg-slate-100/20">
+                    <div className="commenter-info flex items-center gap-2">
+                        <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
+                        <h1 className="font-semibold">sonyseeder</h1>
+                        <span className="text-sm opacity-80">3 giờ trước</span>
                     </div>
                     <div className="comment-content mt-1">
                         <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
