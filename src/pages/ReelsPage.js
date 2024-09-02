@@ -53,9 +53,9 @@ function ReelsPage() {
                 <div key={index} className={`wrapper-reel pl-10 flex justify-between gap-3 ml-60 pb-[25px] mx-auto border-b-[1px] ${index === 0 ? 'mt-0' : 'mt-[20px]'}`}>
                     <div className="video">
                         {LoadingContextValue ? (
-                            <Skeleton className="rounded-md" height={718} />
+                            <Skeleton className="rounded-md" width={400} height={718} />
                         ) : (
-                            <video className="rounded-md w-[600px] h-[718px] object-cover" controls src={item} type="video/mp4"></video>
+                            <video className="rounded-md w-[600px] h-[830px] object-cover" controls src={item} type="video/mp4"></video>
                         )}
                     </div>
                     <div className="social-interaction flex flex-col items-center justify-end ">

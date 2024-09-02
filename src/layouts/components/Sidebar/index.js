@@ -25,7 +25,7 @@ function Sidebar() {
         },
         {
             icon: MdOutlineForum,
-            title: 'Forums',
+            title: 'Diễn đàn',
             to: '/forums'
         },
         {

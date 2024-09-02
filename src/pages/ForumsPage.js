@@ -11,7 +11,7 @@ function ForumsPage() {
                             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">122 bài viết</span>
                         </div>
 
-                        <p className="mt-1 text-sm text-gray-500">Số lượng bài viết mới trong ngày hôm nay</p>
+                        <p className="mt-1 text-sm text-gray-500">Chia sẽ kiến thức và kinh nghiệm của bạn</p>
                     </div>
 
                     <div className="flex items-center mt-4 gap-x-3">
@@ -65,13 +65,13 @@ function ForumsPage() {
                             </svg>
                         </span>
 
-                        <input type="text" placeholder="Search" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                        <input type="text" placeholder="Tìm bài viết" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
                 </div>
 
-                <div className="flex flex-col mt-6">
-                    <div className="-mx-4 -my-2  sm:-mx-6 lg:-mx-8">
-                        <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="flex w-[1265px] flex-col mt-6">
+                    <div className="">
+                        <div className="inline-block w-[1265px] min-w-full py-2 align-middle">
                             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-200 ">
                                     <thead className="bg-gray-50 ">
@@ -88,11 +88,11 @@ function ForumsPage() {
                                                 </button>
                                             </th>
 
-                                            <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                            <th scope="col" className="px-8 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                 Tiêu đề
                                             </th>
 
-                                            <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                            <th scope="col" className="px-8 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                 Trạng thái
                                             </th>
 
@@ -102,7 +102,9 @@ function ForumsPage() {
 
                                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Người tham gia</th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">License use</th>
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Upvote</th>
+
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Downvote</th>
 
                                             <th scope="col" className="relative py-3.5 px-4">
                                                 <span className="sr-only">Edit</span>
@@ -118,24 +120,27 @@ function ForumsPage() {
                                                     <p class="text-sm font-normal text-gray-600"></p>
                                                 </div>
                                             </td>
-                                            <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div class="inline px-3 py-1 text-sm font-normal rounded-full">
+                                            <td class="px-8 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div class="inline py-1 text-sm font-normal rounded-full">
                                                     Cách làm dark theme trong JS
                                                 </div>
                                             </td>
-                                            <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div class="inline px-3 py-1 text-sm font-normal rounded-full">
-                                                    Opening
+                                            <td class="px-8 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                    Đang mở
                                                 </div>
+                                                {/* <div class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">
+                                                    Churned
+                                                </div> */}
                                             </td>
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div>
-                                                    <h4 class="text-gray-700">Content curating app</h4>
-                                                    <p class="text-gray-500">Brings all your news into one place</p>
+                                                    <h4 class="text-gray-700">Làm web của bạn tuyệt hơn chỉ với 1 trick</h4>
+                                                    <p class="text-gray-500">Khi thêm vào thuộc tính...</p>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div class="flex items-center">
+                                                <div class="flex items-center justify-center">
                                                     <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
                                                     <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
                                                     <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80" alt="" />
@@ -145,8 +150,14 @@ function ForumsPage() {
                                             </td>
 
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div class="w-48 h-1.5 bg-blue-200 overflow-hidden rounded-full">
-                                                    <div class="bg-blue-500 w-2/3 h-1.5"></div>
+                                                <div>
+                                                    <h4 class="text-gray-700 text-center">233</h4>
+                                                </div>
+                                            </td>
+
+                                            <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                <div>
+                                                    <h4 class="text-gray-700 text-center">1</h4>
                                                 </div>
                                             </td>
 
