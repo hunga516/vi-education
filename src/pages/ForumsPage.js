@@ -69,9 +69,9 @@ function ForumsPage() {
                     </div>
                 </div>
 
-                <div className="flex w-[1265px] flex-col mt-6">
+                <div className="flex w-[1147px] flex-col mt-6">
                     <div className="">
-                        <div className="inline-block w-[1265px] min-w-full py-2 align-middle">
+                        <div className="inline-block min-w-full py-2 align-middle">
                             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-200 ">
                                     <thead className="bg-gray-50 ">
@@ -88,11 +88,11 @@ function ForumsPage() {
                                                 </button>
                                             </th>
 
-                                            <th scope="col" className="px-8 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                 Tiêu đề
                                             </th>
 
-                                            <th scope="col" className="px-8 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                            <th scope="col" className="px-2 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 ">
                                                 Trạng thái
                                             </th>
 
@@ -100,7 +100,7 @@ function ForumsPage() {
                                                 Nội dung
                                             </th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Người tham gia</th>
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 "></th>
 
                                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Upvote</th>
 
@@ -120,12 +120,12 @@ function ForumsPage() {
                                                     <p class="text-sm font-normal text-gray-600"></p>
                                                 </div>
                                             </td>
-                                            <td class="px-8 py-4 text-sm font-medium whitespace-nowrap">
+                                            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                                 <div class="inline py-1 text-sm font-normal rounded-full">
                                                     Cách làm dark theme trong JS
                                                 </div>
                                             </td>
-                                            <td class="px-8 py-4 text-sm font-medium whitespace-nowrap">
+                                            <td class="px-2 py-4 text-sm font-medium whitespace-nowrap">
                                                 <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
                                                     Đang mở
                                                 </div>
