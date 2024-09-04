@@ -69,7 +69,7 @@ function ForumsPage() {
                     </div>
                 </div>
 
-                <div className="flex w-[1147px] flex-col mt-6">
+                <div className="flex flex-col mt-6">
                     <div className="">
                         <div className="inline-block min-w-full py-2 align-middle">
                             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
@@ -126,7 +126,7 @@ function ForumsPage() {
                                                 </div>
                                             </td>
                                             <td class="px-2 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60">
                                                     Đang mở
                                                 </div>
                                                 {/* <div class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">

@@ -72,7 +72,7 @@ function Sidebar() {
         //         </>
         //     )}
         // </div>
-        <aside class="fixed flex flex-col w-[256px] px-5 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border" style={{ height: 'calc(100vh - 60px)' }}>
+        <aside class="fixed flex flex-col w-[256px] px-5 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border box-border" style={{ height: 'calc(100vh - 60px)' }}>
             <div class="flex flex-col justify-between flex-1 mt-[8px]">
                 <nav class="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (

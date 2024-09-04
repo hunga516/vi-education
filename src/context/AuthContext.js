@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { auth, googleAuthProvider } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { AuthModalContext } from "./AuthModalContext";
+import { createUserInDatabase } from "../utils/request";
 
 export const AuthContext = createContext();
 
@@ -21,11 +22,10 @@ export const AuthProvider = ({ children }) => {
             } else {
                 setUser(null);
                 console.log("User not logged in.");
-                navigate("/sign-in");
+                navigate("/reels");
             }
         });
 
-        // Cleanup subscription on unmount
         return () => unsubscribe();
     }, [navigate]);
 
@@ -35,6 +35,8 @@ export const AuthProvider = ({ children }) => {
             setUser(userCredential.user); // Cập nhật trạng thái người dùng
             AuthModalContextValue.toggleLoginModal(); // Ẩn modal sau khi đăng nhập thành công
             // navigate("/");
+
+            createUserInDatabase(userCredential.user);
         } catch (error) {
             console.error("Error during sign-in:", error);
         }
