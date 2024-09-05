@@ -13,18 +13,7 @@ export const get = async (path, optional = {}) => { //path la query /api/posts, 
 
 export const createUserInDatabase = async (user) => {
     try {
-        const isUserExist = await axios.get(`http://localhost:3001/users `);
-
-
-        const response = await axios.post('http://localhost:3001/users/create', {
-            email: user.email,
-            username: user.email,
-            password: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-        });
-
-        console.log(response.data);
+        const response = await axios.post('http://localhost:3001/users/create', user);
         return response.data;
     } catch (error) {
         console.error('Lỗi khi tạo người dùng:', error);
