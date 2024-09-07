@@ -1,5 +1,20 @@
+import axios from "axios"
+import { useState } from "react"
+import { useEffect } from "react"
+
 function ForumsPage() {
 
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const res = await axios.get('http://localhost:3001/posts')
+            setPosts(res.data)
+        }
+        fetchPosts()
+    }, [])
+
+    console.log(posts)
     return (
         <>
             <section className="px-4">
@@ -113,64 +128,65 @@ function ForumsPage() {
                                     </thead>
 
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div>
-                                                    <h2 class="font-medium text-gray-800">Javascript</h2>
-                                                    <p class="text-sm font-normal text-gray-600"></p>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div class="inline py-1 text-sm font-normal rounded-full">
-                                                    Cách làm dark theme trong JS
-                                                </div>
-                                            </td>
-                                            <td class="px-2 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60">
-                                                    Đang mở
-                                                </div>
-                                                {/* <div class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">
+                                        {posts.map((post, index) => (
+                                            <tr>
+                                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800">{post.topic}</h2>
+                                                        <p class="text-sm font-normal text-gray-600"></p>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                    <div class="inline py-1 text-sm font-normal rounded-full">
+                                                        {post.title}
+                                                    </div>
+                                                </td>
+                                                <td class="px-2 py-4 text-sm font-medium whitespace-nowrap">
+                                                    <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60">
+                                                        {post.status}
+                                                    </div>
+                                                    {/* <div class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">
                                                     Churned
                                                 </div> */}
-                                            </td>
-                                            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div>
-                                                    <h4 class="text-gray-700">Làm web của bạn tuyệt hơn chỉ với 1 trick</h4>
-                                                    <p class="text-gray-500">Khi thêm vào thuộc tính...</p>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div class="flex items-center justify-center">
-                                                    <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                    <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                    <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80" alt="" />
-                                                    <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
-                                                    <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">+4</p>
-                                                </div>
-                                            </td>
+                                                </td>
+                                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                    <div>
+                                                        <h4 class="text-gray-700">{post.content}</h4>
+                                                        <p class="text-gray-500">Khi thêm vào thuộc tính...</p>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                    <div class="flex items-center justify-center">
+                                                        <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
+                                                        <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
+                                                        <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80" alt="" />
+                                                        <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />
+                                                        <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">+4</p>
+                                                    </div>
+                                                </td>
 
-                                            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div>
-                                                    <h4 class="text-gray-700 text-center">233</h4>
-                                                </div>
-                                            </td>
+                                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                    <div>
+                                                        <h4 class="text-gray-700 text-center">{post.upvote}</h4>
+                                                    </div>
+                                                </td>
 
-                                            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div>
-                                                    <h4 class="text-gray-700 text-center">1</h4>
-                                                </div>
-                                            </td>
+                                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                    <div>
+                                                        <h4 class="text-gray-700 text-center">{post.downvote}</h4>
+                                                    </div>
+                                                </td>
 
-                                            <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                <button class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                    </svg>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                    <button class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                                        </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>

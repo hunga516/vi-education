@@ -1,4 +1,4 @@
-function AccountPage() {
+function HomePage() {
 
     return (
         <>
@@ -7,4 +7,4 @@ function AccountPage() {
     )
 }
 
-export default AccountPage
+export default HomePage
