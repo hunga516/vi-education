@@ -1,10 +1,12 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
+import CreatePostModal from "../components/Modal/CreatePostModal"
 
 function ForumsPage() {
 
     const [posts, setPosts] = useState([])
+    const [isShowCreatePost, setIsShowCreatePost] = useState(false)
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -14,7 +16,10 @@ function ForumsPage() {
         fetchPosts()
     }, [])
 
-    console.log(posts)
+    const toggleIsShowCreatePost = () => {
+        setIsShowCreatePost(!isShowCreatePost)
+    }
+
     return (
         <>
             <section className="px-4">
@@ -50,7 +55,7 @@ function ForumsPage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
 
-                            <span>Đăng bài</span>
+                            <span onClick={toggleIsShowCreatePost}>Đăng bài</span>
                         </button>
                     </div>
                 </div>
@@ -107,7 +112,7 @@ function ForumsPage() {
                                                 Tiêu đề
                                             </th>
 
-                                            <th scope="col" className="px-2 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 ">
+                                            <th scope="col" className="px-2 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                 Trạng thái
                                             </th>
 
@@ -117,9 +122,9 @@ function ForumsPage() {
 
                                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 "></th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Upvote</th>
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal  text-center rtl:text-right text-gray-500 ">Upvote</th>
 
-                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">Downvote</th>
+                                            <th scope="col" className="px-4 py-3.5 text-sm font-normal  text-center rtl:text-right text-gray-500 ">Downvote</th>
 
                                             <th scope="col" className="relative py-3.5 px-4">
                                                 <span className="sr-only">Edit</span>
@@ -194,7 +199,7 @@ function ForumsPage() {
                 </div>
                 <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
                     <div class="text-sm text-gray-500">
-                        Page <span class="font-medium text-gray-700">1 of 10</span>
+                        Trang <span class="font-medium text-gray-700">1 / 10</span>
                     </div>
 
                     <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
@@ -204,13 +209,13 @@ function ForumsPage() {
                             </svg>
 
                             <span>
-                                previous
+                                Trước
                             </span>
                         </a>
 
                         <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100-800">
                             <span>
-                                Next
+                                Kế tiếp
                             </span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
@@ -220,6 +225,9 @@ function ForumsPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Create Post Modal */}
+            {isShowCreatePost && <CreatePostModal toggleIsShowCreatePost={toggleIsShowCreatePost} />}
         </>
     )
 }

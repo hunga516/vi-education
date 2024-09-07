@@ -165,7 +165,7 @@ function Header() {
                     </div>
                 </div >
             </div >
-            {AuthModalContextValue.showLoginModal && <LoginModal toggleLoginModal={AuthModalContextValue.toggleLoginModal} />}
+            {AuthModalContextValue.isShowLoginModal && <LoginModal toggleLoginModal={AuthModalContextValue.toggleLoginModal} />}
         </>
     );
 }
