@@ -6,18 +6,18 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
             <div className="fixed inset-0 bg-gray-500 opacity-75 z-10">
             </div>
             <div className="fixed flex justify-center items-center inset-0 z-20">
-                <div className="h-[90vh] w-[50vw] bg-white rounded-xl">
-                    <div className="p-12">
+                <div className="overflow-auto h-[90vh] w-[50vw] bg-white rounded-xl">
+                    <div className="relative p-12">
                         <button
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 sticky top-0 h-16 w-full bg-white "
                             onClick={() => toggleIsShowCreatePost()}
                         >
                             <IoArrowBack />
-                            <span className="text-base font-semibold text-gray-700 leading-9">Trở về</span>
+                            <button className="text-base font-semibold text-gray-700 leading-9">Trở về</button>
                         </button>
                         <div class="border-b border-gray-900/10 pb-12 mt-4">
-                            <h2 class="text-base font-semibold leading-7 text-gray-900">Huỷ bài viết</h2>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p>
+                            <h2 class="text-base font-semibold leading-7 text-gray-900">Tạo bài viết</h2>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">Chia sẽ kiến thức của bạn hoặc hỏi đáp về các vấn đề bạn gặp phải.</p>
 
                             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-4">
@@ -33,7 +33,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                                 <div class="col-span-full">
                                     <label for="about" class="block text-sm font-medium leading-6 text-gray-900">About</label>
                                     <div class="mt-2">
-                                        <textarea id="about" name="about" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                                        <textarea id="about" name="about" rows="8" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                                     </div>
                                     <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
                                 </div>

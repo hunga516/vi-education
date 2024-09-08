@@ -10,6 +10,7 @@ import { IoLanguage, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineContactSupport, MdLiveTv, MdLogout } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
+import icons from "../../../assets/icons";
 
 import Menu from "../../../components/Popper/Menu";
 import Button from "../../../components/Button";
@@ -107,12 +108,12 @@ function Header() {
     return (
         <>
             <div className="header-wrapper fixed z-10 w-full flex justify-center border-b-[1px] bg-white border-[#1618231F]">
-                <div className="header-inner flex justify-between items-center w-full h-[60px] pl-4 pr-6">
-                    <div className="logo h-[42px] w-[118px]">
+                <div className="header-inner w-[1426px] flex justify-between items-center h-[60px] pl-3 pr-6">
+                    <div className="logo h-[42px]">
                         {LoadingContextValue ? (
                             <Skeleton width={118} height={42} />
                         ) : (
-                            <div>logo</div>
+                            <icons.logo />
                             // <img src={images.logoEducation} alt="logo" />
                         )}
                     </div>

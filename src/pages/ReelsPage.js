@@ -65,7 +65,7 @@ function ReelsPage() {
                             ) : (
                                 <img className="h-[48px] w-[48px] rounded-full" src={images.sony} alt="avatar" />
                             )}
-                            <FaCirclePlus className="absolute bottom-[-15%] translate-x-[50%] text-[#EA284E] text-[24px]" />
+                            <FaCirclePlus className="absolute bottom-[-8%] translate-x-[100%] text-bluePrimary text-[16px]" />
                         </div>
                         {ACTION_ITEMS.map((item, index) => (
                             <>
