@@ -6,7 +6,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
             <div className="fixed inset-0 bg-gray-500 opacity-75 z-10">
             </div>
             <div className="fixed flex justify-center items-center inset-0 z-20">
-                <div className="overflow-auto h-[90vh] w-[50vw] bg-white rounded-xl">
+                <div className="overflow-auto overscroll-y-contain h-[90vh] w-[50vw] bg-white rounded-xl">
                     <div className="relative p-12">
                         <button
                             className="flex items-center gap-2 sticky top-0 h-16 w-full bg-white "

@@ -8,8 +8,9 @@ import { MdOutlineForum } from "react-icons/md";
 import { PiUsers } from "react-icons/pi";
 import { RiHome5Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import images from "../../../assets/images";
 
-function Sidebar() {
+function Sidebar({ className }) {
     const LoadingContextValue = useContext(LoadingContext)
 
     const NAV_ITEMS = [
@@ -41,39 +42,14 @@ function Sidebar() {
     ]
 
     return (
-        // <div className="sidebar-wrapper fixed mt-[60px] w-[232px]">
-        //     <ul className="nav flex flex-col text-[19px] leading-[45px] py-[10px] font-sans font-semibold tracking-wide border-b-[1px] border-[#1618231F]">
-        //         {NAV_ITEMS.map((item, index) => (
-        //             <li key={index} className="flex items-center gap-[16px]">
-        //                 {LoadingContextValue ? (
-        //                     <>
-        //                         <Skeleton width={24} height={24} /> <Skeleton width={200} height={24} />
-        //                     </>
-        //                 ) : (
-        //                     <>
-        //                         <item.icon size="24px" /> {item.title}
-        //                     </>
-        //                 )}
-        //             </li>
-        //         ))}
-        //     </ul>
-        //     {!LoadingContextValue && (
-        //         <>
-        //             <div className="require-login py-[20px] border-b-[1px] border-[#1618231F]">
-        //                 <div className="text-[#8a8b90] font-light text-[16px] tracking-wide mb-[10px]">Đăng nhập để follow các tác giả, thích video và xem bình luận.</div>
-        //                 <Button className="w-full" size="large" type={"outline-primary"}>
-        //                     Đăng nhập
-        //                 </Button>
-        //             </div>
-        //             <div className="container relative mt-[20px]">
-        //                 <img src="https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/8152caf0c8e8bc67ae0d.png" className="h-[52px] w-full"></img>
-        //                 <h4 className="absolute w-[141px] left-[56px] top-1/2 transfrom -translate-y-1/2 text-[#fff5c9] text-[13px] font-semibold leading-[16px] text-left tracking-[0.035em]">Tạo hiệu ứng Tiktok, nhận phần thưởng.</h4>
-        //             </div>
-        //         </>
-        //     )}
-        // </div>
-        <aside class="fixed flex flex-col w-[256px] px-5 pb-4 bg-white border-r rtl:border-r-0 rtl:border box-border" style={{ height: 'calc(100vh - 60px)' }}>
-            <div class="flex flex-col justify-between flex-1 mt-[20px]">
+        <aside
+            className={`${className} fixed flex flex-col w-[210px] drop-shadow-md box-border`}
+            style={{
+                height: 'calc(100vh - 61px)',
+                backgroundImage: `url(${images.background})`
+            }}
+        >
+            <div class="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 backdrop-blur-md bg-white/70">
                 <nav class="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (
                         <>
@@ -88,7 +64,7 @@ function Sidebar() {
                     ) : (
                         <>
                             {NAV_ITEMS.map((item, index) => (
-                                <Link to={item.to} class="flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg dark:text-gray-300 hover:bg-gray-100  hover:text-gray-700" href="#">
+                                <Link to={item.to} class="flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg hover:bg-white hover:drop-shadow hover:text-gray-700" href="#">
                                     <item.icon size="18px" className="text-gray-600" />
 
                                     <span class="mx-2 text-sm font-medium">{item.title}</span>
@@ -141,7 +117,7 @@ function Sidebar() {
                                     </svg>
                                 </button>
 
-                                <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-700 transition-colors duration-300 transform bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-200">
+                                <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-700 transition-colors duration-300 transform drop-shadow bg-white rounded-lg">
                                     <div class="flex items-center gap-x-2 ">
                                         <span class="w-2 h-2 rounded-full bg-slate-500"></span>
                                         <span>Backend với NodeJS & Express</span>
@@ -167,7 +143,7 @@ function Sidebar() {
                     </nav>
                 </div>
             </div>
-        </aside>
+        </aside >
     )
 }
 

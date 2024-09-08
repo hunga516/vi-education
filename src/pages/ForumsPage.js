@@ -22,7 +22,7 @@ function ForumsPage() {
 
     return (
         <>
-            <section className="px-4">
+            <section className="forums-page-wrapper">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-x-3">
@@ -60,7 +60,7 @@ function ForumsPage() {
                     </div>
                 </div>
 
-                <div className="mt-6 md:flex md:items-center md:justify-between">
+                <div className="mt-6 md:flex md:items-center md:justify-between drop-shadow-md">
                     <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg  rtl:flex-row-reverse">
                         <button className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm  ">
                             Tất cả
@@ -89,7 +89,7 @@ function ForumsPage() {
                     </div>
                 </div>
 
-                <div className="flex flex-col mt-6">
+                <div className="flex flex-col mt-6 drop-shadow-md">
                     <div className="">
                         <div className="inline-block min-w-full py-2 align-middle">
                             <div className="overflow-hidden border border-gray-200  md:rounded-lg">

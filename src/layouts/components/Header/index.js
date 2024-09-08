@@ -107,7 +107,7 @@ function Header() {
 
     return (
         <>
-            <div className="header-wrapper fixed z-10 w-full flex justify-center border-b-[1px] bg-white border-[#1618231F]">
+            <div className="header-wrapper fixed z-10 w-full flex justify-center drop-shadow bg-white/70 backdrop-blur-md border-[#1618231F]">
                 <div className="header-inner w-[1426px] flex justify-between items-center h-[60px] pl-3 pr-6">
                     <div className="logo h-[42px]">
                         {LoadingContextValue ? (

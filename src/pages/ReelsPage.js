@@ -50,45 +50,50 @@ function ReelsPage() {
     return (
         <>
             {VIDEO_ITEMS.map((item, index) => (
-                <div key={index} className={`wrapper-reel pl-10 flex justify-between gap-3 ml-60 pb-[25px] mx-auto border-b-[1px] ${index === 0 ? 'mt-0' : 'mt-[20px]'}`}>
-                    <div className="video">
+                <div className="wrapper-reel-page bg-white backdrop-blur-md drop-shadow-md rounded-md ">
+                    <div key={index} className={`flex px-6 py-4 gap-3 mx-auto border-b-[1px] ${index === 0 ? 'mt-0' : 'mt-[20px]'}`}>
+                        <div className="video-container relative w-[460px] h-[830px]">
+                            {LoadingContextValue ? (
+                                <Skeleton className="rounded-md" width={460} height={830} />
+                            ) : (
+                                <>
+                                    <video className="rounded-md w-full h-full object-cover" controls src={item} type="video/mp4">
+                                    </video>
+                                    <div className="social-interaction absolute top-0 right-0 flex flex-col items-center justify-end h-full p-4">
+                                        <div className="avatar relative mb-6">
+                                            {LoadingContextValue ? (
+                                                <Skeleton height={48} width={48} />
+                                            ) : (
+                                                <img className="h-[48px] w-[48px] rounded-full" src={images.sony} alt="avatar" />
+                                            )}
+                                            <FaCirclePlus className="absolute bottom-[-8%] right-[33%] text-bluePrimary text-[16px]" />
+                                        </div>
+                                        {ACTION_ITEMS.map((item, index) => (
+                                            <div key={index} className="flex flex-col items-center mb-4">
+                                                <button className="love-react flex text-white justify-center items-center rounded-full h-[40px] w-[40px] bg-black bg-opacity-50 text-[18px] mb-1">
+                                                    {LoadingContextValue ? (
+                                                        <Skeleton circle={true} height={40} width={40} />
+                                                    ) : (
+                                                        <item.icon />
+                                                    )}
+                                                </button>
+                                                <span className="text-[12px] font-semibold text-white">
+                                                    {!LoadingContextValue && (
+                                                        <>{item.data.count}K</>
+                                                    )}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                        </div>
                         {LoadingContextValue ? (
-                            <Skeleton className="rounded-md" width={400} height={718} />
+                            <Skeleton height={718} width={400} />
                         ) : (
-                            <video className="rounded-md w-[600px] h-[830px] object-cover" controls src={item} type="video/mp4"></video>
+                            <Comment />
                         )}
                     </div>
-                    <div className="social-interaction flex flex-col items-center justify-end ">
-                        <div className="avatar relative mb-[16px]">
-                            {LoadingContextValue ? (
-                                <Skeleton height={48} width={48} />
-                            ) : (
-                                <img className="h-[48px] w-[48px] rounded-full" src={images.sony} alt="avatar" />
-                            )}
-                            <FaCirclePlus className="absolute bottom-[-8%] translate-x-[100%] text-bluePrimary text-[16px]" />
-                        </div>
-                        {ACTION_ITEMS.map((item, index) => (
-                            <>
-                                <button className="love-react flex text-[#000] my-[8px] justify-center items-center rounded-full h-[48px] w-[48px] bg-slate-100 text-[21px]">
-                                    {LoadingContextValue ? (
-                                        <Skeleton />
-                                    ) : (
-                                        <item.icon />
-                                    )}
-                                </button>
-                                <span className="text-[14px] font-semibold leading-[21px]">
-                                    {!LoadingContextValue && (
-                                        <>{item.data.count}K</>
-                                    )}
-                                </span>
-                            </>
-                        ))}
-                    </div>
-                    {LoadingContextValue ? (
-                        <Skeleton height={718} width={400} />
-                    ) : (
-                        <Comment />
-                    )}
                 </div>
             ))}
         </>

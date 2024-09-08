@@ -71,7 +71,7 @@ function Search() {
 
     return (
         <div
-            className="search flex items-center w-[500px] h-[46px] border-[1px] border-transparent ring-1 ring-slate-200 pl-[16px] py-[12px] rounded-md focus-within:ring-[#1618231F]">
+            className="search flex items-center w-[500px] h-[38px] border-[1px] border-transparent ring-1 ring-slate-200 pl-[16px] py-[12px] rounded-lg focus-within:ring-[#1618231F]">
             {LoadingContextValue ? (
                 <Skeleton />
             ) : (
