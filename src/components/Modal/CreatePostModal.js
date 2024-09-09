@@ -1,13 +1,15 @@
 import { IoArrowBack } from "react-icons/io5";
+import ReactDOM from 'react-dom';
+
 
 function CreatePostModal({ toggleIsShowCreatePost }) {
-    return (
+    return ReactDOM.createPortal(
         <div className="relative">
-            <div className="fixed inset-0 bg-gray-500 opacity-75 z-10">
+            <div className="fixed h-[100vh] inset-0 bg-gray-500 opacity-75 z-20">
             </div>
             <div className="fixed flex justify-center items-center inset-0 z-20">
-                <div className="overflow-auto overscroll-y-contain h-[90vh] w-[50vw] bg-white rounded-xl">
-                    <div className="relative p-12">
+                <div className="overflow-auto overscroll-y-contain h-[80vh] w-[50vw] bg-white rounded-xl">
+                    <div className="relative px-12 py-4">
                         <button
                             className="flex items-center gap-2 sticky top-0 h-16 w-full bg-white "
                             onClick={() => toggleIsShowCreatePost()}
@@ -170,7 +172,8 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                     </select>
                 </div> */}
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
 

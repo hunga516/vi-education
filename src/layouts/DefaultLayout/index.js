@@ -13,7 +13,7 @@ function DefaultLayout({ children }) {
                     alt=""
                     className="absolute z-[-100] w-full left-1/2 -translate-x-1/2 transform scale-x-[-1]"
                 />
-                <div className="w-[1170px] mt-[80px]">
+                <div className="w-[1170px] mt-[80px] ml-[215px]">
                     {children}
                 </div>
             </div>
