@@ -14,7 +14,7 @@ function ForumsPage() {
             setPosts(res.data)
         }
         fetchPosts()
-    }, [])
+    }, [isShowCreatePost])
 
     const toggleIsShowCreatePost = () => {
         setIsShowCreatePost(!isShowCreatePost)

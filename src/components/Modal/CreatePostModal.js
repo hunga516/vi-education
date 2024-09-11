@@ -1,24 +1,42 @@
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
-
 
 import { IoArrowBack } from "react-icons/io5";
 
 import Button from '../Button';
+import axios from 'axios';
 
 
 function CreatePostModal({ toggleIsShowCreatePost }) {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(e);
+    const [formData, setFormData] = useState({
+        topic: '',
+        title: '',
+        content: '',
+        // image: '',
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/posts/create-post`, formData)
+            toggleIsShowCreatePost();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return ReactDOM.createPortal(
         <div className="relative">
             {/* Wrapper Disable */}
             <div className="fixed h-[100vh] inset-0 bg-gray-500 opacity-75 z-20">
-            </div>
+            </div>h
 
             {/* Modal */}
-            <form id='createPostForm' method='POST' action={`${process.env.REACT_APP_API_URL}/posts/create`} className="fixed flex justify-center items-center inset-0 z-20">
+            <form id='createPostForm' className="fixed flex justify-center items-center inset-0 z-20">
                 <div className="overflow-auto overscroll-y-contain h-[80vh] w-[50vw] bg-white rounded-xl">
                     <div className="relative px-12 py-4">
                         <div
@@ -51,11 +69,25 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                                 <div className='flex flex-row gap-6'>
                                     <div className='topic-input flex flex-col gap-2'>
                                         <label htmlFor='topic' className='text-sm font-medium text-gray-900 leading-6'>Chủ đề</label>
-                                        <input type='text' id='topic' className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2 placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm' placeholder='Nhập chủ đề' />
+                                        <input
+                                            type='text'
+                                            id='topic'
+                                            name='topic'
+                                            className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2 placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm'
+                                            placeholder='Nhập chủ đề'
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                     <div className='title-input flex flex-1 flex-col gap-2'>
                                         <label htmlFor='title' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề</label>
-                                        <input type='text' id='title' className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2' placeholder='Nhập tiêu đề' />
+                                        <input
+                                            type='text'
+                                            id='title'
+                                            name='title'
+                                            className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                            placeholder='Nhập tiêu đề'
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
 
@@ -79,7 +111,13 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
 
                                 <div className='topic-content flex flex-col gap-2'>
                                     <label htmlFor='topic' className='text-sm font-medium text-gray-900 leading-6'>Nội dung</label>
-                                    <textarea id='topic' className='h-40 py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2' placeholder='...' />
+                                    <textarea
+                                        id='topic'
+                                        name='content'
+                                        className='h-40 py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                        placeholder='...'
+                                        onChange={handleChange}
+                                    />
                                 </div>
                             </div>
                         </div>
