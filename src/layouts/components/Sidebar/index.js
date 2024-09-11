@@ -46,7 +46,7 @@ function Sidebar({ className }) {
             className={`${className} fixed flex flex-col w-[210px] drop-shadow-md box-border`}
             style={{
                 height: 'calc(100vh - 61px)',
-                backgroundImage: `url(${images.background})`
+                // backgroundImage: `url(${images.background})`
             }}
         >
             <div class="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 backdrop-blur-md bg-white/70">

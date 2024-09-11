@@ -11,7 +11,7 @@ function DefaultLayout({ children }) {
                 <img
                     src={images.background}
                     alt=""
-                    className="absolute z-[-100] w-full left-1/2 -translate-x-1/2 transform scale-x-[-1]"
+                    className="absolute z-[-100] w-full left-1/2 -translate-x-1/2 opacity-50 blur-3xl"
                 />
                 <div className="w-[1170px] mt-[80px] ml-[215px]">
                     {children}

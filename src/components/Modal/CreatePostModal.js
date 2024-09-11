@@ -7,6 +7,10 @@ import Button from '../Button';
 
 
 function CreatePostModal({ toggleIsShowCreatePost }) {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(e);
+    }
     return ReactDOM.createPortal(
         <div className="relative">
             {/* Wrapper Disable */}
@@ -14,7 +18,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
             </div>
 
             {/* Modal */}
-            <div className="fixed flex justify-center items-center inset-0 z-20">
+            <form id='createPostForm' method='POST' action={`${process.env.REACT_APP_API_URL}/posts/create`} className="fixed flex justify-center items-center inset-0 z-20">
                 <div className="overflow-auto overscroll-y-contain h-[80vh] w-[50vw] bg-white rounded-xl">
                     <div className="relative px-12 py-4">
                         <div
@@ -29,7 +33,10 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                                 <Button size='medium' type='outline-dark'>
                                     Lưu nháp
                                 </Button>
-                                <Button className="px-4" type='primary'>
+                                <Button
+                                    className="px-4" type='primary'
+                                    onClick={handleSubmit}
+                                >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -46,9 +53,9 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                                         <label htmlFor='topic' className='text-sm font-medium text-gray-900 leading-6'>Chủ đề</label>
                                         <input type='text' id='topic' className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2 placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm' placeholder='Nhập chủ đề' />
                                     </div>
-                                    <div className='title-input flex flex-col gap-2'>
+                                    <div className='title-input flex flex-1 flex-col gap-2'>
                                         <label htmlFor='title' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề</label>
-                                        <input type='text' id='title' className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2' placeholder='Nhập chủ đề' />
+                                        <input type='text' id='title' className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2' placeholder='Nhập tiêu đề' />
                                     </div>
                                 </div>
 
@@ -72,7 +79,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
 
                                 <div className='topic-content flex flex-col gap-2'>
                                     <label htmlFor='topic' className='text-sm font-medium text-gray-900 leading-6'>Nội dung</label>
-                                    <textarea id='topic' className='h-40 py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2' placeholder='Nhập chủ đề' />
+                                    <textarea id='topic' className='h-40 py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2' placeholder='...' />
                                 </div>
                             </div>
                         </div>
@@ -177,8 +184,8 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                         <option value="MI">Michigan</option>
                     </select>
                 </div> */}
-            </div>
-        </div>,
+            </form>
+        </div >,
         document.body
     );
 }

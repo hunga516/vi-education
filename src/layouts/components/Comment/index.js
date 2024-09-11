@@ -6,7 +6,7 @@ import { PiMusicNotesSimpleFill } from "react-icons/pi";
 function Comment() {
     return (
         <div className="comment-wrapper flex flex-1 flex-col w-[400p] h-[830px] ring-black/5 bg-white">
-            <div className="video-info-comment flex flex-col gap-4 p-4 bg-slate-100/50 rounded-md">
+            <div className="video-info-comment flex flex-col gap-4 p-4 bg-slate-100/50 rounded-md shadow-md">
                 <div className="video-info-container flex justify-between items-center">
                     <div className="user-info flex flex-row gap-3">
                         <img src={images.sony} alt="avatar" className="rounded-full w-12" />
