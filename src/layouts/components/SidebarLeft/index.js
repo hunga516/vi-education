@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 import { IoMdTrendingUp } from "react-icons/io";
@@ -8,10 +9,10 @@ import { MdOutlineForum } from "react-icons/md";
 import { PiUsers } from "react-icons/pi";
 import { RiHome5Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import images from "../../../assets/images";
 
-function Sidebar({ className }) {
-    const LoadingContextValue = useContext(LoadingContext)
+function SidebarLeft({ className }) {
+    const LoadingContextValue = useContext(LoadingContext);
+    const location = useLocation();
 
     const NAV_ITEMS = [
         {
@@ -43,13 +44,13 @@ function Sidebar({ className }) {
 
     return (
         <aside
-            className={`${className} fixed flex flex-col w-[210px] drop-shadow-md box-border`}
+            className={`${className} flex flex-col w-[250px] drop-shadow-md box-border`}
             style={{
                 height: 'calc(100vh - 61px)',
                 // backgroundImage: `url(${images.background})`
             }}
         >
-            <div class="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 backdrop-blur-md bg-white/70">
+            <div class="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 border-r-[1px] border-gray-400/30">
                 <nav class="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (
                         <>
@@ -64,9 +65,15 @@ function Sidebar({ className }) {
                     ) : (
                         <>
                             {NAV_ITEMS.map((item, index) => (
-                                <Link to={item.to} class="flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg hover:bg-white hover:drop-shadow hover:text-gray-700" href="#">
+                                <Link
+                                    key={index}
+                                    to={item.to}
+                                    className={`flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg hover:bg-white hover:drop-shadow hover:text-gray-700 relative ${location.pathname === item.to
+                                        ? 'bg-white before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-red-500'
+                                        : ''
+                                        }`}
+                                >
                                     <item.icon size="18px" className="text-gray-600" />
-
                                     <span class="mx-2 text-sm font-medium">{item.title}</span>
                                 </Link>
                             ))}
@@ -147,4 +154,4 @@ function Sidebar({ className }) {
     )
 }
 
-export default Sidebar
+export default SidebarLeft

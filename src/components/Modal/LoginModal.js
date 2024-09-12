@@ -1,17 +1,18 @@
 import images from "../../assets/images";
+import { useContext } from "react";
+import { createPortal } from "react-dom";
 import { AuthContext } from "../../context";
 
 import { PiBookOpenUserFill } from "react-icons/pi";
 import { IoArrowBack } from "react-icons/io5";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { useContext } from "react";
 
 function LoginModal({ className, toggleLoginModal }) {
     const AuthContextValue = useContext(AuthContext)
 
 
-    return (
+    return createPortal(
         <div className={"relative z-10"}>
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <div class="fixed inset-y-0 right-0 z-10 flex max-w-[500px] flex-col justify-center px-8 pb-12 lg:px-16 bg-white">
@@ -84,7 +85,8 @@ function LoginModal({ className, toggleLoginModal }) {
 
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
 

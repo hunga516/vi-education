@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import { IoArrowBack } from "react-icons/io5";
 
@@ -29,7 +29,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
         }
     }
 
-    return ReactDOM.createPortal(
+    return createPortal(
         <div className="relative">
             {/* Wrapper Disable */}
             <div className="fixed h-[100vh] inset-0 bg-gray-500 opacity-75 z-20">
@@ -114,7 +114,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
                                     <textarea
                                         id='topic'
                                         name='content'
-                                        className='h-40 py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                        className='h-40 py-1.5 resize text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
                                         placeholder='...'
                                         onChange={handleChange}
                                     />

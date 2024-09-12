@@ -8,6 +8,7 @@ import HomePage from "../pages/HomePage";
 
 export const publicRoute = [
     { path: '/', element: HomePage, layout: DefautLayout },
+    { path: '/home', element: HomePage, layout: DefautLayout },
     { path: '/reels', element: ReelsPage, layout: DefautLayout },
     { path: '/sign-in', element: PopupLogin, layout: NoneLayout },
     { path: '/forums', element: ForumsPage },

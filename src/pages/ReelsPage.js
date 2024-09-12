@@ -50,8 +50,8 @@ function ReelsPage() {
     return (
         <>
             {VIDEO_ITEMS.map((item, index) => (
-                <div className="wrapper-reel-page bg-white backdrop-blur-md drop-shadow-md rounded-md ">
-                    <div key={index} className={`flex px-6 py-4 gap-3 mx-auto border-b-[1px] ${index === 0 ? 'mt-0' : 'mt-[20px]'}`}>
+                <div className="wrapper-reel-page bg-white backdrop-blur-md shadow- rounded-md ">
+                    <div key={index} className={`flex px-5 py-4 gap-3 mx-auto border-b-[1px] ${index === 0 ? 'mt-0' : 'mt-[20px]'}`}>
                         <div className="video-container relative w-[460px] h-[830px]">
                             {LoadingContextValue ? (
                                 <Skeleton className="rounded-md" width={460} height={830} />
