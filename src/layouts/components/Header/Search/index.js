@@ -2,14 +2,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useDebounced } from "../../../../hooks";
 import TippyHeadless from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
-import * as request from "../../../../utils/request";
-import { loadingContext } from "../../../../App";
+import request from "../../../../utils/request";
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { HiMiniXCircle } from "react-icons/hi2";
 import { IoIosSearch } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 

@@ -1,15 +1,16 @@
 import axios from "axios";
 
 export const request = axios.create({
-    baseURL: 'https://tiktok.fullstack.edu.vn/api/',
+    // baseURL: 'https://tiktok.fullstack.edu.vn/api/',
+    baseURL: 'http://localhost:3001/api',
     timeout: 1000,
     headers: { 'X-Custom-Header': 'foobar' }
 });
 
-export const get = async (path, optional = {}) => { //path la query /api/posts, khong phai url
-    const response = await request.get(path, optional)
-    return response.data
-}
+// export const get = async (path, optional = {}) => { //path la query /api/posts, khong phai url
+//     const response = await request.get(path, optional)
+//     return response.data
+// }
 
 export const createUserInDatabase = async (user) => {
     try {

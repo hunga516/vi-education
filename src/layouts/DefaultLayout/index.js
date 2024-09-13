@@ -14,7 +14,7 @@ function DefaultLayout({ children }) {
                     alt=""
                     className="absolute repeat z-[-100] w-full left-1/2 -translate-x-1/2 transform scale-x-[-1]"
                 />
-                <div className="w-[1170px] mt-[80px] px-8">
+                <div className="w-[900px] mt-[80px] px-8">
                     {children}
                 </div>
             </div>
