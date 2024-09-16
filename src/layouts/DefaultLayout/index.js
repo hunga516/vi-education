@@ -18,7 +18,7 @@ function DefaultLayout({ children }) {
                     {children}
                 </div>
             </div>
-            <SidebarRight className="fixed right-0 top-0 z-10 mt-[61px]" />
+            {/* <SidebarRight className="fixed right-0 top-0 z-10 mt-[61px]" /> */}
         </div>
     )
 }

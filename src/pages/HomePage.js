@@ -27,7 +27,7 @@ function HomePage() {
         <>
             <div className="home-page-wrapper bg-white rounded-md shadow-2xl px-5 py-4">
                 <img
-                    src={images.background}
+                    src={images.backgroundSub}
                     className="h-80 w-full rounded-2xl"
                     alt=""
                 />
