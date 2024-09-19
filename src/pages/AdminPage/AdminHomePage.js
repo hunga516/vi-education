@@ -4,9 +4,11 @@ import request from "../../utils/request";
 import axios from "axios";
 
 import { FaRegTrashAlt } from "react-icons/fa";
+import CreateCourseModal from "../../components/Modal/CreateCourseModal";
 
 function AdminHomePage() {
     const [courses, setCourses] = useState([])
+    const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
 
     useEffect(() => {
 
@@ -22,7 +24,10 @@ function AdminHomePage() {
         getCourses();
     }, [])
 
-    console.log(courses);
+    const toggleIsShowCreateCourse = () => {
+        setIsShowCreateCourse(!isShowCreateCourse)
+    }
+
 
     return (
         <>
@@ -59,7 +64,7 @@ function AdminHomePage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
 
-                            {/* <span onClick={toggleIsShowCreatePost}>Thêm khoá học</span> */}
+                            <span onClick={toggleIsShowCreateCourse}>Thêm khoá học</span>
                         </button>
                     </div>
                 </div>
@@ -213,6 +218,10 @@ function AdminHomePage() {
                     </div>
                 </div>
             </div>
+
+            {isShowCreateCourse && (
+                <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
+            )}
         </>
     )
 }
