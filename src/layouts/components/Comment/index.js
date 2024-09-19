@@ -5,7 +5,7 @@ import { PiMusicNotesSimpleFill } from "react-icons/pi";
 
 function Comment() {
     return (
-        <div className="comment-wrapper flex flex-1 flex-col w-[400p] h-[830px] ring-black/5 bg-white">
+        <div className="comment-wrapper flex flex-1 flex-col w-[400p] ring-black/5 bg-white">
             <div className="video-info-comment flex flex-col gap-4 p-4 bg-slate-100/50 rounded-md shadow-md">
                 <div className="video-info-container flex justify-between items-center">
                     <div className="user-info flex flex-row gap-3">
@@ -37,7 +37,7 @@ function Comment() {
                         <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
                     </div>
                 </div>
-                <div className="comment-itemp-2 rounded-md mt-1">
+                <div className="comment-item p-2 rounded-md mt-1">
                     <div className="commenter-info flex items-center gap-2">
                         <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                         <h1 className="font-semibold">sonyseeder</h1>
@@ -47,7 +47,7 @@ function Comment() {
                         <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
                     </div>
                 </div>
-                <div className="comment-itemp-2 rounded-md mt-1">
+                <div className="comment-item p-2 rounded-md mt-1">
                     <div className="commenter-info flex items-center gap-2">
                         <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                         <h1 className="font-semibold">sonyseeder</h1>
@@ -57,7 +57,7 @@ function Comment() {
                         <span className="text-sm font-medium">Troi oi tai nghe dep qua</span>
                     </div>
                 </div>
-                <div className="comment-itemp-2 rounded-md mt-1">
+                <div className="comment-item p-2 rounded-md mt-1">
                     <div className="commenter-info flex items-center gap-2">
                         <img src={images.sony} alt="avatar" className="text-center rounded-full w-10" />
                         <h1 className="font-semibold">sonyseeder</h1>

@@ -117,9 +117,9 @@ function ForumsPage() {
                                                     Trạng thái
                                                 </th>
 
-                                                <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                                {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                     Nội dung
-                                                </th>
+                                                </th> */}
 
                                                 <th scope="col" className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 "></th>
 
@@ -142,8 +142,8 @@ function ForumsPage() {
                                                             <p class="text-sm font-normal text-gray-600"></p>
                                                         </div>
                                                     </td>
-                                                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                                        <div class="inline py-1 text-sm font-normal rounded-full">
+                                                    <td class="px-4 py-4 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
+                                                        <div class="py-1 text-sm font-normal rounded-full">
                                                             {post.title}
                                                         </div>
                                                     </td>
@@ -155,12 +155,12 @@ function ForumsPage() {
                                                         Churned
                                                     </div> */}
                                                     </td>
-                                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                        <div>
+                                                    {/* <td class="px-4 py-4 text-sm text-ellipsis overflow-hidden whitespace-nowrap">
+                                                        <div className="w-[100px]">
                                                             <h4 class="text-gray-700">{post.content}</h4>
                                                             <p class="text-gray-500">Khi thêm vào thuộc tính...</p>
                                                         </div>
-                                                    </td>
+                                                    </td> */}
                                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                         <div class="flex items-center justify-center">
                                                             <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80" alt="" />

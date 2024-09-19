@@ -59,7 +59,6 @@ function HomePage() {
                     ))}
                 </div>
 
-                <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
                 <div className="flex flex-wrap gap-x-2 gap-y-4 items-center mt-2">
                     <div className="course-item-info">

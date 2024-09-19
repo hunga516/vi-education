@@ -52,14 +52,14 @@ function ReelsPage() {
             {VIDEO_ITEMS.map((item, index) => (
                 <div className="wrapper-reel-page bg-white backdrop-blur-md shadow-2xl rounded-md ">
                     <div key={index} className={`flex px-5 py-4 gap-3 mx-auto border-b-[1px] ${index === 0 ? 'mt-0' : 'mt-[20px]'}`}>
-                        <div className="video-container relative w-[460px] h-[830px]">
+                        <div className="video-container relative w-[350px] h-auto">
                             {LoadingContextValue ? (
-                                <Skeleton className="rounded-md" width={460} height={830} />
+                                <Skeleton className="rounded-md" width={350} height={600} />
                             ) : (
                                 <>
-                                    <video className="rounded-md w-full h-full object-cover" controls src={item} type="video/mp4">
+                                    <video className="rounded-md w-full object-cover" src={item} type="video/mp4">
                                     </video>
-                                    <div className="social-interaction absolute top-0 right-0 flex flex-col items-center justify-end h-full p-4">
+                                    <div className="social-interaction absolute bottom-0 right-0 flex flex-col items-center justify-end p-4">
                                         <div className="avatar relative mb-6">
                                             {LoadingContextValue ? (
                                                 <Skeleton height={48} width={48} />
@@ -89,7 +89,7 @@ function ReelsPage() {
                             )}
                         </div>
                         {LoadingContextValue ? (
-                            <Skeleton height={718} width={400} />
+                            <Skeleton height={600} width={400} />
                         ) : (
                             <Comment />
                         )}

@@ -68,10 +68,10 @@ function SidebarLeft({ className }) {
                                 <Link
                                     key={index}
                                     to={item.to}
-                                    className={`flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg hover:bg-white hover:drop-shadow hover:text-gray-700 relative ${location.pathname === item.to
-                                        ? 'bg-white before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-red-500'
+                                    className={`${location.pathname === item.to
+                                        ? 'bg-gray-200 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-red-500'
                                         : ''
-                                        }`}
+                                        } flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg relative `}
                                 >
                                     <item.icon size="18px" className="text-gray-600" />
                                     <span class="mx-2 text-sm font-medium">{item.title}</span>
