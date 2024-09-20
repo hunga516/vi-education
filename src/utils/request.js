@@ -22,4 +22,6 @@ export const createUserInDatabase = async (user) => {
     }
 }
 
+// export const getUser
+
 export default request
