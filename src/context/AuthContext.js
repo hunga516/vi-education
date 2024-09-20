@@ -3,20 +3,23 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { auth, googleAuthProvider } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { AuthModalContext } from "./AuthModalContext";
-import { createUserInDatabase } from "../utils/request";
+import { createUserInDatabase, getUserByEmail } from "../utils/request";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState()
     const navigate = useNavigate();
     const AuthModalContextValue = useContext(AuthModalContext)
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => { // Thay đổi để sử dụng async
             if (currentUser) {
-                console.log("User logged in:", currentUser);
-                // AuthModalContextValue.toggleLoginModal()
+                console.log("User logged in:", currentUser.email);
+                const user = await getUserByEmail(currentUser.email); // Thêm await
+                setUserId(user._id);
+                console.log("User id is: ", userId); // Sử dụng user thay vì userId
                 setUser(currentUser); // Đảm bảo set user trước khi điều hướng
                 // navigate("/"); // Điều hướng sau khi user đã được set
             } else {
@@ -37,6 +40,7 @@ export const AuthProvider = ({ children }) => {
             // navigate("/");
 
             createUserInDatabase(userCredential.user);
+
         } catch (error) {
             console.error("Error during sign-in:", error);
         }
@@ -46,17 +50,15 @@ export const AuthProvider = ({ children }) => {
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-            setUser(null); // Reset trạng thái người dùng
+            setUser(null);
             navigate('/');
         } catch (error) {
             console.error("Error during sign-out:", error);
         }
     };
 
-    console.log(user);
-
     return (
-        <AuthContext.Provider value={{ user, handleSignIn, handleSignOut }}>
+        <AuthContext.Provider value={{ user, userId, handleSignIn, handleSignOut }}>
             {children}
         </AuthContext.Provider>
     );

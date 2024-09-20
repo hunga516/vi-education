@@ -22,6 +22,13 @@ export const createUserInDatabase = async (user) => {
     }
 }
 
-// export const getUser
+export const getUserByEmail = async (email) => {
+    try {
+        const response = await axios.get(`http://localhost:3001/users/email/${email}`)
+        return response.data
+    } catch (error) {
+        console.log('Loi khi lay thong tin email: ', email);
+    }
+}
 
 export default request
