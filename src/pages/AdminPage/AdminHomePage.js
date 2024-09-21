@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import request from "../../utils/request";
+import { io } from "socket.io-client";
 import axios from "axios";
 
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -9,7 +9,7 @@ import CreateCourseModal from "../../components/Modal/CreateCourseModal";
 function AdminHomePage() {
     const [courses, setCourses] = useState([])
     const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
-
+    const socket = io('http://localhost:3001'); // Kết nối tới server   
     useEffect(() => {
 
         const getCourses = async () => {
@@ -22,6 +22,15 @@ function AdminHomePage() {
         }
 
         getCourses();
+
+        // Lắng nghe sự kiện course_added
+        socket.on('course_added', (newCourse) => {
+            setCourses((prevCourses) => [...prevCourses, newCourse]);
+        });
+
+        return () => {
+            socket.off('course_added'); // Gỡ sự kiện khi component bị unmount
+        };
     }, [])
 
     const toggleIsShowCreateCourse = () => {
@@ -160,9 +169,9 @@ function AdminHomePage() {
                                                 </td>
 
                                                 <td class="px-4 py-4 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
-                                                    <div class="flex gap-2 items-center py-1 text-sm font-normal rounded-full">
-                                                        <img src={course.author.photoURL} className="w-4 rounded-full object-cover" alt="avatar" />
-                                                        {course.author.displayName}
+                                                    <div className="flex gap-2 items-center py-1 text-sm font-normal rounded-full">
+                                                        <img src={course.author?.photoURL} className="w-4 rounded-full object-cover" alt="avatar" />
+                                                        {course.author?.displayName || 'Chưa có tên'}
                                                     </div>
                                                 </td>
 

@@ -14,14 +14,13 @@ export const AuthProvider = ({ children }) => {
     const AuthModalContextValue = useContext(AuthModalContext)
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => { // Thay đổi để sử dụng async
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
                 console.log("User logged in:", currentUser.email);
                 const user = await getUserByEmail(currentUser.email); // Thêm await
                 setUserId(user._id);
-                console.log("User id is: ", userId); // Sử dụng user thay vì userId
-                setUser(currentUser); // Đảm bảo set user trước khi điều hướng
-                // navigate("/"); // Điều hướng sau khi user đã được set
+                console.log("User id is: ", userId);
+                setUser(currentUser)
             } else {
                 setUser(null);
                 console.log("User not logged in.");

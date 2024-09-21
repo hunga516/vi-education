@@ -1,19 +1,23 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { IoArrowBack } from "react-icons/io5";
 
 import Button from '../Button';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
+import { io } from 'socket.io-client';
 
 
 function CreateCourseModal({ toggleIsShowCreateCourse }) {
+    const socket = io('http://localhost:3001'); // Kết nối tới server   
+
+    const { userId } = useContext(AuthContext)
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         images: '',
-        chapters: '',
-        author: '',
+        author: userId,
         role: ''
     });
 
@@ -28,7 +32,8 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/posts/create-post`, formData)
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formData)
+            socket.emit('new_course', response.data); // Gửi khóa học mới đến server
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
@@ -41,7 +46,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
         <div className="relative">
             {/* Wrapper Disable */}
             <div className="fixed h-[100vh] inset-0 bg-gray-500 opacity-75 z-20">
-            </div>h
+            </div>
 
             {/* Modal */}
             <form id='createPostForm' className="fixed flex justify-center items-center inset-0 z-20">
