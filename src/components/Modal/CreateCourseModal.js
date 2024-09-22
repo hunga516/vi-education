@@ -11,11 +11,11 @@ import { AuthContext } from '../../context/AuthContext';
 function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
     const { userId } = useContext(AuthContext)
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        images: '',
+        title: course.title || '',
+        description: course.description || '',
+        images: course.images || '',
         author: userId,
-        role: ''
+        role: course.role || ''
     });
 
     const handleChange = (e) => {
@@ -29,7 +29,11 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formData)
+            if (course) {
+                await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course.courseId}`, formData)
+            } else {
+                await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formData)
+            }
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
@@ -93,12 +97,11 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
                                     <div className='title-input flex flex-1 flex-col gap-2'>
                                         <label htmlFor='title' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề khoá học</label>
                                         <input
-                                            value={formData.title}
                                             type='text'
                                             id='title'
                                             name='title'
                                             className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
-                                            placeholder={course?.title || 'Nhập tiêu đề khoá học'}
+                                            placeholder={course.title || 'Nhập tiêu đề khoá học'}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -132,7 +135,7 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
                                         id='topic'
                                         name='description'
                                         className='h-40 py-1.5 resize text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
-                                        placeholder='...'
+                                        placeholder={course.description || '...'}
                                         onChange={handleChange}
                                     />
                                 </div>
