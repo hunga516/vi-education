@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
                 console.log("User logged in:", currentUser.email);
                 const user = await getUserByEmail(currentUser.email); // Thêm await
                 setUserId(user._id);
-                console.log("User id is: ", userId);
+                console.log("User id is: ", user._id); // Sử dụng user._id thay vì userId
                 setUser(currentUser)
             } else {
                 setUser(null);

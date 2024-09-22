@@ -1,14 +1,17 @@
-
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
 
 import { FaRegTrashAlt } from "react-icons/fa";
 import CreateCourseModal from "../../components/Modal/CreateCourseModal";
+import { TiEdit } from "react-icons/ti";
+import { MdDeleteOutline } from "react-icons/md";
+import Menu from "../../components/Popper/Menu";
 
 function AdminHomePage() {
     const [courses, setCourses] = useState([])
     const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
+    const [selectedCourse, setSelectedCourse] = useState(null)
     const socket = io('http://localhost:3001'); // Kết nối tới server   
     useEffect(() => {
 
@@ -33,9 +36,24 @@ function AdminHomePage() {
         };
     }, [])
 
-    const toggleIsShowCreateCourse = () => {
+    const toggleIsShowCreateCourse = (course = null) => {
+        setSelectedCourse(course)
         setIsShowCreateCourse(!isShowCreateCourse)
     }
+
+    const COURSE_ACTIONS = [
+        {
+            icon: TiEdit,
+            title: "Chỉnh sửa",
+            onClick: course => {
+                toggleIsShowCreateCourse(course)
+            }
+        },
+        {
+            icon: MdDeleteOutline,
+            title: "Xoá"
+        }
+    ]
 
 
     return (
@@ -121,7 +139,7 @@ function AdminHomePage() {
 
                                             <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                 <button className="flex items-center gap-x-3 focus:outline-none">
-                                                    <span>Vai trò</span>
+                                                    <span>Lĩnh vực</span>
 
                                                     <svg className="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" strokeWidth="0.1" />
@@ -170,8 +188,8 @@ function AdminHomePage() {
 
                                                 <td class="px-4 py-4 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
                                                     <div className="flex gap-2 items-center py-1 text-sm font-normal rounded-full">
-                                                        <img src={course.author?.photoURL} className="w-4 rounded-full object-cover" alt="avatar" />
-                                                        {course.author?.displayName || 'Chưa có tên'}
+                                                        <img src={course.author.photoURL} className="w-4 rounded-full object-cover" alt="avatar" />
+                                                        {course.author.displayName}
                                                     </div>
                                                 </td>
 
@@ -187,13 +205,17 @@ function AdminHomePage() {
                                                     </div>
                                                 </td>
 
-                                                <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                    <button class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                        </svg>
-                                                    </button>
-                                                </td>
+                                                <Menu items={COURSE_ACTIONS} payload={course}>
+                                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                        <button
+                                                            class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                                            </svg>
+                                                        </button>
+                                                    </td>
+                                                </Menu>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -232,7 +254,7 @@ function AdminHomePage() {
             </div>
 
             {isShowCreateCourse && (
-                <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
+                <CreateCourseModal course={selectedCourse} toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
             )}
         </>
     )
