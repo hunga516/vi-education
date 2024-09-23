@@ -22,7 +22,7 @@ function CreatePostModal({ toggleIsShowCreatePost }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/posts/create-post`, formData)
+            await axios.post(`${process.env.REACT_APP_API_URL}/posts`, formData)
             toggleIsShowCreatePost();
         } catch (error) {
             console.log(error);

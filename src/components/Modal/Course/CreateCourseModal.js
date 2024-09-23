@@ -4,18 +4,18 @@ import axios from 'axios';
 
 import { IoArrowBack } from "react-icons/io5";
 
-import Button from '../Button';
-import { AuthContext } from '../../context/AuthContext';
+import Button from '../../Button';
+import { AuthContext } from '../../../context/AuthContext';
 
 
-function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
+function CreateCourseModal({ toggleIsShowCreateCourse }) {
     const { userId } = useContext(AuthContext)
     const [formData, setFormData] = useState({
-        title: course.title || '',
-        description: course.description || '',
-        images: course.images || '',
+        title: '',
+        description: '',
+        images: '',
         author: userId,
-        role: course.role || ''
+        role: ''
     });
 
     const handleChange = (e) => {
@@ -29,11 +29,7 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (course) {
-                await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course.courseId}`, formData)
-            } else {
-                await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formData)
-            }
+            await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formData)
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
@@ -69,7 +65,7 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    Đăng bài
+                                    <span>Đăng khoá học</span>
                                 </Button>
                             </div>
                         </div>
@@ -84,11 +80,7 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
                                             className='py-2 h-9 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2 placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm'
                                             onChange={handleChange}
                                         >
-                                            {course && course.role ? (
-                                                <option value={course.role}>{course.role}</option>
-                                            ) : (
-                                                <option value="">Chọn lĩnh vực</option>
-                                            )}
+                                            <option value="">Chọn lĩnh vực</option>
                                             <option value='Backend'>Backend</option>
                                             <option value='Frontend'>Frontend</option>
                                             <option value='Design'>Design</option>
@@ -101,7 +93,7 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
                                             id='title'
                                             name='title'
                                             className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
-                                            placeholder={course.title || 'Nhập tiêu đề khoá học'}
+                                            placeholder={'Nhập tiêu đề khoá học'}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -135,7 +127,7 @@ function CreateCourseModal({ course, toggleIsShowCreateCourse }) {
                                         id='topic'
                                         name='description'
                                         className='h-40 py-1.5 resize text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
-                                        placeholder={course.description || '...'}
+                                        placeholder={'...'}
                                         onChange={handleChange}
                                     />
                                 </div>

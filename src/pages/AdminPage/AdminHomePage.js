@@ -3,14 +3,17 @@ import { io } from "socket.io-client";
 import axios from "axios";
 
 import { FaRegTrashAlt } from "react-icons/fa";
-import CreateCourseModal from "../../components/Modal/CreateCourseModal";
 import { TiEdit } from "react-icons/ti";
 import { MdDeleteOutline } from "react-icons/md";
+
 import Menu from "../../components/Popper/Menu";
+import CreateCourseModal from "../../components/Modal/Course/CreateCourseModal";
+import EditCourseModal from "../../components/Modal/Course/EditCourseModal";
 
 function AdminHomePage() {
     const [courses, setCourses] = useState([])
     const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
+    const [isShowEditCourse, setIsShowEditCourse] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState(null)
     const socket = io('http://localhost:3001'); // Kết nối tới server   
     useEffect(() => {
@@ -26,19 +29,30 @@ function AdminHomePage() {
 
         getCourses();
 
-        // Lắng nghe sự kiện course_added
         socket.on('course_added', (newCourse) => {
             setCourses((prevCourses) => [...prevCourses, newCourse]);
         });
 
+        socket.on('course_edited', (updatedCourse) => {
+            setCourses((prevCourses) => {
+                return prevCourses.map(course =>
+                    course.courseId === updatedCourse.courseId ? updatedCourse : course
+                )
+            })
+        })
+
         return () => {
-            socket.off('course_added'); // Gỡ sự kiện khi component bị unmount
+            socket.off('course_added');
         };
     }, [])
 
-    const toggleIsShowCreateCourse = (course = null) => {
-        setSelectedCourse(course)
+    const toggleIsShowCreateCourse = () => {
         setIsShowCreateCourse(!isShowCreateCourse)
+    }
+
+    const toggleIsShowEditCourse = (course) => {
+        setSelectedCourse(course)
+        setIsShowEditCourse(!isShowEditCourse)
     }
 
     const COURSE_ACTIONS = [
@@ -46,7 +60,7 @@ function AdminHomePage() {
             icon: TiEdit,
             title: "Chỉnh sửa",
             onClick: course => {
-                toggleIsShowCreateCourse(course)
+                toggleIsShowEditCourse(course)
             }
         },
         {
@@ -254,7 +268,10 @@ function AdminHomePage() {
             </div>
 
             {isShowCreateCourse && (
-                <CreateCourseModal course={selectedCourse} toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
+                <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
+            )}
+            {isShowEditCourse && (
+                <EditCourseModal course={selectedCourse} toggleIsShowEditCourse={toggleIsShowEditCourse} />
             )}
         </>
     )
