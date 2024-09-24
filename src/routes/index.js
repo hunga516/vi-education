@@ -13,6 +13,6 @@ export const publicRoute = [
     { path: '/reels', element: ReelsPage, layout: DefautLayout },
     { path: '/sign-in', element: PopupLogin, layout: NoneLayout },
     { path: '/forums', element: ForumsPage },
-    { path: '/admin', element: AdminHomePage },
+    { path: '/admin/courses', element: AdminHomePage },
     { path: '/:nickname', element: ProfilePage },
 ]

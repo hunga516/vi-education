@@ -14,11 +14,12 @@ function AdminHomePage() {
     const [courses, setCourses] = useState([])
     const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
     const [isShowEditCourse, setIsShowEditCourse] = useState(false)
-    const [selectedCourse, setSelectedCourse] = useState(null)
-    const socket = io('http://localhost:3001'); // Kết nối tới server   
+    const [selectedCourse, setSelectedCourse] = useState(null) //for render courses
+    const [isActiveButton, setIsActiveButton] = useState('all')
+    const socket = io('http://localhost:3001');
     useEffect(() => {
 
-        const getCourses = async () => {
+        const getAllCourses = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/courses')
                 setCourses(response.data)
@@ -27,8 +28,40 @@ function AdminHomePage() {
             }
         }
 
-        getCourses();
+        const getRecentCourses = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/courses')
+                setCourses(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
+        const getTrashCourses = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/courses')
+                setCourses(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        //For active button (all,recent,trash)
+        switch (isActiveButton) {
+            case 'all':
+                getAllCourses()
+                break;
+            case 'recent':
+                getRecentCourses()
+                break;
+            case 'all':
+                getTrashCourses()
+                break;
+            default:
+                break;
+        }
+
+        //Listen socketi io for realtime
         socket.on('course_added', (newCourse) => {
             setCourses((prevCourses) => [...prevCourses, newCourse]);
         });
@@ -40,6 +73,7 @@ function AdminHomePage() {
                 )
             })
         })
+
 
         return () => {
             socket.off('course_added');
@@ -114,16 +148,25 @@ function AdminHomePage() {
                 </div>
 
                 <div className="mt-6 md:flex md:items-center md:justify-between drop-shadow-md">
-                    <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg  rtl:flex-row-reverse">
-                        <button className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm  ">
+                    <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg rtl:flex-row-reverse">
+                        <button
+                            className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm"
+                            onClick={() => setIsActiveButton('all')}
+                        >
                             Tất cả
                         </button>
 
-                        <button className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm  hover:bg-gray-100">
+                        <button
+                            className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm  hover:bg-gray-100"
+                            onClick={() => setIsActiveButton('recent')}
+                        >
                             Gần đây
                         </button>
 
-                        <button className="flex items-center gap-2 px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm  hover:bg-gray-100">
+                        <button
+                            className="flex items-center gap-2 px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm  hover:bg-gray-100"
+                            onClick={() => setIsActiveButton('trash')}
+                        >
                             <FaRegTrashAlt />
                             Thùng rác
                         </button>
@@ -140,12 +183,12 @@ function AdminHomePage() {
                     </div>
                 </div>
 
-                <div className="flex flex-col mt-6 drop-shadow-md">
+                <div className="tagble flex flex-col mt-6 drop-shadow-md">
                     <div className="">
                         <div className="inline-block min-w-full py-2 align-middle">
                             <div className="overflow-hidden border border-gray-200  md:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-200 ">
-                                    <thead className="bg-gray-50 ">
+                                    <thead className="bg-slate-50">
                                         <tr>
                                             <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                                 STT
@@ -183,7 +226,7 @@ function AdminHomePage() {
 
                                     <tbody class="bg-white divide-y divide-gray-200">
                                         {courses.map((course, index) => (
-                                            <tr>
+                                            <tr className="even:bg-slate-50">
                                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                                     <h2 class="font-medium text-gray-800">{course.courseId}</h2>
                                                 </td>
