@@ -21,7 +21,7 @@ function AdminHomePage() {
 
         const getAllCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/courses')
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses`)
                 setCourses(response.data)
             } catch (error) {
                 console.log(error);
@@ -30,7 +30,7 @@ function AdminHomePage() {
 
         const getRecentCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/courses?sort=updatedAt&order=desc')
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?sort=updatedAt&order=desc`)
                 setCourses(response.data)
             } catch (error) {
                 console.log(error);
@@ -39,7 +39,7 @@ function AdminHomePage() {
 
         const getTrashCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/courses/trash')
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/trash`)
                 setCourses(response.data)
             } catch (error) {
                 console.log(error);
@@ -54,7 +54,7 @@ function AdminHomePage() {
             case 'recent':
                 getRecentCourses()
                 break;
-            case 'all':
+            case 'trash':
                 getTrashCourses()
                 break;
             default:
@@ -70,6 +70,22 @@ function AdminHomePage() {
             setCourses((prevCourses) => {
                 return prevCourses.map(course =>
                     course.courseId === updatedCourse.courseId ? updatedCourse : course
+                )
+            })
+        })
+
+        socket.on('course_soft_deleted', (courseDeleted) => {
+            setCourses((prevCourses) => {
+                return prevCourses.filter(course =>
+                    course.courseId !== courseDeleted.courseId
+                )
+            })
+        })
+
+        socket.on('course_restored', (courseRestored) => {
+            setCourses((prevCourses) => {
+                return prevCourses.filter(course =>
+                    course.courseId !== courseRestored.courseId
                 )
             })
         })
@@ -90,17 +106,36 @@ function AdminHomePage() {
         setIsShowEditCourse(!isShowEditCourse)
     }
 
+    const handleSoftDelete = async (course) => {
+        try {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course.courseId}`)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleRestore = async (course) => {
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course.courseId}`)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const COURSE_ACTIONS = [
         {
             icon: TiEdit,
             title: "Chỉnh sửa",
-            onClick: course => {
+            onClick: function (course) {
                 toggleIsShowEditCourse(course)
             }
         },
         {
             icon: MdDeleteOutline,
-            title: "Xoá"
+            title: "Xoá",
+            onClick: function (course) {
+                handleSoftDelete(course)
+            }
         }
     ]
 
@@ -263,17 +298,23 @@ function AdminHomePage() {
                                                     </div>
                                                 </td>
 
-                                                <Menu items={COURSE_ACTIONS} payload={course}>
-                                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                                        <button
-                                                            class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100"
-                                                        >
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                                            </svg>
-                                                        </button>
+                                                {activeButton === 'trash' ? (
+                                                    <td>
+                                                        <button onClick={() => handleRestore(course)}>Khôi phục</button>
                                                     </td>
-                                                </Menu>
+                                                ) : (
+                                                    <Menu items={COURSE_ACTIONS} payload={course}>
+                                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                                            <button
+                                                                class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100"
+                                                            >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </Menu>
+                                                )}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -281,7 +322,7 @@ function AdminHomePage() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
                     <div class="text-sm text-gray-500">
                         Trang <span class="font-medium text-gray-700">1 / 10</span>
