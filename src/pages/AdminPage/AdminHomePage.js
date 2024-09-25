@@ -15,7 +15,7 @@ function AdminHomePage() {
     const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
     const [isShowEditCourse, setIsShowEditCourse] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState(null) //for render courses
-    const [isActiveButton, setIsActiveButton] = useState('all')
+    const [activeButton, setActiveButton] = useState('all')
     const socket = io('http://localhost:3001');
     useEffect(() => {
 
@@ -30,7 +30,7 @@ function AdminHomePage() {
 
         const getRecentCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/courses')
+                const response = await axios.get('http://localhost:3001/courses?sort=updatedAt&order=desc')
                 setCourses(response.data)
             } catch (error) {
                 console.log(error);
@@ -39,7 +39,7 @@ function AdminHomePage() {
 
         const getTrashCourses = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/courses')
+                const response = await axios.get('http://localhost:3001/courses/trash')
                 setCourses(response.data)
             } catch (error) {
                 console.log(error);
@@ -47,7 +47,7 @@ function AdminHomePage() {
         }
 
         //For active button (all,recent,trash)
-        switch (isActiveButton) {
+        switch (activeButton) {
             case 'all':
                 getAllCourses()
                 break;
@@ -77,8 +77,9 @@ function AdminHomePage() {
 
         return () => {
             socket.off('course_added');
+            socket.off('course_edited');
         };
-    }, [])
+    }, [activeButton])
 
     const toggleIsShowCreateCourse = () => {
         setIsShowCreateCourse(!isShowCreateCourse)
@@ -150,22 +151,22 @@ function AdminHomePage() {
                 <div className="mt-6 md:flex md:items-center md:justify-between drop-shadow-md">
                     <div className="inline-flex overflow-hidden bg-white border divide-x rounded-lg rtl:flex-row-reverse">
                         <button
-                            className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm"
-                            onClick={() => setIsActiveButton('all')}
+                            className={`px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm ${activeButton === 'all' ? 'bg-gray-100' : 'bg-white'}`}
+                            onClick={() => setActiveButton('all')}
                         >
                             Tất cả
                         </button>
 
                         <button
-                            className="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm  hover:bg-gray-100"
-                            onClick={() => setIsActiveButton('recent')}
+                            className={`px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm ${activeButton === 'recent' ? 'bg-gray-100' : 'bg-white'}`}
+                            onClick={() => setActiveButton('recent')}
                         >
                             Gần đây
                         </button>
 
                         <button
-                            className="flex items-center gap-2 px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm  hover:bg-gray-100"
-                            onClick={() => setIsActiveButton('trash')}
+                            className={`flex items-center px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm ${activeButton === 'trash' ? 'bg-gray-100' : 'bg-white'}`}
+                            onClick={() => setActiveButton('trash')}
                         >
                             <FaRegTrashAlt />
                             Thùng rác
@@ -308,14 +309,17 @@ function AdminHomePage() {
                         </a>
                     </div>
                 </div>
-            </div>
+            </div >
 
             {isShowCreateCourse && (
                 <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
-            )}
-            {isShowEditCourse && (
-                <EditCourseModal course={selectedCourse} toggleIsShowEditCourse={toggleIsShowEditCourse} />
-            )}
+            )
+            }
+            {
+                isShowEditCourse && (
+                    <EditCourseModal course={selectedCourse} toggleIsShowEditCourse={toggleIsShowEditCourse} />
+                )
+            }
         </>
     )
 }
