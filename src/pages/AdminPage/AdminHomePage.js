@@ -16,9 +16,10 @@ function AdminHomePage() {
     const [isShowEditCourse, setIsShowEditCourse] = useState(false)
     const [selectedCourse, setSelectedCourse] = useState(null) //for render courses
     const [activeButton, setActiveButton] = useState('all')
+    const [searchQuery, setSearchQuery] = useState('')
     const socket = io('http://localhost:3001');
-    useEffect(() => {
 
+    useEffect(() => {
         const getAllCourses = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses`)
@@ -122,6 +123,16 @@ function AdminHomePage() {
         }
     }
 
+    const handleSearch = async (e) => {
+        try {
+            setSearchQuery(e.target.value) // Cập nhật giá trị tìm kiếm
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`) // Gửi yêu cầu tìm kiếm
+            setCourses(response.data) // Cập nhật danh sách khóa học
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const COURSE_ACTIONS = [
         {
             icon: TiEdit,
@@ -215,7 +226,7 @@ function AdminHomePage() {
                             </svg>
                         </span>
 
-                        <input type="text" placeholder="Tìm bài viết" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                        <input onChange={(e) => handleSearch(e)} type="text" placeholder="Tìm bài viết" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
                 </div>
 
