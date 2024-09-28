@@ -27,8 +27,8 @@ function HomePage() {
         <>
             <div className="home-page-wrapper bg-white rounded-md shadow-2xl px-5 py-4">
                 <img
-                    src={images.backgroundSub}
-                    className="h-80 w-full rounded-2xl"
+                    src={"https://caodang.fpt.edu.vn/wp-content/uploads/express-js-an-ideal-node-js-framework-to-develop-enterprise-web-applications.jpg"}
+                    className="h-100 w-full rounded-2xl object-"
                     alt=""
                 />
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>

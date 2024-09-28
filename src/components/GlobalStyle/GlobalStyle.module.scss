@@ -13,7 +13,8 @@
 }
 
 html {
-    // overflow-y: hidden;
+    overflow-y: auto;
+    /* Thay đổi từ hidden sang auto */
     // padding-right: calc(100vw - 100%);
 }
 
@@ -72,6 +73,15 @@ body .tippy-box {
 
 .default {
     height: 60px;
+}
+
+td {
+    overflow: hidden;
+    /* Ẩn nội dung tràn */
+    text-overflow: ellipsis;
+    /* Hiển thị dấu "..." nếu nội dung quá dài */
+    white-space: nowrap;
+    /* Ngăn ngừa xuống dòng */
 }
 
 // input,

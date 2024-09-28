@@ -20,7 +20,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
-            setFormData({ ...formData, [e.target.name]: URL.createObjectURL(e.target.files[0]) })
+            setFormData({ ...formData, [e.target.name]: URL.createObjectURL(e.target.files[0]) }) //URL.createObjectURL(e.target.files[0]) tạo local img preview blog://
         } else {
             setFormData({ ...formData, [e.target.name]: e.target.value })
         }
