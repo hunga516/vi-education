@@ -72,9 +72,9 @@ function AdminHomePage() {
         socket.on('course_edited', (updatedCourse) => {
             setCourses((prevCourses) => {
                 const updatedCourses = prevCourses.map(course =>
-                    course.courseId === updatedCourse.courseId ? updatedCourse : course
+                    course._id === updatedCourse._id ? updatedCourse : course
                 );
-                setCouseEditedId(updatedCourse.courseId)
+                setCouseEditedId(updatedCourse._id)
                 return updatedCourses
             });
         });
@@ -82,7 +82,7 @@ function AdminHomePage() {
         socket.on('course_soft_deleted', (courseDeleted) => {
             setCourses((prevCourses) => {
                 return prevCourses.filter(course =>
-                    course.courseId !== courseDeleted.courseId
+                    course._id !== courseDeleted._id
                 )
             })
         })
@@ -90,7 +90,7 @@ function AdminHomePage() {
         socket.on('course_restored', (courseRestored) => {
             setCourses((prevCourses) => {
                 return prevCourses.filter(course =>
-                    course.courseId !== courseRestored.courseId
+                    course._id !== courseRestored._id
                 )
             })
         })
@@ -99,10 +99,10 @@ function AdminHomePage() {
         return () => {
             socket.off('course_added');
             socket.off('course_edited');
+            socket.off('course_soft_deleted');
+            socket.off('course_restored');
         };
     }, [activeButton])
-
-    console.log(courseEditedId);
 
     const toggleIsShowCreateCourse = () => {
         setIsShowCreateCourse(!isShowCreateCourse)
@@ -115,7 +115,7 @@ function AdminHomePage() {
 
     const handleSoftDelete = async (course) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course.courseId}`)
+            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course._id}`)
         } catch (error) {
             console.log(error);
         }
@@ -123,7 +123,7 @@ function AdminHomePage() {
 
     const handleRestore = async (course) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course.courseId}`)
+            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course._id}`)
         } catch (error) {
             console.log(error);
         }
@@ -131,9 +131,9 @@ function AdminHomePage() {
 
     const handleSearch = async (e) => {
         try {
-            setSearchQuery(e.target.value) // Cập nhật giá trị tìm kiếm
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`) // Gửi yêu cầu tìm kiếm
-            setCourses(response.data) // Cập nhật danh sách khóa học
+            setSearchQuery(e.target.value)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`)
+            setCourses(response.data)
         } catch (error) {
             console.log(error);
         }
@@ -155,7 +155,6 @@ function AdminHomePage() {
             }
         }
     ]
-
 
     return (
         <>
@@ -237,14 +236,25 @@ function AdminHomePage() {
                 </div>
 
                 <div className="table max-w-full flex flex-col w-full mt-6 drop-shadow-md">
-                    <Table
-                        headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]} // Truyền tiêu đề
-                        data={courses} // Truyền dữ liệu
-                        activeButton={activeButton}
-                        handleRestore={handleRestore}
-                        courseEditedId={courseEditedId}
-                        courseActions={COURSE_ACTIONS}
-                    />
+                    {activeButton === 'all' || activeButton === 'recent' ? (
+                        <Table
+                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
+                            data={courses}
+                            activeButton={activeButton}
+                            handleRestore={handleRestore}
+                            courseEditedId={courseEditedId}
+                            courseActions={COURSE_ACTIONS}
+                        />
+                    ) : (
+                        <Table
+                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}
+                            data={courses}
+                            activeButton={activeButton}
+                            handleRestore={handleRestore}
+                            courseEditedId={courseEditedId}
+                            courseActions={COURSE_ACTIONS}
+                        />
+                    )}
                 </div >
                 <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
                     <div class="text-sm text-gray-500">

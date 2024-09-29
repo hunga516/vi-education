@@ -5,6 +5,7 @@ import { BsFillClockFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import request from "../utils/request";
+import { Link } from "react-router-dom";
 
 function HomePage() {
     const [courses, setCourses] = useState([])
@@ -35,11 +36,11 @@ function HomePage() {
                 {/* list courses */}
                 <div className="flex flex-wrap gap-x-2 gap-y-4 items-center mt-2">
                     {courses.map((item, index) => (
-                        <div className="course-item-info" key={index}>
-                            <img src={item.images} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                            <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                                <h3 className="text-lg font-medium leading-7 text-gray-800">{item.name}</h3>
-                                <span className="text-sm font-medium leading-6 text-gray-600">{item.description}</span>
+                        <Link to={`/courses/${item._id}`} className="course-item-info" key={index}>
+                            < img src={item.images} alt="course" className="w-64 h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
+                            <div className="course-info-content flex flex-col gap-2 w-64 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
+                                <h3 className="text-lg font-medium leading-7 text-gray-800 overflow-hidden text-ellipsis">{item.title}</h3>
+                                <span className="text-sm font-medium leading-6 text-gray-600 overflow-hidden text-ellipsis">{item.description}</span>
                                 <div className="flex justify-between items-center mt-4">
                                     <div className="user-upload flex items-center gap-1">
                                         <img src={images.sony} alt="" className="w-[16px] rounded-full" />
@@ -55,7 +56,7 @@ function HomePage() {
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
@@ -193,7 +194,7 @@ function HomePage() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

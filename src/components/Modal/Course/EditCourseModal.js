@@ -29,7 +29,7 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course.courseId}`, formData)
+            await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course._id}`, formData)
             toggleIsShowEditCourse();
         } catch (error) {
             console.log(error);

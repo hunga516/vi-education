@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import SidebarLeft from "../components/SidebarLeft";
 import SidebarRight from "../components/SidebarRight";
 
-function DefaultLayout({ children }) {
+function OnSideLayout({ children }) {
     return (
         <div className="min-h-screen">
             <Header />
@@ -18,14 +18,13 @@ function DefaultLayout({ children }) {
                 />
 
                 {/* Content Wrapper */}
-                <div className="w-[900px] mt-[80px] px-8 ml-[250px] mr-[250px]">
+                <div className="w-full mt-[80px] px-8 ml-[250px]">
                     {children}
                 </div>
 
             </div>
-            {/* <SidebarRight className="fixed right-0 top-[61px] z-10 w-[250px]" /> */}
         </div>
     );
 }
 
-export default DefaultLayout;
+export default OnSideLayout;

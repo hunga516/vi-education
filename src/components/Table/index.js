@@ -7,8 +7,6 @@ import Button from '../Button';
 
 const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, courseActions }) => {
 
-    console.log(courseEditedId);
-
     return (
         <div className="inline-block min-w-full py-2 align-middle">
             <div className="overflow-hidden border border-gray-200 md:rounded-lg">
@@ -27,7 +25,7 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                         {data.map((course, index) => (
-                            <tr key={course.courseId} className={`transition ease-out duration-200 hover:bg-gray-200 hover:duration-75 even:bg-slate-50 ${courseEditedId === course.courseId ? 'transition ease-out duration-1000 bg-green-200' : ''}`}>
+                            <tr key={course._id} className={`transition ease-out duration-200 hover:bg-gray-200 hover:duration-75 even:bg-slate-50 ${courseEditedId === course._id ? 'transition ease-out duration-1000 bg-green-200' : ''}`}>
                                 <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <h2 className="font-medium text-gray-800">{course.courseId}</h2>
                                 </td>
@@ -46,9 +44,15 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                                 <td className="px-4 py-4 text-sm whitespace-nowrap">
                                     <h4 className="text-gray-700 text-center">{course.registrationCount}</h4>
                                 </td>
-                                <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                    <h4 className="text-gray-700 text-left">{course.updatedAt}</h4>
-                                </td>
+                                {activeButton === 'trash' ? (
+                                    <td className="px-4 py-4 text-sm whitespace-nowrap">
+                                        <h4 className="text-gray-700 text-left">{course.deletedAt}</h4>
+                                    </td>
+                                ) : (
+                                    <td className="px-4 py-4 text-sm whitespace-nowrap">
+                                        <h4 className="text-gray-700 text-left">{course.updatedAt}</h4>
+                                    </td>
+                                )}
                                 {activeButton === 'trash' ? (
                                     <td className=''>
                                         <Button className='text-sm px-[-2] hover:bg-gray-200 hover:duration-200' onClick={() => handleRestore(course)}>
