@@ -51,7 +51,7 @@ function DetailsCoursePage() {
             <div className="flex justify-between gap-4 p-4">
                 <img
                     src={course.images}
-                    className="w-64 h-64 rounded-lg"
+                    className="w-64 h-64 rounded-lg object-cover"
                 />
                 <div className="info-course flex flex-col justify-between p-2 flex-grow">
                     <h1 className="flex justify-between text-lg font-semibold leading-7 tracking-normal">
@@ -85,12 +85,12 @@ function DetailsCoursePage() {
             {course.author && (
                 <div className="author-course flex flex-row gap-4 p-4 rounded-lg flex-shrink-0">
                     <div className="w-full h-[900px] bg-yellow-500"></div>
-                    <div className="w-1/3 p-4 flex flex-col ">
-                        <img
-                            src={course.author.photoURL}
-                            className="rounded-full w-16 h-16 mx-auto"
-                        />
+                    <div className="w-1/3 p-4 flex flex-col border-l border-1">
                         <div className="info-author text-center mt-2 relative">
+                            <img
+                                src={course.author.photoURL}
+                                className="rounded-full w-16 h-16 mx-auto object-cover"
+                            />
                             <h2 className="text-sm font-semibold leading-6 text-slate-700">{course.author.displayName}</h2>
                             <span className="text-sm font-light leading-6 text-slate-500">{course.author.email}</span>
 
@@ -102,7 +102,7 @@ function DetailsCoursePage() {
                             </span>
                             <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
                                 <BsJournalBookmark />
-                                4 khoá học
+                                {authorCourses.length} khoá học
                             </span>
                             <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
                                 <FaUserGraduate />
@@ -113,7 +113,7 @@ function DetailsCoursePage() {
                             <div className="h-[500px] overflow-hidden mt-2 grid grid-cols-2 gap-2">
                                 {authorCourses.map((course) => (
                                     <Link to={`/courses/${course._id}`} className="info-course">
-                                        <img className="rounded-md" src={course.images} />
+                                        <img className="rounded-md w-full h-[120px] object-cover" src={course.images} />
                                     </Link>
                                 ))}
                             </div>
