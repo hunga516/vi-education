@@ -16,7 +16,7 @@ module.exports = {
       },
       backgroundColor: {
         "primary": "#fe2c55",
-        "bluePrimary": "#007FFF" // Sửa lỗi chính tả ở đây
+        "bluePrimary": "#007FFF"
       },
       textColor: {
         "bluePrimary": "#007FFF"

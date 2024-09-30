@@ -69,7 +69,7 @@ function SidebarLeft({ className }) {
                                     key={index}
                                     to={item.to}
                                     className={`${location.pathname === item.to
-                                        ? 'bg-gray-200 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-red-500'
+                                        ? 'bg-gray-200 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-bluePrimary'
                                         : ''
                                         } flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg relative `}
                                 >

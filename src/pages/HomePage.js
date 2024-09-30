@@ -14,7 +14,7 @@ function HomePage() {
 
         const getCourses = async () => {
             try {
-                const response = await request.get('/courses')
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses`)
                 setCourses(response.data)
             } catch (error) {
                 console.log(error);
@@ -23,6 +23,8 @@ function HomePage() {
 
         getCourses();
     }, [])
+
+    console.log(courses);
 
     return (
         <>
@@ -38,21 +40,25 @@ function HomePage() {
                     {courses.map((item, index) => (
                         <Link to={`/courses/${item._id}`} className="course-item-info" key={index}>
                             < img src={item.images} alt="course" className="w-64 h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                            <div className="course-info-content flex flex-col gap-2 w-64 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
+                            <div className="course-info-content flex flex-col gap-2 w-64 h-54 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
                                 <h3 className="text-lg font-medium leading-7 text-gray-800 overflow-hidden text-ellipsis">{item.title}</h3>
-                                <span className="text-sm font-medium leading-6 text-gray-600 overflow-hidden text-ellipsis">{item.description}</span>
+                                <span className="h-24 text-sm font-medium leading-6 text-gray-600 overflow-hidden text-ellipsis">{item.description}</span>
                                 <div className="flex justify-between items-center mt-4">
                                     <div className="user-upload flex items-center gap-1">
-                                        <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                        <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
+                                        {item.author && (
+                                            <>
+                                                <img src={item.author.photoURL} alt="" className="w-[16px] rounded-full" />
+                                                <span className="text-sm leading-6 font-medium text-gray-600">{item.author.displayName}</span>
+                                            </>
+                                        )}
                                     </div>
                                     <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                        120
                                         <FaUsers />
+                                        120
                                     </span>
                                     <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                        12
                                         <BsFillClockFill />
+                                        12
                                     </span>
                                 </div>
                             </div>

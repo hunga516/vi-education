@@ -3,6 +3,7 @@ import { publicRoute } from "./routes";
 
 import DefaultLayout from "./layouts/DefaultLayout";
 import { AuthModalProvider, AuthProvider, LoadingProvider } from "./context";
+import ScrollToTop from "./hooks/ScrollToTop";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <BrowserRouter>
             <AuthModalProvider>
               <AuthProvider>
+                <ScrollToTop />
                 <Routes>
                   {publicRoute.map((route, index) => {
                     const Layout = route.layout ? route.layout : DefaultLayout
