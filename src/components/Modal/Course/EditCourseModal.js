@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
+import { Editor } from '@tinymce/tinymce-react';
 
 import { IoArrowBack } from "react-icons/io5";
 
@@ -15,8 +16,10 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
         description: course.description,
         images: course.images,
         author: userId,
-        role: course.role
+        role: course.role,
+        content: course.content
     });
+    const editorRef = useRef(null);
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
@@ -29,6 +32,8 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            formData.content = editorRef.current.getContent()
+
             await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course._id}`, formData)
             toggleIsShowEditCourse();
         } catch (error) {
@@ -133,6 +138,28 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
                                         className='h-40 py-1.5 resize text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
                                         placeholder={course.description || '...'}
                                         onChange={handleChange}
+                                    />
+                                </div>
+
+                                <div className='content'>
+                                    <Editor
+                                        apiKey='bzvtlkoota8hewyizr7ejk6wvqytmvudptgpviyat17odt93'
+                                        onInit={(_evt, editor) => editorRef.current = editor}
+                                        initialValue={course.content}
+                                        init={{
+                                            height: 500,
+                                            menubar: false,
+                                            plugins: [
+                                                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                                            ],
+                                            toolbar: 'undo redo | blocks | ' +
+                                                'bold italic forecolor | alignleft aligncenter ' +
+                                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                                'removeformat | help',
+                                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                        }}
                                     />
                                 </div>
                             </div>

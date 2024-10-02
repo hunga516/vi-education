@@ -6,9 +6,9 @@ import { FaFilm } from "react-icons/fa6";
 import { IoTimeSharp } from "react-icons/io5";
 import { MdWork } from "react-icons/md";
 import { MdQuestionMark } from "react-icons/md";
-import { WiTime7 } from "react-icons/wi";
+import { FaClock } from "react-icons/fa";
 import { FaPlusCircle } from "react-icons/fa";
-import { BsJournalBookmark } from "react-icons/bs";
+import { IoBook } from "react-icons/io5";
 import { FaUserGraduate } from "react-icons/fa6";
 
 import Button from "../components/Button";
@@ -83,8 +83,9 @@ function DetailsCoursePage() {
                 </div>
             </div>
             {course.author && (
-                <div className="author-course flex flex-row gap-4 p-4 rounded-lg flex-shrink-0">
-                    <div className="w-full h-[900px] bg-yellow-500"></div>
+                <div className="author-course mt-8 flex flex-row gap-4 p-4 rounded-lg flex-shrink-0">
+                    <div dangerouslySetInnerHTML={{ __html: course.content }} className="w-full">
+                    </div>
                     <div className="w-1/3 p-4 flex flex-col border-l border-1">
                         <div className="info-author text-center mt-2 relative">
                             <img
@@ -97,11 +98,11 @@ function DetailsCoursePage() {
                             <div className="w-full mt-2 border-b border-1"></div>
 
                             <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
-                                <WiTime7 />
+                                <FaClock />
                                 Tham gia 1 ngày trước
                             </span>
                             <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
-                                <BsJournalBookmark />
+                                <IoBook />
                                 {authorCourses.length} khoá học
                             </span>
                             <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
