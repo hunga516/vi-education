@@ -32,9 +32,22 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            formData.content = editorRef.current.getContent()
+            const data = new FormData()
+            data.append('file', formData.images)
 
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formData)
+            const uploadRes = await axios.post(`${process.env.REACT_APP_API_URL}/courses/upload-images`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
+
+            const imgURL = uploadRes.data.ure_url
+
+            await axios.post(`${process.env.REACT_APP_API_URL}/courses`, {
+                ...formData,
+                images: imgURL,
+                content: editorRef.current.getContent()
+            })
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
