@@ -11,6 +11,7 @@ import { AuthContext } from '../../../context/AuthContext';
 
 function CreateCourseModal({ toggleIsShowCreateCourse }) {
     const { userId } = useContext(AuthContext)
+    const [images, setImages] = useState()
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -23,7 +24,8 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
-            setFormData({ ...formData, [e.target.name]: URL.createObjectURL(e.target.files[0]) }) //URL.createObjectURL(e.target.files[0]) tạo local img preview blog://
+            setFormData({ ...formData, [e.target.name]: e.target.files[0] }) //URL.createObjectURL(e.target.files[0]) tạo local img preview blog://
+            setImages(URL.createObjectURL(e.target.files[0]))
         } else {
             setFormData({ ...formData, [e.target.name]: e.target.value })
         }
@@ -31,28 +33,27 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const data = new FormData()
-            data.append('file', formData.images)
 
-            const uploadRes = await axios.post(`${process.env.REACT_APP_API_URL}/courses/upload-images`, data, {
+        const formDataToSend = new FormData();
+
+        for (const key in formData) {
+            formDataToSend.append(key, formData[key]);
+        }
+
+        formDataToSend.append('content', editorRef.current.getContent());
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/courses`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                }
-            })
-
-            const imgURL = uploadRes.data.ure_url
-
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses`, {
-                ...formData,
-                images: imgURL,
-                content: editorRef.current.getContent()
-            })
+                },
+            });
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
 
     return createPortal(
         <div className="relative">
@@ -119,8 +120,8 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
                                 <div className='title-input flex flex-col gap-2'>
                                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                        {formData.images ? (
-                                            <img src={formData.images} alt='' />
+                                        {images ? (
+                                            <img src={images} alt='' />
                                         ) : (
                                             <div class="text-center">
                                                 <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
