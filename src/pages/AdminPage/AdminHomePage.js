@@ -19,6 +19,7 @@ function AdminHomePage() {
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [courseEditedId, setCouseEditedId] = useState('')
+
     const socket = io('http://localhost:3001');
 
     useEffect(() => {
@@ -156,6 +157,13 @@ function AdminHomePage() {
         }
     ]
 
+    const handleActionForm = async (e, data) => {
+        e.preventDefaut()
+
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, data)
+
+    }
+
     return (
         <>
             <div className="home-page-wrapper bg-white rounded-md shadow-2xl px-5 py-4">
@@ -244,6 +252,7 @@ function AdminHomePage() {
                             handleRestore={handleRestore}
                             courseEditedId={courseEditedId}
                             courseActions={COURSE_ACTIONS}
+                            handleActionForm={handleActionForm}
                         />
                     ) : (
                         <Table

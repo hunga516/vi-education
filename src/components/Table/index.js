@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { LuArchiveRestore } from "react-icons/lu";
+import { IoIosOptions } from "react-icons/io";
 
 import Menu from "../Popper/Menu";
 import Button from '../Button';
 
-const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, courseActions }) => {
+const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, courseActions, handleActionForm }) => {
+    const [isSelectAction, setIsSelectAtion] = useState(false)
+
 
     return (
         <div className="inline-block min-w-full py-2 align-middle">
+            {isSelectAction && (
+                <select name='aciton'>
+                    <option value=''>--------</option>
+                    <option value=''>--------</option>
+                </select>
+            )}
+
             <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-slate-50 font-sans">
@@ -18,8 +28,10 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                                     {header}
                                 </th>
                             ))}
-                            <th className="relative py-3.5 px-4">
-                                <span className="sr-only">Edit</span>
+                            <th className="relative flex justify-center py-3.5 px-4 text-center">
+                                <button onClick={() => setIsSelectAtion(!isSelectAction)}>
+                                    <IoIosOptions className='text-center' />
+                                </button>
                             </th>
                         </tr>
                     </thead>
@@ -62,7 +74,7 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                                     </td>
                                 ) : (
                                     <Menu items={courseActions} payload={course}>
-                                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                                        <td className="flex justify-center px-4 py-4 text-sm whitespace-nowrap">
                                             <button className="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
