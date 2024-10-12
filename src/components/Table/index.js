@@ -2,21 +2,44 @@ import React, { useState } from 'react';
 
 import { LuArchiveRestore } from "react-icons/lu";
 import { IoIosOptions } from "react-icons/io";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { TiEdit } from 'react-icons/ti';
 
 import Menu from "../Popper/Menu";
 import Button from '../Button';
+import axios from 'axios';
 
 const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, courseActions, handleActionForm }) => {
     const [isSelectAction, setIsSelectAtion] = useState(false)
+    const [courseIds, setCourseIds] = useState([])
 
+
+    const handleSoftDeleteFormAction = async () => {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, {
+            action: 'soft-delete',
+            courseIds,
+        })
+    }
+
+    const handleChangeCheckbox = (e) => {
+        if (e.target.checked) {
+            setCourseIds(prev => [...prev, e.target.value])
+        }
+    }
 
     return (
         <div className="inline-block min-w-full py-2 align-middle">
             {isSelectAction && (
-                <select name='aciton'>
-                    <option value=''>--------</option>
-                    <option value=''>--------</option>
-                </select>
+                <div className='flex justify-end'>
+                    <Button onClick={handleSoftDeleteFormAction} className={"flex text-sm w-[200px] text-bluePrimary "} size='medium'>
+                        <FaRegTrashAlt />
+                        Chuyển vào thùng rác
+                    </Button>
+                    <Button className={"flex text-sm w-[120px] text-bluePrimary "} size='medium'>
+                        <TiEdit className='text-[16px]' />
+                        Chỉnh sửa
+                    </Button>
+                </div>
             )}
 
             <div className="overflow-hidden border border-gray-200 md:rounded-lg">
@@ -38,9 +61,21 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                     <tbody className="bg-white divide-y divide-gray-200">
                         {data.map((course, index) => (
                             <tr key={course._id} className={`transition ease-out duration-200 hover:bg-gray-200 hover:duration-75 even:bg-slate-50 ${courseEditedId === course._id ? 'transition ease-out duration-1000 bg-green-200' : ''}`}>
-                                <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <h2 className="font-medium text-gray-800">{course.courseId}</h2>
-                                </td>
+                                {isSelectAction ? (
+                                    <>
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <input type='checkbox' name='courseId' value={course._id}
+                                                onChange={handleChangeCheckbox}
+                                            />
+                                        </td>
+                                    </>
+                                ) : (
+                                    <>
+                                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                            <h2 className="font-medium text-gray-800">{course.courseId}</h2>
+                                        </td>
+                                    </>
+                                )}
                                 <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <h2 className="font-medium text-gray-800">{course.role}</h2>
                                 </td>
@@ -86,7 +121,7 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table >
             </div >
         </div >
     );

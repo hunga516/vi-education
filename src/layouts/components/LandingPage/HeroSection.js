@@ -9,14 +9,14 @@ const HeroSection = () => {
             <div className="flex gap-5 max-md:flex-col">
                 <div className="flex flex-col w-[59%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col items-start mt-3.5 w-full font-medium max-md:mt-10 max-md:max-w-full">
-                        <h1 className="self-stretch text-6xl font-semibold tracking-wide text-white leading-[70px] max-md:max-w-full max-md:text-4xl max-md:leading-10">
-                            Tự học <span className="text-blue-500">lập trình</span> từ cơ bản đến nâng cao
+                        <h1 className="self-stretch text-6xl font-bold tracking-tight text-white leading-[70px] max-md:max-w-full max-md:text-4xl max-md:leading-10">
+                            Tự học <span className="bg-gradient-to-tr from-blue-700 to-purple-600 text-transparent bg-clip-text">lập trình</span> từ cơ bản đến nâng cao
                         </h1>
                         <p className="mt-3.5 text-base tracking-wide leading-7 text-neutral-300">
                             Vi Education có thể làm điều đó khi bạn có thể tìm thấy mọi khóa học ở đây.
                         </p>
                         <div className="flex gap-5 mt-7 max-w-full text-xl w-[465px]">
-                            <button className="flex items-center justify-center gap-2 text-base gap-2.5 self-stretch px-5 py-1 text-white bg-blue-500 rounded-lg min-h-[41px] w-[300px]">
+                            <button className="flex items-center bg-gradient-to-b to-[#1733ae] from-blue-600  justify-center gap-2 text-base gap-2.5 self-stretch px-5 py-1 text-white rounded-lg min-h-[41px] w-[300px]">
                                 <IoCheckmarkSharp />
                                 Đăng ký học ngay
                             </button>

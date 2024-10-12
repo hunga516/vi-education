@@ -80,12 +80,14 @@ function AdminHomePage() {
             });
         });
 
-        socket.on('course_soft_deleted', (courseDeleted) => {
-            setCourses((prevCourses) => {
-                return prevCourses.filter(course =>
-                    course._id !== courseDeleted._id
+        socket.on('course_soft_deleted', (courseDeleteds) => {
+            setCourses(prevCourses =>
+                prevCourses.filter(course =>
+                    courseDeleteds.some(courseDeleted =>
+                        course._id !== courseDeleted._id
+                    )
                 )
-            })
+            )
         })
 
         socket.on('course_restored', (courseRestored) => {

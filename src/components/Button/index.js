@@ -5,7 +5,7 @@ function Button({ children, to, href, className, onClick, size = "medium", type 
     let Comp = 'button';
 
     const classes = classNames(className, {
-        'min-w-[50px] h-[30px]': size === 'small',
+        // 'min-w-[50px] h-[30px]': size === 'small',
         'min-w-[100px] h-[36px]': size === 'medium',
         'min-w-[200px] h-[42px]': size === 'large',
         'flex disabled:opacity-50 gap-2 items-center justify-center text-[#fff] rounded-md bg-bluePrimary hover:bg-bluePrimary': type === 'primary',
