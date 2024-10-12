@@ -21,6 +21,13 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
         })
     }
 
+    const handleRestoreFormAction = async () => {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, {
+            action: 'restore',
+            courseIds,
+        })
+    }
+
     const handleChangeCheckbox = (e) => {
         if (e.target.checked) {
             setCourseIds(prev => [...prev, e.target.value])
@@ -29,18 +36,27 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
 
     return (
         <div className="inline-block min-w-full py-2 align-middle">
-            {isSelectAction && (
-                <div className='flex justify-end'>
-                    <Button onClick={handleSoftDeleteFormAction} className={"flex text-sm w-[200px] text-bluePrimary "} size='medium'>
-                        <FaRegTrashAlt />
-                        Chuyển vào thùng rác
-                    </Button>
-                    <Button className={"flex text-sm w-[120px] text-bluePrimary "} size='medium'>
-                        <TiEdit className='text-[16px]' />
-                        Chỉnh sửa
-                    </Button>
-                </div>
-            )}
+            <div className='flex justify-end h-10'>
+                {isSelectAction && (
+                    <>
+                        {activeButton === 'trash' ? (
+                            <Button onClick={handleRestoreFormAction} className={"flex text-sm w-[200px] text-bluePrimary "} size='medium'>
+                                <FaRegTrashAlt />
+                                Khôi phục
+                            </Button>
+                        ) : (
+                            <Button onClick={handleSoftDeleteFormAction} className={"flex text-sm w-[200px] text-bluePrimary "} size='medium'>
+                                <FaRegTrashAlt />
+                                Chuyển vào thùng rác
+                            </Button>
+                        )}
+                        <Button className={"flex text-sm w-[120px] text-bluePrimary "} size='medium'>
+                            <TiEdit className='text-[16px]' />
+                            Chỉnh sửa
+                        </Button>
+                    </>
+                )}
+            </div>
 
             <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200">

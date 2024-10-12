@@ -18,7 +18,9 @@ function AdminHomePage() {
     const [selectedCourse, setSelectedCourse] = useState(null) //for render courses
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
-    const [courseEditedId, setCouseEditedId] = useState('')
+    const [courseEditedId, setCousreEditedId] = useState('')
+    const [currentPage, setCurrentPage] = useState(1); // Thêm trạng thái cho trang hiện tại
+    const itemsPerPage = 5; // Số lượng mục trên mỗi trang
 
     const socket = io('http://localhost:3001');
 
@@ -75,27 +77,39 @@ function AdminHomePage() {
                 const updatedCourses = prevCourses.map(course =>
                     course._id === updatedCourse._id ? updatedCourse : course
                 );
-                setCouseEditedId(updatedCourse._id)
+                setCousreEditedId(updatedCourse._id)
                 return updatedCourses
             });
         });
 
         socket.on('course_soft_deleted', (courseDeleteds) => {
             setCourses(prevCourses =>
-                prevCourses.filter(course =>
-                    courseDeleteds.some(courseDeleted =>
-                        course._id !== courseDeleted._id
-                    )
+                prevCourses.filter(course => {
+                    if (Array.isArray(courseDeleteds)) {
+                        return !courseDeleteds.some(courseDeleted =>
+                            course._id === courseDeleted
+                        )
+                    } else {
+                        return course._id !== courseDeleteds
+                    }
+                }
                 )
             )
+            console.log('xoa ne');
         })
 
-        socket.on('course_restored', (courseRestored) => {
-            setCourses((prevCourses) => {
-                return prevCourses.filter(course =>
-                    course._id !== courseRestored._id
-                )
-            })
+        socket.on('course_restored', (courseRestoreds) => {
+            setCourses(prevCourses =>
+                prevCourses.filter(course => {
+                    if (Array.isArray(courseRestoreds)) {
+                        return !courseRestoreds.some(courseRestored =>
+                            course._id === courseRestored._id
+                        );
+                    } else {
+                        return course._id !== courseRestoreds._id;
+                    }
+                })
+            )
         })
 
 
@@ -160,11 +174,12 @@ function AdminHomePage() {
     ]
 
     const handleActionForm = async (e, data) => {
-        e.preventDefaut()
-
+        e.preventDefault();
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, data)
-
     }
+
+    const totalPages = Math.ceil(courses.length / itemsPerPage); // Tính tổng số trang
+    const paginatedCourses = courses.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); // Lấy các khóa học cho trang hiện tại
 
     return (
         <>
@@ -249,7 +264,7 @@ function AdminHomePage() {
                     {activeButton === 'all' || activeButton === 'recent' ? (
                         <Table
                             headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
-                            data={courses}
+                            data={paginatedCourses} // Sử dụng danh sách khóa học đã phân trang
                             activeButton={activeButton}
                             handleRestore={handleRestore}
                             courseEditedId={courseEditedId}
@@ -259,7 +274,7 @@ function AdminHomePage() {
                     ) : (
                         <Table
                             headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}
-                            data={courses}
+                            data={paginatedCourses} // Sử dụng danh sách khóa học đã phân trang
                             activeButton={activeButton}
                             handleRestore={handleRestore}
                             courseEditedId={courseEditedId}
@@ -267,32 +282,10 @@ function AdminHomePage() {
                         />
                     )}
                 </div >
-                <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
-                    <div class="text-sm text-gray-500">
-                        Trang <span class="font-medium text-gray-700">1 / 10</span>
-                    </div>
-
-                    <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-                        <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                            </svg>
-
-                            <span>
-                                Trước
-                            </span>
-                        </a>
-
-                        <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100-800">
-                            <span>
-                                Kế tiếp
-                            </span>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                            </svg>
-                        </a>
-                    </div>
+                <div className="flex justify-between mt-4">
+                    <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>Trước</button>
+                    <span>Trang {currentPage} / {totalPages}</span>
+                    <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>Kế tiếp</button>
                 </div>
             </div >
 
