@@ -15,7 +15,7 @@ function HomePage() {
         const getCourses = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses`)
-                setCourses(response.data)
+                setCourses(response.data.courses)
             } catch (error) {
                 console.log(error);
             }

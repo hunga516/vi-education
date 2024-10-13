@@ -19,16 +19,20 @@ function AdminHomePage() {
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [courseEditedId, setCousreEditedId] = useState('')
-    const [currentPage, setCurrentPage] = useState(1); // Thêm trạng thái cho trang hiện tại
-    const itemsPerPage = 5; // Số lượng mục trên mỗi trang
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(10)
 
     const socket = io('http://localhost:3001');
+
+    console.log(totalPages);
 
     useEffect(() => {
         const getAllCourses = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses`)
-                setCourses(response.data)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?page=${currentPage}`)
+                setCourses(response.data.courses)
+                const response2 = await axios.get(`${process.env.REACT_APP_API_URL}/courses/count`)
+                setTotalPages(Math.ceil(response2.data / 10))
             } catch (error) {
                 console.log(error);
             }
@@ -37,7 +41,7 @@ function AdminHomePage() {
         const getRecentCourses = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?sort=updatedAt&order=desc`)
-                setCourses(response.data)
+                setCourses(response.data.courses)
             } catch (error) {
                 console.log(error);
             }
@@ -46,7 +50,7 @@ function AdminHomePage() {
         const getTrashCourses = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/trash`)
-                setCourses(response.data)
+                setCourses(response.data.courses)
             } catch (error) {
                 console.log(error);
             }
@@ -119,7 +123,7 @@ function AdminHomePage() {
             socket.off('course_soft_deleted');
             socket.off('course_restored');
         };
-    }, [activeButton])
+    }, [activeButton, currentPage])
 
     const toggleIsShowCreateCourse = () => {
         setIsShowCreateCourse(!isShowCreateCourse)
@@ -150,7 +154,7 @@ function AdminHomePage() {
         try {
             setSearchQuery(e.target.value)
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`)
-            setCourses(response.data)
+            setCourses(response.data.courses)
         } catch (error) {
             console.log(error);
         }
@@ -177,9 +181,6 @@ function AdminHomePage() {
         e.preventDefault();
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, data)
     }
-
-    const totalPages = Math.ceil(courses.length / itemsPerPage); // Tính tổng số trang
-    const paginatedCourses = courses.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); // Lấy các khóa học cho trang hiện tại
 
     return (
         <>
@@ -264,7 +265,7 @@ function AdminHomePage() {
                     {activeButton === 'all' || activeButton === 'recent' ? (
                         <Table
                             headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
-                            data={paginatedCourses} // Sử dụng danh sách khóa học đã phân trang
+                            data={courses}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
                             courseEditedId={courseEditedId}
@@ -274,7 +275,7 @@ function AdminHomePage() {
                     ) : (
                         <Table
                             headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}
-                            data={paginatedCourses} // Sử dụng danh sách khóa học đã phân trang
+                            data={courses}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
                             courseEditedId={courseEditedId}
@@ -282,13 +283,30 @@ function AdminHomePage() {
                         />
                     )}
                 </div >
-                <div className="flex justify-between mt-4">
-                    <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>Trước</button>
-                    <span>Trang {currentPage} / {totalPages}</span>
-                    <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>Kế tiếp</button>
-                </div>
-            </div >
-
+                <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
+                    <div class="text-sm text-gray-500">
+                        Trang <span class="font-medium text-gray-700">{currentPage} / {totalPages}</span>
+                    </div>
+                    <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+                        <button onClick={() => setCurrentPage(currentPage - 1)} href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                            </svg>
+                            <span>
+                                Trước
+                            </span>
+                        </button>
+                        <button onClick={() => setCurrentPage(currentPage + 1)} href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100-800">
+                            <span>
+                                Kế tiếp
+                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div >
+            </div>
             {isShowCreateCourse && (
                 <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
             )
