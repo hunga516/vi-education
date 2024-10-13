@@ -6,100 +6,96 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { TiEdit } from "react-icons/ti";
 import { MdDeleteOutline } from "react-icons/md";
 
-import CreateCourseModal from "../../components/Modal/Course/CreateCourseModal";
 import EditCourseModal from "../../components/Modal/Course/EditCourseModal";
-import CourseTable from "../../components/Table/CourseTable";
+import CreateLessonModal from "../../components/Modal/Lesson/CreateLessonModal";
+import LessonTable from "../../components/Table/LessonTable";
 
-function AdminHomePage() {
-    const [courses, setCourses] = useState([])
-    const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
-    const [isShowEditCourse, setIsShowEditCourse] = useState(false)
-    const [selectedCourse, setSelectedCourse] = useState(null) //for render courses
+function AdminLessonPage() {
+    const [lessons, setLessons] = useState([])
+    const [isShowCreateLesson, setIsShowCreateLesson] = useState(false)
+    const [isShowEditLesson, setIsShowEditLesson] = useState(false)
+    const [selectedLesson, setSelectedLesson] = useState(null)
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
-    const [courseEditedId, setCourseEditedId] = useState('')
+    const [chapterEditedId, setChapterEditedId] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
 
     const socket = io('http://localhost:3001');
 
-    console.log(totalPages);
-
     useEffect(() => {
-        // Đặt lại currentPage về 1 khi activeButton thay đổi
         setCurrentPage(1);
-    }, [activeButton]) // Chỉ theo dõi activeButton
+    }, [activeButton])
+
 
     useEffect(() => {
-        const getAllCourses = async () => {
+        const getAllLessons = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?page=${currentPage}`)
-                setCourses(response.data.courses)
-                setTotalPages(Math.ceil(response.data.totalCourses / 10))
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/lessons?page=${currentPage}`)
+                setLessons(response.data.lessons)
+                setTotalPages(Math.ceil(response.data.totalLessons / 10))
             } catch (error) {
                 console.log(error);
             }
         }
 
-        const getRecentCourses = async () => {
+        const getRecentLessons = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?sort=updatedAt&order=desc&page=${currentPage}`)
-                setCourses(response.data.courses)
-                setTotalPages(Math.ceil(response.data.totalCourses / 10))
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?sort=updatedAt&order=desc&page=${currentPage}`)
+                setLessons(response.data.lessons)
+                setTotalPages(Math.ceil(response.data.totalLessons / 10))
             } catch (error) {
                 console.log(error);
             }
         }
 
-        const getTrashCourses = async () => {
+        const getTrashLessons = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/trash?page=${currentPage}`)
-                setCourses(response.data.courses)
-                setTotalPages(Math.ceil(response.data.totalCoursesDeleted / 10))
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons/trash?page=${currentPage}`)
+                setLessons(response.data.lessons)
+                setTotalPages(Math.ceil(response.data.totalLessonsDeleted / 10))
             } catch (error) {
                 console.log(error);
             }
         }
 
-        //For active button (all,recent,trash)
         switch (activeButton) {
             case 'all':
-                getAllCourses()
+                getAllLessons()
                 break;
             case 'recent':
-                getRecentCourses()
+                getRecentLessons()
                 break;
             case 'trash':
-                getTrashCourses()
+                getTrashLessons()
                 break;
             default:
                 break;
         }
 
-        //Listen socketi io for realtime
-        socket.on('course_added', (newCourse) => {
-            setCourses((prevCourses) => [...prevCourses, newCourse]);
+        socket.on('lesson_added', (newLesson) => {
+            setLessons((prevLessons) => [...prevLessons, newLesson]);
         });
 
-        socket.on('course_edited', (updatedCourse) => {
-            setCourses((prevCourses) => {
-                const updatedCourses = prevCourses.map(course =>
-                    course._id === updatedCourse._id ? updatedCourse : course
+        socket.on('lesson_edited', (updatedLesson) => {
+            setLessons((prevLessons) => {
+                const updatedLessons = prevLessons.map(lesson =>
+                    lesson._id === updatedLesson._id ? updatedLesson : lesson
                 );
-                setCourseEditedId(updatedCourse._id)
-                return updatedCourses
+                setChapterEditedId(updatedLesson._id)
+                return updatedLessons
             });
         });
 
-        socket.on('course_soft_deleted', (courseDeleteds) => {
-            setCourses(prevCourses =>
-                prevCourses.filter(course => {
-                    if (Array.isArray(courseDeleteds)) {
-                        return !courseDeleteds.some(courseDeleted =>
-                            course._id === courseDeleted._id
+        socket.on('lesson_soft_deleted', (lessonDeleteds) => {
+            setLessons(prevLessons =>
+                prevLessons.filter(lesson => {
+                    if (Array.isArray(lessonDeleteds)) {
+                        return !lessonDeleteds.some(lessonDeleted =>
+                            lesson._id === lessonDeleted._id
                         )
                     } else {
-                        return course._id !== courseDeleteds._id
+                        return lesson._id !== lessonDeleteds._id
                     }
                 }
                 )
@@ -107,49 +103,48 @@ function AdminHomePage() {
             console.log('xoa ne');
         })
 
-        socket.on('course_restored', (courseRestoreds) => {
-            setCourses(prevCourses =>
-                prevCourses.filter(course => {
-                    if (Array.isArray(courseRestoreds)) {
-                        return !courseRestoreds.some(courseRestored =>
-                            course._id === courseRestored._id
+        socket.on('lesson_restored', (lessonRestoreds) => {
+            setLessons(prevLessons =>
+                prevLessons.filter(lesson => {
+                    if (Array.isArray(lessonRestoreds)) {
+                        return !lessonRestoreds.some(lessonRestored =>
+                            lesson._id === lessonRestored._id
                         );
                     } else {
-                        return course._id !== courseRestoreds._id;
+                        return lesson._id !== lessonRestoreds._id;
                     }
                 })
             )
         })
 
-
         return () => {
-            socket.off('course_added');
-            socket.off('course_edited');
-            socket.off('course_soft_deleted');
-            socket.off('course_restored');
+            socket.off('lesson_added');
+            socket.off('lesson_edited');
+            socket.off('lesson_soft_deleted');
+            socket.off('lesson_restored');
         };
-    }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
+    }, [currentPage, activeButton])
 
-    const toggleIsShowCreateCourse = () => {
-        setIsShowCreateCourse(!isShowCreateCourse)
+    const toggleIsShowCreateLesson = () => {
+        setIsShowCreateLesson(!isShowCreateLesson)
     }
 
-    const toggleIsShowEditCourse = (course) => {
-        setSelectedCourse(course)
-        setIsShowEditCourse(!isShowEditCourse)
+    const toggleIsShowEditLesson = (lesson) => {
+        setSelectedLesson(lesson)
+        setIsShowEditLesson(!isShowEditLesson)
     }
 
-    const handleSoftDelete = async (course) => {
+    const handleSoftDelete = async (lesson) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course._id}`)
+            await axios.delete(`${process.env.REACT_APP_API_URL}/lessons/${lesson._id}`)
         } catch (error) {
             console.log(error);
         }
     }
 
-    const handleRestore = async (course) => {
+    const handleRestore = async (lesson) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course._id}`)
+            await axios.post(`${process.env.REACT_APP_API_URL}/lessons/restore/${lesson._id}`)
         } catch (error) {
             console.log(error);
         }
@@ -158,33 +153,33 @@ function AdminHomePage() {
     const handleSearch = async (e) => {
         try {
             setSearchQuery(e.target.value)
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`)
-            setCourses(response.data.courses)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?title=${e.target.value}`)
+            setLessons(response.data.lessons)
         } catch (error) {
             console.log(error);
         }
     }
 
-    const COURSE_ACTIONS = [
+    const LESSON_ACTIONS = [
         {
             icon: TiEdit,
             title: "Chỉnh sửa",
-            onClick: function (course) {
-                toggleIsShowEditCourse(course)
+            onClick: function (lesson) {
+                toggleIsShowEditLesson(lesson)
             }
         },
         {
             icon: MdDeleteOutline,
             title: "Xoá",
-            onClick: function (course) {
-                handleSoftDelete(course)
+            onClick: function (lesson) {
+                handleSoftDelete(lesson)
             }
         }
     ]
 
     const handleActionForm = async (e, data) => {
         e.preventDefault();
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, data)
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/lessons/handle-form-action`, data)
     }
 
     return (
@@ -193,12 +188,12 @@ function AdminHomePage() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-x-3">
-                            <h2 className="text-lg font-medium text-gray-800">Khoá học</h2>
+                            <h2 className="text-lg font-medium text-gray-800">Bài học</h2>
 
-                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">3 khoá học</span>
+                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">17 bài học</span>
                         </div>
 
-                        <p className="mt-1 text-sm text-gray-500">Quản lý các khoá học</p>
+                        <p className="mt-1 text-sm text-gray-500">Quản lý các bài học của khoá học</p>
                     </div>
 
                     <div className="flex items-center mt-4 gap-x-3">
@@ -218,14 +213,14 @@ function AdminHomePage() {
                         </button>
 
                         <button
-                            onClick={toggleIsShowCreateCourse}
+                            onClick={toggleIsShowCreateLesson}
                             className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
 
-                            <span>Thêm bài học</span>
+                            <span>Thêm khoá học</span>
                         </button>
                     </div>
                 </div>
@@ -268,26 +263,26 @@ function AdminHomePage() {
 
                 <div className="table max-w-full flex flex-col w-full mt-6 drop-shadow-md">
                     {activeButton === 'all' || activeButton === 'recent' ? (
-                        <CourseTable
-                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
-                            data={courses}
+                        <LessonTable
+                            headers={["STT", "Khoá học", "Bài học", "Người đăng", "Lượt học", "Cập nhật"]}
+                            data={lessons}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
-                            itemEditedId={courseEditedId}
-                            courseActions={COURSE_ACTIONS}
+                            itemEditedId={chapterEditedId}
+                            actions={LESSON_ACTIONS}
                             handleActionForm={handleActionForm}
                         />
                     ) : (
-                        <CourseTable
+                        <LessonTable
                             headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}
-                            data={courses}
+                            data={lessons}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
-                            itemEditedId={courseEditedId}
-                            courseActions={COURSE_ACTIONS}
+                            itemEditedId={chapterEditedId}
+                            actions={LESSON_ACTIONS}
                         />
                     )}
-                </div >
+                </div>
                 <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
                     <div class="text-sm text-gray-500">
                         Trang <span class="font-medium text-gray-700">{currentPage} / {totalPages}</span>
@@ -312,17 +307,17 @@ function AdminHomePage() {
                     </div>
                 </div >
             </div>
-            {isShowCreateCourse && (
-                <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
+            {isShowCreateLesson && (
+                <CreateLessonModal toggleIsShowCreateLesson={toggleIsShowCreateLesson} />
             )
             }
             {
-                isShowEditCourse && (
-                    <EditCourseModal course={selectedCourse} toggleIsShowEditCourse={toggleIsShowEditCourse} />
+                isShowEditLesson && (
+                    <EditCourseModal course={selectedLesson} toggleIsShowEditCourse={toggleIsShowEditLesson} />
                 )
             }
         </>
     )
 }
 
-export default AdminHomePage
+export default AdminLessonPage

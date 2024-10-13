@@ -9,7 +9,7 @@ import Menu from "../Popper/Menu";
 import Button from '../Button';
 import axios from 'axios';
 
-const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, courseActions, handleActionForm }) => {
+const CourseTable = ({ headers, data, activeButton, handleRestore, itemEditedId, courseActions, handleActionForm }) => {
     const [isSelectAction, setIsSelectAtion] = useState(false)
     const [courseIds, setCourseIds] = useState([])
 
@@ -75,12 +75,12 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {data.map((course, index) => (
-                            <tr key={course._id} className={`transition ease-out duration-200 hover:bg-gray-200 hover:duration-75 even:bg-slate-50 ${courseEditedId === course._id ? 'transition ease-out duration-1000 bg-green-200' : ''}`}>
+                        {data.map((item, index) => (
+                            <tr key={item._id} className={`transition ease-out duration-200 hover:bg-gray-200 hover:duration-75 even:bg-slate-50 ${itemEditedId === item._id ? 'transition ease-out duration-1000 bg-green-200' : ''}`}>
                                 {isSelectAction ? (
                                     <>
                                         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                            <input type='checkbox' name='courseId' value={course._id}
+                                            <input type='checkbox' name='courseId' value={item._id}
                                                 onChange={handleChangeCheckbox}
                                             />
                                         </td>
@@ -88,43 +88,43 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
                                 ) : (
                                     <>
                                         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                            <h2 className="font-medium text-gray-800">{course.courseId}</h2>
+                                            <h2 className="font-medium text-gray-800">{item.courseId}</h2>
                                         </td>
                                     </>
                                 )}
                                 <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <h2 className="font-medium text-gray-800">{course.role}</h2>
+                                    <h2 className="font-medium text-gray-800">{item.role}</h2>
                                 </td>
                                 <td className="px-4 py-4 max-w-36 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
-                                    <div className="py-1 text-sm font-normal rounded-full overflow-hidden text-ellipsis">{course.title}</div>
+                                    <div className="py-1 text-sm font-normal rounded-full overflow-hidden text-ellipsis">{item.title}</div>
                                 </td>
                                 <td className="px-4 py-4 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
                                     <div className="flex gap-2 items-center py-1 text-sm font-normal rounded-full">
-                                        <img src={course.author.photoURL} className="w-4 rounded-full object-cover" alt="avatar" />
-                                        {course.author.displayName}
+                                        <img src={item.author.photoURL} className="w-4 rounded-full object-cover" alt="avatar" />
+                                        {item.author.displayName}
                                     </div>
                                 </td>
                                 <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                    <h4 className="text-gray-700 text-center">{course.registrationCount}</h4>
+                                    <h4 className="text-gray-700 text-center">{item.registrationCount}</h4>
                                 </td>
                                 {activeButton === 'trash' ? (
                                     <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                        <h4 className="text-gray-700 text-left">{course.deletedAt}</h4>
+                                        <h4 className="text-gray-700 text-left">{item.deletedAt}</h4>
                                     </td>
                                 ) : (
                                     <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                        <h4 className="text-gray-700 text-left">{course.updatedAt}</h4>
+                                        <h4 className="text-gray-700 text-left">{item.updatedAt}</h4>
                                     </td>
                                 )}
                                 {activeButton === 'trash' ? (
                                     <td className=''>
-                                        <Button className='text-sm px-[-2] hover:bg-gray-200 hover:duration-200' onClick={() => handleRestore(course)}>
+                                        <Button className='text-sm px-[-2] hover:bg-gray-200 hover:duration-200' onClick={() => handleRestore(item)}>
                                             <LuArchiveRestore />
                                             Khôi phục
                                         </Button>
                                     </td>
                                 ) : (
-                                    <Menu items={courseActions} payload={course}>
+                                    <Menu items={courseActions} payload={item}>
                                         <td className="flex justify-center px-4 py-4 text-sm whitespace-nowrap">
                                             <button className="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -143,4 +143,4 @@ const Table = ({ headers, data, activeButton, handleRestore, courseEditedId, cou
     );
 };
 
-export default Table;
+export default CourseTable;

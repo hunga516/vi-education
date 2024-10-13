@@ -36,7 +36,7 @@ function DetailsCoursePage() {
             const getAuthorCourses = async () => {
                 try {
                     const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/?author=${course.author._id}`)
-                    setAuthorCourses(response.data)
+                    setAuthorCourses(response.data.courses)
                 } catch (error) {
                     console.log(error);
                 }
@@ -45,6 +45,8 @@ function DetailsCoursePage() {
             getAuthorCourses()
         }
     }, [course.author])
+
+    console.log(authorCourses);
 
     return (
         <div className="course-detail-wrapper bg-white shadow-2xl rounded-md">

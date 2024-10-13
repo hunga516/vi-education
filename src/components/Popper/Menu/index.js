@@ -9,8 +9,8 @@ import { useState } from 'react';
 function Menu({ children, items, onChange, payload }) {
 
     const [history, setHistory] = useState([{ data: items }])
-    const current = history[history.length - 1]
     const [isChildren, setIsChildren] = useState(false)
+    const current = history[history.length - 1]
 
     return (
         <Tippy

@@ -9,6 +9,7 @@ import AdminHomePage from "../pages/AdminPage/AdminHomePage";
 import DetailsCoursePage from "../pages/DetailsCoursePage";
 import OnSideLayout from "../layouts/OneSideLayout";
 import LandingPage from "../pages/LandingPage";
+import AdminChapterPage from "../pages/AdminPage/AdminLessonPage";
 
 export const publicRoute = [
     { path: '/', element: HomePage, layout: DefautLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
@@ -17,6 +18,7 @@ export const publicRoute = [
     { path: '/sign-in', element: PopupLogin, layout: NoneLayout },
     { path: '/forums', element: ForumsPage },
     { path: '/admin/courses', element: AdminHomePage },
+    { path: '/admin/lessons', element: AdminChapterPage },
     { path: '/courses/:id', element: DetailsCoursePage, layout: OnSideLayout },
     { path: '/landing', element: LandingPage, layout: NoneLayout },
     { path: '/:nickname', element: ProfilePage },
