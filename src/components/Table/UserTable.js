@@ -9,7 +9,7 @@ import Menu from "../Popper/Menu";
 import Button from '../Button';
 import axios from 'axios';
 
-const UserTable = ({ headers, data, activeButton, handleRestore, itemEditedId, courseActions, handleActionForm }) => {
+const UserTable = ({ headers, data, activeButton, handleRestore, itemEditedId, userActions, handleActionForm }) => {
     const [isSelectAction, setIsSelectAtion] = useState(false)
     const [courseIds, setCourseIds] = useState([])
 
@@ -124,7 +124,7 @@ const UserTable = ({ headers, data, activeButton, handleRestore, itemEditedId, c
                                         </Button>
                                     </td>
                                 ) : (
-                                    <Menu items={courseActions} payload={item}>
+                                    <Menu items={userActions} payload={item}>
                                         <td className="flex justify-center px-4 py-4 text-sm whitespace-nowrap">
                                             <button className="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

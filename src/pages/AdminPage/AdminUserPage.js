@@ -6,16 +6,15 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { TiEdit } from "react-icons/ti";
 import { MdDeleteOutline } from "react-icons/md";
 
-import CreateCourseModal from "../../components/Modal/Course/CreateCourseModal";
-import EditCourseModal from "../../components/Modal/Course/EditCourseModal";
-import CourseTable from "../../components/Table/CourseTable";
 import UserTable from "../../components/Table/UserTable";
+import CreateUserModal from "../../components/Modal/User/CreateUserModal";
+import EditUserModal from "../../components/Modal/User/EditUserModal";
 
 function AdminCoursePage() {
     const [users, setUsers] = useState([])
     const [isShowCreateUser, setIsShowCreateUser] = useState(false)
     const [isShowEditUser, setIsShowEditUser] = useState(false)
-    const [selectedUser, setSelectedUser] = useState(null) //for render courses
+    const [selectedUser, setSelectedUser] = useState(null) //for render user
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [userEditedId, setUserEditedId] = useState('')
@@ -80,13 +79,13 @@ function AdminCoursePage() {
             setUsers((prevCourses) => [...prevCourses, newCourse]);
         });
 
-        socket.on('course_edited', (updatedCourse) => {
-            setUsers((prevCourses) => {
-                const updatedCourses = prevCourses.map(course =>
-                    course._id === updatedCourse._id ? updatedCourse : course
+        socket.on('user:update', (userUpdated) => {
+            setUsers((prevUsers) => {
+                const userUpdateds = prevUsers.map(user =>
+                    user._id === userUpdated._id ? userUpdated : user
                 );
-                setUserEditedId(updatedCourse._id)
-                return updatedCourses
+                setUserEditedId(userUpdated._id)
+                return userUpdateds
             });
         });
 
@@ -262,7 +261,7 @@ function AdminCoursePage() {
                             activeButton={activeButton}
                             handleRestore={handleRestore}
                             itemEditedId={userEditedId}
-                            courseActions={USER_ACTIONS}
+                            userActions={USER_ACTIONS}
                             handleActionForm={handleActionForm}
                         />
                     ) : (
@@ -272,7 +271,7 @@ function AdminCoursePage() {
                             activeButton={activeButton}
                             handleRestore={handleRestore}
                             itemEditedId={userEditedId}
-                            courseActions={USER_ACTIONS}
+                            userActions={USER_ACTIONS}
                         />
                     )}
                 </div >
@@ -301,12 +300,12 @@ function AdminCoursePage() {
                 </div >
             </div>
             {isShowCreateUser && (
-                <CreateCourseModal toggleIsShowCreateUser={toggleIsShowCreateUser} />
+                <CreateUserModal toggleIsShowCreateUser={toggleIsShowCreateUser} />
             )
             }
             {
                 isShowEditUser && (
-                    <EditCourseModal course={selectedUser} toggleIsShowEditUser={toggleIsShowEditUser} />
+                    <EditUserModal user={selectedUser} toggleIsShowEditUser={toggleIsShowEditUser} />
                 )
             }
         </>
