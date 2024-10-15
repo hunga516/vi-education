@@ -9,53 +9,52 @@ import { MdDeleteOutline } from "react-icons/md";
 import CreateCourseModal from "../../components/Modal/Course/CreateCourseModal";
 import EditCourseModal from "../../components/Modal/Course/EditCourseModal";
 import CourseTable from "../../components/Table/CourseTable";
+import UserTable from "../../components/Table/UserTable";
 
-function AdminHomePage() {
-    const [courses, setCourses] = useState([])
-    const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
-    const [isShowEditCourse, setIsShowEditCourse] = useState(false)
-    const [selectedCourse, setSelectedCourse] = useState(null) //for render courses
+function AdminCoursePage() {
+    const [users, setUsers] = useState([])
+    const [isShowCreateUser, setIsShowCreateUser] = useState(false)
+    const [isShowEditUser, setIsShowEditUser] = useState(false)
+    const [selectedUser, setSelectedUser] = useState(null) //for render courses
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
-    const [courseEditedId, setCourseEditedId] = useState('')
+    const [userEditedId, setUserEditedId] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
 
     const socket = io('http://localhost:3001');
 
-    console.log(totalPages);
-
     useEffect(() => {
         // Đặt lại currentPage về 1 khi activeButton thay đổi
         setCurrentPage(1);
-    }, [activeButton]) // Chỉ theo dõi activeButton
+    }, [activeButton])
 
     useEffect(() => {
-        const getAllCourses = async () => {
+        const getAllUsers = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?page=${currentPage}`)
-                setCourses(response.data.courses)
-                setTotalPages(Math.ceil(response.data.totalCourses / 10))
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users?page=${currentPage}`)
+                setUsers(response.data.users)
+                setTotalPages(Math.ceil(response.data.totalUsers / 10))
             } catch (error) {
                 console.log(error);
             }
         }
 
-        const getRecentCourses = async () => {
+        const getRecentUsers = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?sort=updatedAt&order=desc&page=${currentPage}`)
-                setCourses(response.data.courses)
-                setTotalPages(Math.ceil(response.data.totalCourses / 10))
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users?sort=updatedAt&order=desc&page=${currentPage}`)
+                setUsers(response.data.users)
+                setTotalPages(Math.ceil(response.data.totalUsers / 10))
             } catch (error) {
                 console.log(error);
             }
         }
 
-        const getTrashCourses = async () => {
+        const getTrashUsers = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/trash?page=${currentPage}`)
-                setCourses(response.data.courses)
-                setTotalPages(Math.ceil(response.data.totalCoursesDeleted / 10))
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/trash?page=${currentPage}`)
+                setUsers(response.data.users)
+                setTotalPages(Math.ceil(response.data.totalUsersDeleted / 10))
             } catch (error) {
                 console.log(error);
             }
@@ -64,13 +63,13 @@ function AdminHomePage() {
         //For active button (all,recent,trash)
         switch (activeButton) {
             case 'all':
-                getAllCourses()
+                getAllUsers()
                 break;
             case 'recent':
-                getRecentCourses()
+                getRecentUsers()
                 break;
             case 'trash':
-                getTrashCourses()
+                getTrashUsers()
                 break;
             default:
                 break;
@@ -78,21 +77,21 @@ function AdminHomePage() {
 
         //Listen socketi io for realtime
         socket.on('course_added', (newCourse) => {
-            setCourses((prevCourses) => [...prevCourses, newCourse]);
+            setUsers((prevCourses) => [...prevCourses, newCourse]);
         });
 
         socket.on('course_edited', (updatedCourse) => {
-            setCourses((prevCourses) => {
+            setUsers((prevCourses) => {
                 const updatedCourses = prevCourses.map(course =>
                     course._id === updatedCourse._id ? updatedCourse : course
                 );
-                setCourseEditedId(updatedCourse._id)
+                setUserEditedId(updatedCourse._id)
                 return updatedCourses
             });
         });
 
         socket.on('course_soft_deleted', (courseDeleteds) => {
-            setCourses(prevCourses =>
+            setUsers(prevCourses =>
                 prevCourses.filter(course => {
                     if (Array.isArray(courseDeleteds)) {
                         return !courseDeleteds.some(courseDeleted =>
@@ -108,7 +107,7 @@ function AdminHomePage() {
         })
 
         socket.on('course_restored', (courseRestoreds) => {
-            setCourses(prevCourses =>
+            setUsers(prevCourses =>
                 prevCourses.filter(course => {
                     if (Array.isArray(courseRestoreds)) {
                         return !courseRestoreds.some(courseRestored =>
@@ -130,26 +129,26 @@ function AdminHomePage() {
         };
     }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
 
-    const toggleIsShowCreateCourse = () => {
-        setIsShowCreateCourse(!isShowCreateCourse)
+    const toggleIsShowCreateUser = () => {
+        setIsShowCreateUser(!isShowCreateUser)
     }
 
-    const toggleIsShowEditCourse = (course) => {
-        setSelectedCourse(course)
-        setIsShowEditCourse(!isShowEditCourse)
+    const toggleIsShowEditUser = (user) => {
+        setSelectedUser(user)
+        setIsShowEditUser(!isShowEditUser)
     }
 
-    const handleSoftDelete = async (course) => {
+    const handleSoftDelete = async (user) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course._id}`)
+            await axios.delete(`${process.env.REACT_APP_API_URL}/users/${user._id}`)
         } catch (error) {
             console.log(error);
         }
     }
 
-    const handleRestore = async (course) => {
+    const handleRestore = async (user) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course._id}`)
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/restore/${user._id}`)
         } catch (error) {
             console.log(error);
         }
@@ -158,33 +157,33 @@ function AdminHomePage() {
     const handleSearch = async (e) => {
         try {
             setSearchQuery(e.target.value)
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`)
-            setCourses(response.data.courses)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/users?username=${e.target.value}`)
+            setUsers(response.data.users)
         } catch (error) {
             console.log(error);
         }
     }
 
-    const COURSE_ACTIONS = [
+    const USER_ACTIONS = [
         {
             icon: TiEdit,
             title: "Chỉnh sửa",
-            onClick: function (course) {
-                toggleIsShowEditCourse(course)
+            onClick: function (user) {
+                toggleIsShowEditUser(user)
             }
         },
         {
             icon: MdDeleteOutline,
             title: "Xoá",
-            onClick: function (course) {
-                handleSoftDelete(course)
+            onClick: function (user) {
+                handleSoftDelete(user)
             }
         }
     ]
 
     const handleActionForm = async (e, data) => {
         e.preventDefault();
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, data)
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/handle-form-action`, data)
     }
 
     return (
@@ -193,12 +192,12 @@ function AdminHomePage() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-x-3">
-                            <h2 className="text-lg font-medium text-gray-800">Khoá học</h2>
+                            <h2 className="text-lg font-medium text-gray-800">Người dùng</h2>
 
                             <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">3 khoá học</span>
                         </div>
 
-                        <p className="mt-1 text-sm text-gray-500">Quản lý các khoá học</p>
+                        <p className="mt-1 text-sm text-gray-500">Quản lý người dùng hệ thống</p>
                     </div>
 
                     <div className="flex items-center mt-4 gap-x-3">
@@ -215,17 +214,6 @@ function AdminHomePage() {
                             </svg>
 
                             <span>Tải lên</span>
-                        </button>
-
-                        <button
-                            onClick={toggleIsShowCreateCourse}
-                            className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-
-                            <span>Thêm bài học</span>
                         </button>
                     </div>
                 </div>
@@ -262,29 +250,29 @@ function AdminHomePage() {
                             </svg>
                         </span>
 
-                        <input onChange={(e) => handleSearch(e)} type="text" placeholder="Tìm khoá học" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                        <input onChange={(e) => handleSearch(e)} type="text" placeholder="Tìm người dùng" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
                 </div>
 
                 <div className="table max-w-full flex flex-col w-full mt-6 drop-shadow-md">
                     {activeButton === 'all' || activeButton === 'recent' ? (
-                        <CourseTable
-                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
-                            data={courses}
+                        <UserTable
+                            headers={["STT", "", "Email", "Ngày tham gia", "Lượt theo dõi", "Quyền hạn"]}
+                            data={users}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
-                            itemEditedId={courseEditedId}
-                            courseActions={COURSE_ACTIONS}
+                            itemEditedId={userEditedId}
+                            courseActions={USER_ACTIONS}
                             handleActionForm={handleActionForm}
                         />
                     ) : (
-                        <CourseTable
-                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}
-                            data={courses}
+                        <UserTable
+                            headers={["STT", "", "Email", "Ngày tham gia", "Lượt theo dõi", "Ngày xoá"]}
+                            data={users}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
-                            itemEditedId={courseEditedId}
-                            courseActions={COURSE_ACTIONS}
+                            itemEditedId={userEditedId}
+                            courseActions={USER_ACTIONS}
                         />
                     )}
                 </div >
@@ -312,17 +300,17 @@ function AdminHomePage() {
                     </div>
                 </div >
             </div>
-            {isShowCreateCourse && (
-                <CreateCourseModal toggleIsShowCreateCourse={toggleIsShowCreateCourse} />
+            {isShowCreateUser && (
+                <CreateCourseModal toggleIsShowCreateUser={toggleIsShowCreateUser} />
             )
             }
             {
-                isShowEditCourse && (
-                    <EditCourseModal course={selectedCourse} toggleIsShowEditCourse={toggleIsShowEditCourse} />
+                isShowEditUser && (
+                    <EditCourseModal course={selectedUser} toggleIsShowEditUser={toggleIsShowEditUser} />
                 )
             }
         </>
     )
 }
 
-export default AdminHomePage
+export default AdminCoursePage

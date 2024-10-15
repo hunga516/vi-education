@@ -28,7 +28,7 @@ function LoginModal({ className, toggleLoginModal }) {
                     <span className="text-sm opacity-60">Đăng nhập để có trải nghiệm trọn vẹn với Vi Education</span>
                 </div>
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" action="#" method="POST">
+                    <form class="space-y-6" action={`${process.env.REACT_APP_API_URL}/users/sign-in`} method="POST">
                         <div>
                             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email hoặc số điện thoại</label>
                             <div class="mt-2">
@@ -85,7 +85,7 @@ function LoginModal({ className, toggleLoginModal }) {
 
                 </div>
             </div>
-        </div>,
+        </div >,
         document.body
     );
 }

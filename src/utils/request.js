@@ -14,7 +14,7 @@ export const request = axios.create({
 
 export const createUserInDatabase = async (user) => {
     try {
-        const response = await axios.post('http://localhost:3001/users/create', user);
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/sign-up`, user);
         return response.data;
     } catch (error) {
         console.error('Lỗi khi tạo người dùng:', error);
@@ -24,7 +24,7 @@ export const createUserInDatabase = async (user) => {
 
 export const getUserByEmail = async (email) => {
     try {
-        const response = await axios.get(`http://localhost:3001/users/email/${email}`)
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/email/${email}`)
         return response.data
     } catch (error) {
         console.log('Loi khi lay thong tin email: ', email);

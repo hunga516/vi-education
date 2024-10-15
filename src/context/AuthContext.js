@@ -38,12 +38,23 @@ export const AuthProvider = ({ children }) => {
             AuthModalContextValue.toggleLoginModal(); // Ẩn modal sau khi đăng nhập thành công
             // navigate("/");
 
+            console.log(userCredential.user);
+
             createUserInDatabase(userCredential.user);
 
         } catch (error) {
             console.error("Error during sign-in:", error);
         }
     };
+
+    // const handleSignUp = async () => {
+    //     try {
+    //         const user = await axios.post('')
+    //     } catch (error) {
+    //         console.log(error);
+
+    //     }
+    // }
 
 
     const handleSignOut = async () => {

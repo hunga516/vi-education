@@ -10,16 +10,15 @@ import { IoLanguage, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineContactSupport, MdLiveTv, MdLogout } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
-import icons from "../../../assets/icons";
 
 import Menu from "../../../components/Popper/Menu";
 import Button from "../../../components/Button";
-import images from "../../../assets/images";
 import Search from './Search';
 import Skeleton from "react-loading-skeleton";
 import { AuthContext, LoadingContext } from '../../../context';
 import { AuthModalContext } from '../../../context';
 import LoginModal from '../../../components/Modal/LoginModal';
+import SignUpModal from '../../../components/Modal/SignUpModal';
 
 function Header() {
     const LoadingContextValue = useContext(LoadingContext);
@@ -155,6 +154,7 @@ function Header() {
                                 ) : (
                                     <>
                                         <Button size="medium" type={"primary"} onClick={AuthModalContextValue.toggleLoginModal}>Đăng nhập</Button>
+                                        <Button size="medium" type={"outline-primary"} onClick={AuthModalContextValue.toggleSignUpModal}>Đăng ký</Button>
                                         <Menu items={MENU_ITEMS} onChange={handleOnChange}>
                                             <i className="menu-icon text-[20px] px-2">
                                                 <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -168,6 +168,7 @@ function Header() {
                 </div >
             </div >
             {AuthModalContextValue.isShowLoginModal && <LoginModal toggleLoginModal={AuthModalContextValue.toggleLoginModal} />}
+            {AuthModalContextValue.isShowSignUpModal && <SignUpModal toggleSignUpModal={AuthModalContextValue.toggleSignUpModal} />}
         </>
     );
 }
