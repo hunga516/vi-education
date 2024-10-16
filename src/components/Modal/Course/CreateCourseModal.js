@@ -66,7 +66,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                 <div className="overflow-auto overscroll-y-contain h-[80vh] w-[50vw] bg-white rounded-xl">
                     <div className="relative px-12 py-4">
                         <div
-                            className="back-action flex justify-between items-center gap-2 sticky top-0 h-16 w-full bg-white "
+                            className="back-action z-10 flex justify-between items-center gap-2 sticky top-0 h-16 w-full bg-white "
                         >
                             <button onClick={toggleIsShowCreateCourse} className="flex items-center gap-2">
                                 <IoArrowBack />
@@ -121,7 +121,13 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                 <div className='title-input flex flex-col gap-2'>
                                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                         {images ? (
-                                            <img src={images} alt='' />
+                                            <div className='relative'>
+                                                <img src={images} alt='' className='' />
+                                                <label for="file-upload" class="absolute bottom-0 w-full p-4  cursor-pointer rounded-tl-md rounded-tr-md bg-gray-400/60 text-white font-normal">
+                                                    <span>Đổi hình khác</span>
+                                                </label>
+                                                <input id="file-upload" type="file" class="sr-only" name='images' placeholder='test' onChange={handleChange} />
+                                            </div>
                                         ) : (
                                             <div class="text-center">
                                                 <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

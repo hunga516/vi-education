@@ -66,7 +66,7 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                 <div className="overflow-auto overscroll-y-contain h-[80vh] w-[50vw] bg-white rounded-xl">
                     <div className="relative px-12 py-4">
                         <div
-                            className="back-action flex justify-between items-center gap-2 sticky top-0 h-16 w-full bg-white "
+                            className="back-action z-10 flex justify-between items-center gap-2 sticky top-0 h-16 w-full bg-white "
                         >
                             <button onClick={toggleIsShowCreateLesson} className="flex items-center gap-2">
                                 <IoArrowBack />
