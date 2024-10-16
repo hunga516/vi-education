@@ -11,26 +11,26 @@ import axios from 'axios';
 
 const UserTable = ({ headers, data, activeButton, handleRestore, itemEditedId, userActions, handleActionForm }) => {
     const [isSelectAction, setIsSelectAtion] = useState(false)
-    const [courseIds, setCourseIds] = useState([])
+    const [userIds, setUserIds] = useState([])
 
 
     const handleSoftDeleteFormAction = async () => {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/handle-form-action`, {
             action: 'soft-delete',
-            courseIds,
+            userIds,
         })
     }
 
     const handleRestoreFormAction = async () => {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/handle-form-action`, {
             action: 'restore',
-            courseIds,
+            userIds,
         })
     }
 
     const handleChangeCheckbox = (e) => {
         if (e.target.checked) {
-            setCourseIds(prev => [...prev, e.target.value])
+            setUserIds(prev => [...prev, e.target.value])
         }
     }
 
@@ -80,7 +80,7 @@ const UserTable = ({ headers, data, activeButton, handleRestore, itemEditedId, u
                                 {isSelectAction ? (
                                     <>
                                         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                            <input type='checkbox' name='courseId' value={item._id}
+                                            <input type='checkbox' name='userId' value={item._id}
                                                 onChange={handleChangeCheckbox}
                                             />
                                         </td>

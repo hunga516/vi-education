@@ -53,7 +53,7 @@ function AdminCoursePage() {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/trash?page=${currentPage}`)
                 setUsers(response.data.users)
-                setTotalPages(Math.ceil(response.data.totalUsersDeleted / 10))
+                setTotalPages(Math.ceil(response.data.totalUsers / 10))
             } catch (error) {
                 console.log(error);
             }
@@ -75,7 +75,7 @@ function AdminCoursePage() {
         }
 
         //Listen socketi io for realtime
-        socket.on('course_added', (newCourse) => {
+        socket.on('user:add', (newCourse) => {
             setUsers((prevCourses) => [...prevCourses, newCourse]);
         });
 
@@ -89,15 +89,15 @@ function AdminCoursePage() {
             });
         });
 
-        socket.on('course_soft_deleted', (courseDeleteds) => {
-            setUsers(prevCourses =>
-                prevCourses.filter(course => {
-                    if (Array.isArray(courseDeleteds)) {
-                        return !courseDeleteds.some(courseDeleted =>
-                            course._id === courseDeleted._id
+        socket.on('user:soft-delete', (userDeleteds) => {
+            setUsers(prevUsers =>
+                prevUsers.filter(user => {
+                    if (Array.isArray(userDeleteds)) {
+                        return !userDeleteds.some(userDeleted =>
+                            user._id === userDeleted._id
                         )
                     } else {
-                        return course._id !== courseDeleteds._id
+                        return user._id !== userDeleteds._id
                     }
                 }
                 )
@@ -105,15 +105,15 @@ function AdminCoursePage() {
             console.log('xoa ne');
         })
 
-        socket.on('course_restored', (courseRestoreds) => {
-            setUsers(prevCourses =>
-                prevCourses.filter(course => {
-                    if (Array.isArray(courseRestoreds)) {
-                        return !courseRestoreds.some(courseRestored =>
-                            course._id === courseRestored._id
+        socket.on('user:restore', (userRestoreds) => {
+            setUsers(prevUsers =>
+                prevUsers.filter(user => {
+                    if (Array.isArray(userRestoreds)) {
+                        return !userRestoreds.some(userRestored =>
+                            user._id === userRestored._id
                         );
                     } else {
-                        return course._id !== courseRestoreds._id;
+                        return user._id !== userRestoreds._id;
                     }
                 })
             )
@@ -121,10 +121,10 @@ function AdminCoursePage() {
 
 
         return () => {
-            socket.off('course_added');
-            socket.off('course_edited');
-            socket.off('course_soft_deleted');
-            socket.off('course_restored');
+            socket.off('user:add');
+            socket.off('user:update');
+            socket.off('user:soft-delete');
+            socket.off('user:restore');
         };
     }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
 
@@ -147,7 +147,7 @@ function AdminCoursePage() {
 
     const handleRestore = async (user) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/users/restore/${user._id}`)
+            await axios.put(`${process.env.REACT_APP_API_URL}/users/restore/${user._id}`)
         } catch (error) {
             console.log(error);
         }
