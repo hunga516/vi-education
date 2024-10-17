@@ -77,11 +77,11 @@ function AdminCoursePage() {
         }
 
         //Listen socketi io for realtime
-        socket.on('course_added', (newCourse) => {
+        socket.on('course:create', (newCourse) => {
             setCourses((prevCourses) => [...prevCourses, newCourse]);
         });
 
-        socket.on('course_edited', (updatedCourse) => {
+        socket.on('course:update', (updatedCourse) => {
             setCourses((prevCourses) => {
                 const updatedCourses = prevCourses.map(course =>
                     course._id === updatedCourse._id ? updatedCourse : course
@@ -91,7 +91,7 @@ function AdminCoursePage() {
             });
         });
 
-        socket.on('course_soft_deleted', (courseDeleteds) => {
+        socket.on('course:soft-delete', (courseDeleteds) => {
             setCourses(prevCourses =>
                 prevCourses.filter(course => {
                     if (Array.isArray(courseDeleteds)) {
@@ -107,7 +107,7 @@ function AdminCoursePage() {
             console.log('xoa ne');
         })
 
-        socket.on('course_restored', (courseRestoreds) => {
+        socket.on('course:restore', (courseRestoreds) => {
             setCourses(prevCourses =>
                 prevCourses.filter(course => {
                     if (Array.isArray(courseRestoreds)) {
@@ -123,10 +123,10 @@ function AdminCoursePage() {
 
 
         return () => {
-            socket.off('course_added');
-            socket.off('course_edited');
-            socket.off('course_soft_deleted');
-            socket.off('course_restored');
+            socket.off('course:create');
+            socket.off('course:update');
+            socket.off('course:soft-delete');
+            socket.off('course:restore');
         };
     }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
 

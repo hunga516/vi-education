@@ -7,16 +7,18 @@ import { IoArrowBack } from "react-icons/io5";
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
+import SearchUserResult from '../../Popper/Menu/SearchUserResult';
 
 
 function CreateCourseModal({ toggleIsShowCreateCourse }) {
     const { userId } = useContext(AuthContext)
     const [images, setImages] = useState()
+    const [searchedUsers, setSearchedUsers] = useState([])
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         images: '',
-        author: userId,
+        author: '',
         role: ''
     });
     const editorRef = useRef(null);
@@ -53,6 +55,26 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
             console.log(error);
         }
     };
+
+    const handleSearchUser = async (e) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/users?username=${e.target.value}`)
+            setFormData({ ...formData, author: e.target.value })
+            setSearchedUsers(response.data.users)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleClickUser = async (e, user) => {
+        e.preventDefault()
+        setSearchedUsers(null)
+        // setFormData(prev => {...prev,  })
+        setFormData({ ...formData, author: user._id })
+    }
+
+    console.log(formData);
+
 
 
     return createPortal(
@@ -116,6 +138,24 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                             onChange={handleChange}
                                         />
                                     </div>
+                                    <SearchUserResult searchedUsers={searchedUsers} handleClickUser={handleClickUser}>
+                                        <div className='author-input flex flex-1 flex-col gap-2'>
+                                            <label htmlFor='author' className='text-sm font-medium text-gray-900 leading-6'>Tác giả</label>
+                                            <input
+                                                type='text'
+                                                id='author'
+                                                name='author'
+                                                value={formData.author || ''}
+                                                className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                                placeholder={'Tìm tác giả'}
+                                                onChange={(e) => {
+                                                    handleChange(e)
+                                                    handleSearchUser(e)
+                                                }}
+                                                onFocus={() => setFormData({ ...formData, author: '' })}
+                                            />
+                                        </div>
+                                    </SearchUserResult>
                                 </div>
 
                                 <div className='title-input flex flex-col gap-2'>

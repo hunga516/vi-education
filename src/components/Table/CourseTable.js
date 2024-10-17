@@ -31,6 +31,8 @@ const CourseTable = ({ headers, data, activeButton, handleRestore, itemEditedId,
     const handleChangeCheckbox = (e) => {
         if (e.target.checked) {
             setCourseIds(prev => [...prev, e.target.value])
+        } else {
+            setCourseIds(prev => prev.filter(id => id !== e.target.value))
         }
     }
 
