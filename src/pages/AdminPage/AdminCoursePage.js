@@ -23,8 +23,6 @@ function AdminCoursePage() {
 
     const socket = io('http://localhost:3001');
 
-    console.log(totalPages);
-
     useEffect(() => {
         // Đặt lại currentPage về 1 khi activeButton thay đổi
         setCurrentPage(1);
@@ -78,7 +76,8 @@ function AdminCoursePage() {
 
         //Listen socketi io for realtime
         socket.on('course:create', (newCourse) => {
-            setCourses((prevCourses) => [...prevCourses, newCourse]);
+            console.log(newCourse);
+            setCourses((prevCourses) => [newCourse, ...prevCourses]);
         });
 
         socket.on('course:update', (updatedCourse) => {

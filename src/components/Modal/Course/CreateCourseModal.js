@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Editor } from '@tinymce/tinymce-react';
 
 import { IoArrowBack } from "react-icons/io5";
+import { VscLoading } from "react-icons/vsc";
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
@@ -21,6 +22,8 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
         author: '',
         role: ''
     });
+    const [isLoadingSubmit, setIsLoadingSubmuit] = useState(false)
+
     const editorRef = useRef(null);
 
 
@@ -35,7 +38,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setIsLoadingSubmuit(true)
         const formDataToSend = new FormData();
 
         for (const key in formData) {
@@ -50,9 +53,11 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            setIsLoadingSubmuit(false)
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
+            setIsLoadingSubmuit(false)
         }
     };
 
@@ -99,15 +104,25 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                 <Button size='medium' type='outline-dark'>
                                     Lưu nháp
                                 </Button>
-                                <Button
-                                    className="px-4" type='primary'
-                                    onClick={handleSubmit}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Đăng khoá học</span>
-                                </Button>
+                                {isLoadingSubmit ? (
+                                    <Button
+                                        className="px-4 w-48 opacity-70" type='primary'
+                                        onClick={handleSubmit}
+                                    >
+                                        <VscLoading className='animate-spin' />
+                                        <span>Xoay xoay</span>
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="px-4 w-48" type='primary'
+                                        onClick={handleSubmit}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Đăng khoá học</span>
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div class="border-b border-gray-900/10 pb-12 mt-4">
@@ -221,8 +236,8 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </div >
+            </form >
         </div >,
         document.body
     );
