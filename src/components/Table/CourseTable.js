@@ -13,7 +13,6 @@ const CourseTable = ({ headers, data, activeButton, handleRestore, itemEditedId,
     const [isSelectAction, setIsSelectAtion] = useState(false)
     const [courseIds, setCourseIds] = useState([])
 
-
     const handleSoftDeleteFormAction = async () => {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/handle-form-action`, {
             action: 'soft-delete',
