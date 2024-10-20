@@ -21,7 +21,7 @@ export function MeetingDetailsScreen({
     >
       {iscreateMeetingClicked ? (
         <div className="w-full flex justify-center items-center">
-          <div className="w-60 flex justify-center bg-white ring-1 ring-black rounded-lg">
+          <div className="w-60 flex justify-center bg-white ring-1 ring-black/40 rounded-lg">
             <p className=" text-xs leading-6 font-semibold text-pblack pl-6 pr-2 py-1 ">
               {`Mã phòng: ${meetingId}`}
             </p>
