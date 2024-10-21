@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Editor } from '@tinymce/tinymce-react';
 
 import { IoArrowBack } from "react-icons/io5";
+import { RiDraftLine } from "react-icons/ri";
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
@@ -60,8 +61,9 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
                             </button>
 
                             <div className="container-action flex items-center gap-2">
-                                <Button size='medium' type='outline-dark'>
-                                    Lưu nháp
+                                <Button size='medium' type='upload'>
+                                    <RiDraftLine />
+                                    Lưu nháp
                                 </Button>
                                 <Button
                                     className="px-4" type='primary'

@@ -5,6 +5,7 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import { IoArrowBack } from "react-icons/io5";
 import { VscLoading } from "react-icons/vsc";
+import { RiDraftLine } from "react-icons/ri";
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
@@ -15,6 +16,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
     const { userId } = useContext(AuthContext)
     const [images, setImages] = useState()
     const [searchedUsers, setSearchedUsers] = useState([])
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -22,9 +24,19 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
         author: '',
         role: ''
     });
-    const [isLoadingSubmit, setIsLoadingSubmuit] = useState(false)
-
+    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
     const editorRef = useRef(null);
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.title.trim()) newErrors.title = 'Tiêu đề không được để trống';
+        if (formData.description.trim().length < 20) newErrors.description = 'Mô tả phải ít nhất 20 ký tự';
+        if (!formData.author) newErrors.author = 'Bạn phải chọn tác giả';
+        if (!formData.images) newErrors.images = 'Bạn phải tải lên một hình ảnh';
+        if (!formData.role.trim()) newErrors.role = 'Bạn phải chọn lĩnh vực';
+
+        return newErrors;
+    }
 
 
     const handleChange = (e) => {
@@ -38,7 +50,16 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoadingSubmuit(true)
+        setIsLoadingSubmit(true)
+
+        const newErrors = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            setIsLoadingSubmit(false);
+            return;
+        }
+
+
         const formDataToSend = new FormData();
 
         for (const key in formData) {
@@ -53,11 +74,11 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            setIsLoadingSubmuit(false)
+            setIsLoadingSubmit(false)
             toggleIsShowCreateCourse();
         } catch (error) {
             console.log(error);
-            setIsLoadingSubmuit(false)
+            setIsLoadingSubmit(false)
         }
     };
 
@@ -97,12 +118,13 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                         >
                             <button onClick={toggleIsShowCreateCourse} className="flex items-center gap-2">
                                 <IoArrowBack />
-                                <h2 className="text-base font-semibold text-gray-700 leading-9">Trở về</h2>
+                                <h2 className="text-base text-gray-700 leading-9">Trở về</h2>
                             </button>
 
                             <div className="container-action flex items-center gap-2">
-                                <Button size='medium' type='outline-dark'>
-                                    Lưu nháp
+                                <Button size='medium' type='upload'>
+                                    <RiDraftLine />
+                                    Lưu nháp
                                 </Button>
                                 {isLoadingSubmit ? (
                                     <Button
@@ -141,6 +163,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                             <option value='Frontend'>Frontend</option>
                                             <option value='Design'>Design</option>
                                         </select>
+                                        {errors.role && <p className="text-red-500 text-sm">{errors.role}</p>}
                                     </div>
                                     <div className='title-input flex flex-1 flex-col gap-2'>
                                         <label htmlFor='title' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề khoá học</label>
@@ -152,6 +175,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                             placeholder={'Nhập tiêu đề khoá học'}
                                             onChange={handleChange}
                                         />
+                                        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
                                     </div>
                                     <SearchUserResult searchedUsers={searchedUsers} handleClickUser={handleClickUser}>
                                         <div className='author-input flex flex-1 flex-col gap-2'>
@@ -169,6 +193,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                                 }}
                                                 onFocus={() => setFormData({ ...formData, author: '' })}
                                             />
+                                            {errors.author && <p className="text-red-500 text-sm">{errors.author}</p>}
                                         </div>
                                     </SearchUserResult>
                                 </div>
@@ -199,6 +224,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                             </div>
                                         )}
                                     </div>
+                                    {errors.images && <p className="text-red-500 text-sm">{errors.images}</p>}
                                 </div>
 
                                 <div className='topic-description flex flex-col gap-2'>
