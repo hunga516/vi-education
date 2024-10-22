@@ -5,6 +5,8 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import { IoArrowBack } from "react-icons/io5";
 import { RiDraftLine } from "react-icons/ri";
+import { VscLoading } from "react-icons/vsc";
+
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
@@ -21,6 +23,8 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
         content: course.content
     });
     const editorRef = useRef(null);
+    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
+
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
@@ -32,10 +36,13 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoadingSubmit(true)
+
         try {
             formData.content = editorRef.current.getContent()
 
             await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course._id}`, formData)
+            setIsLoadingSubmit(false)
             toggleIsShowEditCourse();
         } catch (error) {
             console.log(error);
@@ -65,19 +72,29 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
                                     <RiDraftLine />
                                     Lưu nháp
                                 </Button>
-                                <Button
-                                    className="px-4" type='primary'
-                                    onClick={handleSubmit}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Cập nhật</span>
-                                </Button>
+                                {isLoadingSubmit ? (
+                                    <Button
+                                        className="px-4 opacity-70" type='primary'
+                                        onClick={handleSubmit}
+                                    >
+                                        <VscLoading className='animate-spin text-lg' />
+                                        <span></span>
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="px-4" type='primary'
+                                        onClick={handleSubmit}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Cập nhật</span>
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div class="border-b border-gray-900/10 pb-12 mt-4">
-                            <h2 class="text-base font-semibold leading-7 text-gray-900">Chỉnh sửa khoá học</h2>
+                            <h2 class="text-base font-normal leading-7 text-gray-900">Chỉnh sửa khoá học</h2>
                             <div className='flex flex-col mt-8 gap-6'>
                                 <div className='flex flex-row gap-6'>
                                     <div className='topic-input flex flex-col gap-2'>
@@ -173,8 +190,8 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </div >
+            </form >
         </div >,
         document.body
     );

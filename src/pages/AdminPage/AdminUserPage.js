@@ -234,7 +234,7 @@ function AdminCoursePage() {
                         </button>
 
                         <button
-                            className={`flex items-center px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm ${activeButton === 'trash' ? 'bg-gray-100' : 'bg-white'}`}
+                            className={`flex gap-2 items-center px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm ${activeButton === 'trash' ? 'bg-gray-100' : 'bg-white'}`}
                             onClick={() => setActiveButton('trash')}
                         >
                             <FaRegTrashAlt />

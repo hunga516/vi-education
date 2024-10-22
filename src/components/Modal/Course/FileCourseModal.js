@@ -22,16 +22,18 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
 
     const handleChange = (e) => {
         if (e.target.name === "files") {
-            setFiles(e.target.files[0])
-            setFormData({ ...formData, [e.target.name]: e.target.value })
+            console.log(e.target.files[0].name);
+            const selectedFile = e.target.files[0];
+            setFiles(selectedFile);
+            setFormData({ ...formData, [e.target.name]: selectedFile });
         }
     }
 
 
-
-    const handleSubmitImport = async () => {
+    const handleSubmitImport = async (e) => {
+        e.preventDefault();
+        setIsLoadingSubmit(!isLoadingSubmit)
         const DataSend = new FormData()
-
         DataSend.append('files', formData.files)
 
         try {
@@ -40,6 +42,8 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
                     'Content-Type': 'multipart/form-data'
                 }
             })
+            setIsLoadingSubmit(!isLoadingSubmit)
+            toggleIsShowFileCourse(!toggleIsShowFileCourse)
         } catch (error) {
             console.log(error);
 
@@ -73,11 +77,10 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
                                 </Button>
                                 {isLoadingSubmit ? (
                                     <Button
-                                        className="px-4 w-48 opacity-70" type='primary'
+                                        className="px-4 opacity-70" type='primary'
                                         onClick={handleSubmitImport}
                                     >
                                         <VscLoading className='animate-spin' />
-                                        <span>Đang tải</span>
                                     </Button>
                                 ) : (
                                     <Button
@@ -91,26 +94,27 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
                             </div>
                         </div>
                         <div class="border-b border-gray-900/10 pb-12 mt-4">
-                            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="mt-2 flex justify-center items-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                 {files ? (
-                                    <div className='relative'>
-                                        <img src={files} alt='' className='' />
-                                        <label for="file-upload" class="absolute bottom-0 w-full p-4  cursor-pointer rounded-tl-md rounded-tr-md bg-gray-400/60 text-white font-normal">
-                                            <span>Đổi tệp khác</span>
+                                    <div className='flex w-32 flex-col'>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/8242/8242984.png" alt='Uploaded file preview' className='' />
+                                        <p className='text-xs text-slate-700 leading-6'>{formData.files.name}</p>
+                                        <label htmlFor="file-upload" className="bottom-0 mt-6 w-full text-center px-4 py-2 cursor-pointer rounded-md bg-slate-800 text-white font-normal">
+                                            <span className='text-sm'>Đổi tệp khác</span>
                                         </label>
-                                        <input id="file-upload" type="file" class="sr-only" name='files' placeholder='test' onChange={handleChange} />
+                                        <input id="file-upload" type="file" className="sr-only" name='files' onChange={handleChange} />
                                     </div>
                                 ) : (
-                                    <div class="text-center">
+                                    <div className="text-center">
                                         <CiFileOn className='mx-auto text-5xl text-slate-500' strokeWidth={"0.5px"} />
-                                        <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                                            <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                                            <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                                 <span>Tải tệp lên</span>
-                                                <input id="file-upload" type="file" class="sr-only" name='files' onChange={handleChange} />
+                                                <input id="file-upload" type="file" className="sr-only" name='files' onChange={handleChange} />
                                             </label>
-                                            <p class="pl-1">bằng kéo hoặc thả</p>
+                                            <p className="pl-1">bằng kéo hoặc thả</p>
                                         </div>
-                                        <p class="text-xs leading-5 text-gray-600">.csv dưới 10MB</p>
+                                        <p className="text-xs leading-5 text-gray-600">.csv dưới 10MB</p>
                                     </div>
                                 )}
                             </div>

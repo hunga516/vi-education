@@ -3,10 +3,10 @@ import { useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 import { LoadingContext } from "../../../context";
-import { MdOutlinePlayLesson } from "react-icons/md";
+import { RiDraftLine } from "react-icons/ri";
 import { RiHome5Line } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
-import { PiBookOpen } from "react-icons/pi";
+import { RiUser3Line } from "react-icons/ri";
+import { RiBookOpenLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 function AdminSidebarLeft({ className }) {
@@ -20,17 +20,17 @@ function AdminSidebarLeft({ className }) {
             to: '/admin'
         },
         {
-            icon: FaRegUser,
+            icon: RiUser3Line,
             title: 'Người dùng',
             to: '/admin/users'
         },
         {
-            icon: PiBookOpen,
+            icon: RiBookOpenLine,
             title: 'Khóa học',
             to: '/admin/courses'
         },
         {
-            icon: MdOutlinePlayLesson,
+            icon: RiDraftLine,
             title: 'Bài học',
             to: '/admin/lessons'
         },

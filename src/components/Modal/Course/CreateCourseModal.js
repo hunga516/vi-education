@@ -41,6 +41,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
+            console.log(e.target.files);
             setFormData({ ...formData, [e.target.name]: e.target.files[0] }) //URL.createObjectURL(e.target.files[0]) tạo local img preview blog://
             setImages(URL.createObjectURL(e.target.files[0]))
         } else {
@@ -131,8 +132,8 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                         className="px-4 w-48 opacity-70" type='primary'
                                         onClick={handleSubmit}
                                     >
-                                        <VscLoading className='animate-spin' />
-                                        <span>Xoay xoay</span>
+                                        <VscLoading className='animate-spin text-lg' />
+                                        <span></span>
                                     </Button>
                                 ) : (
                                     <Button
@@ -148,7 +149,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                             </div>
                         </div>
                         <div class="border-b border-gray-900/10 pb-12 mt-4">
-                            <h2 class="text-base font-semibold leading-7 text-gray-900">Đăng khoá học</h2>
+                            <h2 class="text-base font-normal leading-7 text-gray-900">Đăng khoá học</h2>
                             <div className='flex flex-col mt-8 gap-6'>
                                 <div className='flex flex-row gap-6'>
                                     <div className='topic-input flex flex-col gap-2'>
@@ -236,6 +237,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
                                         placeholder={'...'}
                                         onChange={handleChange}
                                     />
+                                    {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
                                 </div>
 
                                 <div className='content'>
