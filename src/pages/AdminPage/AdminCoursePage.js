@@ -80,7 +80,6 @@ function AdminCoursePage() {
 
         //Listen socketi io for realtime
         socket.on('course:create', (newCourse) => {
-            console.log(newCourse);
             setCourses((prevCourses) => [newCourse, ...prevCourses]);
         });
 

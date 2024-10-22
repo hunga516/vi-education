@@ -18,7 +18,7 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
         title: course.title,
         description: course.description,
         images: course.images,
-        author: userId,
+        updatedBy: userId,
         role: course.role,
         content: course.content
     });

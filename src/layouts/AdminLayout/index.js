@@ -1,5 +1,6 @@
 import images from "../../assets/images";
 import AdminSidebarLeft from "../components/AdminSidebarLeft";
+import AdminSidebarRight from "../components/AdminSidebarRight";
 import Header from "../components/Header";
 import SidebarLeft from "../components/SidebarLeft";
 import SidebarRight from "../components/SidebarRight";
@@ -9,7 +10,7 @@ function AdminLayout({ children }) {
         <div className="min-h-screen">
             <Header />
             <AdminSidebarLeft className="fixed left-0 top-[61px] z-10 w-[250px]" />
-            <div className="layout-wrapper wrapper flex justify-center bg-white/70 backdrop-blur-md w-full pl-4 pr-6 relative">
+            <div className="layout-wrapper wrapper flex justify-center bg-white/70 backdrop-blur-md w-full pl-4 pr-4 relative">
 
                 {/* Background Image */}
                 <img
@@ -24,7 +25,7 @@ function AdminLayout({ children }) {
                 </div>
 
             </div>
-            {/* <SidebarRight className="fixed right-0 top-[61px] z-10 w-[250px]" /> */}
+            <AdminSidebarRight className="fixed right-0 top-[61px] z-10 w-[250px]" />
         </div>
     );
 }

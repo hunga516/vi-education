@@ -9,6 +9,7 @@ import Menu from "../Popper/Menu";
 import Button from '../Button';
 import axios from 'axios';
 
+
 const CourseTable = ({ headers, data, activeButton, handleRestore, itemEditedId, courseActions, handleActionForm }) => {
     const [isSelectAction, setIsSelectAtion] = useState(false)
     const [courseIds, setCourseIds] = useState([])

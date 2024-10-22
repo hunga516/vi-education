@@ -21,9 +21,7 @@ function DefaultLayout({ children }) {
                 <div className="w-[900px] mt-[80px] px-8 ml-[250px] mr-[250px]">
                     {children}
                 </div>
-
             </div>
-            {/* <SidebarRight className="fixed right-0 top-[61px] z-10 w-[250px]" /> */}
         </div>
     );
 }
