@@ -4,12 +4,15 @@ import Skeleton from "react-loading-skeleton";
 import { AuthContext, LoadingContext } from "../../../context";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { useLocation } from "react-router-dom";
 
 function AdminSidebarRight({ className }) {
     const [history, setHistory] = useState([])
-    const [usersOnlineState, setUsersOnlineState] = useState([])
+    const [usersOnlineState, setUsersOnlineState] = useState()
     const { userId } = useContext(AuthContext)
     const socket = io('http://localhost:3001');
+
+    const location = useLocation()
 
     useEffect(() => {
         const getAllHistoryCourses = async () => {
@@ -21,9 +24,9 @@ function AdminSidebarRight({ className }) {
             }
         }
 
-        const getAllUsersOnline = async () => {
+        const getAllUsersOnline = async (userIds) => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/online`)
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/users`, { userIds })
                 setUsersOnlineState(response.data)
             } catch (error) {
                 console.log(error);
@@ -51,33 +54,43 @@ function AdminSidebarRight({ className }) {
             }
         }
 
-        const handleBeforeUnload = async () => {
-            await setUserOffline();
-        };
+        // const handleBeforeUnload = async () => {
+        //     await setUserOffline();
+        // };
+        // window.addEventListener('beforeunload', handleBeforeUnload);
 
-        window.addEventListener('beforeunload', handleBeforeUnload);
 
-        socket.on('user:online', newUserOnline => {
-            setUsersOnlineState(prevUser => [...prevUser, newUserOnline])
+        let room;
+        const currentPath = location.pathname
+        room = currentPath
+        socket.emit('user:join-room', { room, userId })
+
+        // socket.on('user:online', newUserOnline => {
+        //     setUsersOnlineState(prevUser => [...prevUser, newUserOnline])
+        // })
+
+        // socket.on('user:offline', newUserOffline => {
+        //     setUsersOnlineState(prevUser => prevUser.filter(userOnline => userOnline._id !== newUserOffline._id));
+        // });
+
+        socket.on('user:update-online', usersOnlineIds => {
+            console.log(usersOnlineIds);
+            getAllUsersOnline(usersOnlineIds)
         })
 
-        socket.on('user:offline', newUserOffline => {
-            setUsersOnlineState(prevUser => prevUser.filter(userOnline => userOnline._id !== newUserOffline._id));
-        });
 
-
-        setUserOnline()
-        getAllUsersOnline()
+        // setUserOnline()
+        // getAllUsersOnline()
         getAllHistoryCourses()
 
         return () => {
-            socket.off('user:online');
-            socket.off('user:offline');
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-            setUserOffline();
+            // socket.off('user:online');
+            // socket.off('user:offline');
+            // window.removeEventListener('beforeunload', handleBeforeUnload);
+            // setUserOffline();
             socket.disconnect();
         };
-    }, [userId])
+    }, [userId, location.pathname])
 
     return (
         <aside

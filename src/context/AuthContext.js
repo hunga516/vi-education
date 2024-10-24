@@ -4,6 +4,7 @@ import { auth, googleAuthProvider } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { AuthModalContext } from "./AuthModalContext";
 import { createUserInDatabase, getUserByEmail } from "../utils/request";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -21,7 +22,9 @@ export const AuthProvider = ({ children }) => {
                 setUserId(user._id);
                 console.log("User id is: ", user._id);
                 setUser(currentUser)
+                setUserOnline(user._id)
             } else {
+                setUserOffline(userId)
                 setUser(null);
                 console.log("User not logged in.");
                 navigate("/reels");
@@ -41,7 +44,6 @@ export const AuthProvider = ({ children }) => {
             console.log(userCredential.user);
 
             createUserInDatabase(userCredential.user);
-
         } catch (error) {
             console.error("Error during sign-in:", error);
         }
@@ -66,6 +68,25 @@ export const AuthProvider = ({ children }) => {
             console.error("Error during sign-out:", error);
         }
     };
+
+    const setUserOnline = async (userId) => {
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/online`, { userId })
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    const setUserOffline = async () => {
+        if (!userId) return;
+        console.log(userId + 'da ofline user');
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/offline`, { userId })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <AuthContext.Provider value={{ user, userId, handleSignIn, handleSignOut }}>
