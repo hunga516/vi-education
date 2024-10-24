@@ -7,10 +7,9 @@ import { io } from "socket.io-client";
 
 function AdminSidebarRight({ className }) {
     const [history, setHistory] = useState([])
-    const [usersOnline, setUsersOnline] = useState([])
+    const [usersOnlineState, setUsersOnlineState] = useState([])
     const { userId } = useContext(AuthContext)
     const socket = io('http://localhost:3001');
-
 
     useEffect(() => {
         const getAllHistoryCourses = async () => {
@@ -25,21 +24,26 @@ function AdminSidebarRight({ className }) {
         const getAllUsersOnline = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/online`)
-                setUsersOnline(response.data)
+                setUsersOnlineState(response.data)
             } catch (error) {
                 console.log(error);
             }
         }
 
         const setUserOnline = async () => {
+            if (!userId) return;
+            console.log(userId + 'da them user moi online');
             try {
                 await axios.post(`${process.env.REACT_APP_API_URL}/users/online`, { userId })
             } catch (error) {
                 console.log(error);
+
             }
         }
 
         const setUserOffline = async () => {
+            if (!userId) return;
+            console.log(userId + 'da ofline user');
             try {
                 await axios.post(`${process.env.REACT_APP_API_URL}/users/offline`, { userId })
             } catch (error) {
@@ -47,27 +51,33 @@ function AdminSidebarRight({ className }) {
             }
         }
 
-        // socket.on('user:online', newUserOnline => {
-        //     setUserOnline(prevUser => [...prevUser, newUserOnline])
-        // })
+        const handleBeforeUnload = async () => {
+            await setUserOffline();
+        };
 
-        // socket.on('user:online', newUserOnline => {
-        //     setUserOnline((prevUsers) => {
-        //         prevUsers.filter((usersOnline) => {
-        //             usersOnline 
-        //         })
-        //     })
-        // })
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        socket.on('user:online', newUserOnline => {
+            setUsersOnlineState(prevUser => [...prevUser, newUserOnline])
+        })
+
+        socket.on('user:offline', newUserOffline => {
+            setUsersOnlineState(prevUser => prevUser.filter(userOnline => userOnline._id !== newUserOffline._id));
+        });
+
 
         setUserOnline()
         getAllUsersOnline()
         getAllHistoryCourses()
 
         return () => {
-            setUserOffline()
-            socket.disconnect()
-        }
-    }, [])
+            socket.off('user:online');
+            socket.off('user:offline');
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            setUserOffline();
+            socket.disconnect();
+        };
+    }, [userId])
 
     return (
         <aside
@@ -104,8 +114,8 @@ function AdminSidebarRight({ className }) {
                 <div className="w-full h-72">
                     <p className="text-base text-slate-700">Trong trang này</p>
                     <div className="flex flex-col justify-between gap-2 mt-2">
-                        {usersOnline ? (
-                            usersOnline.map((user, index) => (
+                        {usersOnlineState ? (
+                            usersOnlineState.map((user, index) => (
                                 <div className="flex justify-between items-center py-2 px-4 rounded-xl bg-slate-100">
                                     <div className="flex items-center gap-2">
                                         <img src={user.photoURL} className="w-8 h-8 rounded-full" />

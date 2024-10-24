@@ -17,9 +17,9 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
                 console.log("User logged in:", currentUser.email);
-                const user = await getUserByEmail(currentUser.email); // Thêm await
+                const user = await getUserByEmail(currentUser.email);
                 setUserId(user._id);
-                console.log("User id is: ", user._id); // Sử dụng user._id thay vì userId
+                console.log("User id is: ", user._id);
                 setUser(currentUser)
             } else {
                 setUser(null);
