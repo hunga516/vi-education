@@ -12,9 +12,10 @@ import EditCourseModal from "../../components/Modal/Course/EditCourseModal";
 import CourseTable from "../../components/Table/CourseTable";
 import FileCourseModal from "../../components/Modal/Course/FileCourseModal";
 import Button from "../../components/Button";
+import Skeleton from "react-loading-skeleton";
 
 function AdminCoursePage() {
-    const [courses, setCourses] = useState([])
+    const [courses, setCourses] = useState()
     const [isShowCreateCourse, setIsShowCreateCourse] = useState(false)
     const [isShowEditCourse, setIsShowEditCourse] = useState(false)
     const [isShowFileCourse, setIsShowFileCourse] = useState(false)
@@ -106,7 +107,6 @@ function AdminCoursePage() {
                 }
                 )
             )
-            console.log('xoa ne');
         })
 
         socket.on('course:restore', (courseRestoreds) => {
@@ -123,12 +123,12 @@ function AdminCoursePage() {
             )
         })
 
-
         return () => {
             socket.off('course:create');
             socket.off('course:update');
             socket.off('course:soft-delete');
             socket.off('course:restore');
+            socket.disconnect()
         };
     }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
 
@@ -266,15 +266,26 @@ function AdminCoursePage() {
 
                 <div className="table max-w-full flex flex-col w-full mt-6 drop-shadow-md">
                     {activeButton === 'all' || activeButton === 'recent' ? (
-                        <CourseTable
-                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
-                            data={courses}
-                            activeButton={activeButton}
-                            handleRestore={handleRestore}
-                            itemEditedId={courseEditedId}
-                            courseActions={COURSE_ACTIONS}
-                            handleActionForm={handleActionForm}
-                        />
+                        courses ? (
+                            <CourseTable
+                                headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Cập nhật"]}
+                                data={courses}
+                                activeButton={activeButton}
+                                handleRestore={handleRestore}
+                                itemEditedId={courseEditedId}
+                                courseActions={COURSE_ACTIONS}
+                                handleActionForm={handleActionForm}
+                            />
+                        ) : (
+                            <div className="flex flex-col gap-1 justify-center mt-10">
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                            </div>
+
+                        )
                     ) : (
                         <CourseTable
                             headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}

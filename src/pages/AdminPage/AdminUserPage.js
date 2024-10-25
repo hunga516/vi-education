@@ -125,6 +125,7 @@ function AdminCoursePage() {
             socket.off('user:update');
             socket.off('user:soft-delete');
             socket.off('user:restore');
+            socket.disconnect()
         };
     }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
 

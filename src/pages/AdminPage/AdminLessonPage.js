@@ -122,6 +122,7 @@ function AdminLessonPage() {
             socket.off('lesson_edited');
             socket.off('lesson_soft_deleted');
             socket.off('lesson_restored');
+            socket.disconnect()
         };
     }, [currentPage, activeButton])
 

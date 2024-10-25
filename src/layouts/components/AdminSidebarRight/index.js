@@ -33,27 +33,6 @@ function AdminSidebarRight({ className }) {
             }
         }
 
-        const setUserOnline = async () => {
-            if (!userId) return;
-            console.log(userId + 'da them user moi online');
-            try {
-                await axios.post(`${process.env.REACT_APP_API_URL}/users/online`, { userId })
-            } catch (error) {
-                console.log(error);
-
-            }
-        }
-
-        const setUserOffline = async () => {
-            if (!userId) return;
-            console.log(userId + 'da ofline user');
-            try {
-                await axios.post(`${process.env.REACT_APP_API_URL}/users/offline`, { userId })
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
         // const handleBeforeUnload = async () => {
         //     await setUserOffline();
         // };
@@ -65,29 +44,18 @@ function AdminSidebarRight({ className }) {
         room = currentPath
         socket.emit('user:join-room', { room, userId })
 
-        // socket.on('user:online', newUserOnline => {
-        //     setUsersOnlineState(prevUser => [...prevUser, newUserOnline])
-        // })
-
-        // socket.on('user:offline', newUserOffline => {
-        //     setUsersOnlineState(prevUser => prevUser.filter(userOnline => userOnline._id !== newUserOffline._id));
-        // });
-
         socket.on('user:update-online', usersOnlineIds => {
             console.log(usersOnlineIds);
             getAllUsersOnline(usersOnlineIds)
         })
 
 
-        // setUserOnline()
-        // getAllUsersOnline()
         getAllHistoryCourses()
-
         return () => {
-            // socket.off('user:online');
-            // socket.off('user:offline');
             // window.removeEventListener('beforeunload', handleBeforeUnload);
-            // setUserOffline();
+            socket.off('user:join-room')
+            socket.off('user:update-online')
+            socket.emit('user:left-room', { room, userId })
             socket.disconnect();
         };
     }, [userId, location.pathname])
@@ -120,7 +88,11 @@ function AdminSidebarRight({ className }) {
                             </div>
                         ))
                     ) : (
-                        <Skeleton width={100} height={30} />
+                        <div className="flex-col gap-2 ">
+                            <Skeleton height={128} width={237} />
+                            <Skeleton height={128} width={237} />
+                            <Skeleton height={128} width={237} />
+                        </div>
                     )}
                 </div>
 
@@ -138,7 +110,12 @@ function AdminSidebarRight({ className }) {
                                 </div>
                             ))
                         ) : (
-                            <Skeleton height={50} width={200} />
+                            <>
+                                <Skeleton height={45} width={237} />
+                                <Skeleton height={45} width={237} />
+                                <Skeleton height={45} width={237} />
+                                <Skeleton height={45} width={237} />
+                            </>
                         )}
                     </div>
                 </div>
