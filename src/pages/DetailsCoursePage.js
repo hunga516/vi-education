@@ -10,6 +10,8 @@ import { FaClock } from "react-icons/fa";
 import { FaPlusCircle } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { FaUserGraduate } from "react-icons/fa6";
+import { AiOutlinePlus } from "react-icons/ai";
+import { IoPlayCircle } from "react-icons/io5";
 
 import Button from "../components/Button";
 
@@ -46,18 +48,18 @@ function DetailsCoursePage() {
         }
     }, [course.author])
 
-    const [isOpen, setIsOpen] = useState({
-        accordion1: true,
-        subAccordion1: true,
-        subAccordion2: false,
-        subAccordion3: false,
+    const [isOpen, setIsOpenAccordion] = useState({
+        accordion1: false,
         accordion2: false,
         accordion3: false
     });
 
     const toggleAccordion = (accordion) => {
-        setIsOpen((prev) => ({ ...prev, [accordion]: !prev[accordion] }));
+        setIsOpenAccordion((prev) => ({ ...prev, [accordion]: !prev[accordion] }));
     };
+
+    console.log(isOpen);
+
 
     return (
         <div className="course-detail-wrapper bg-white shadow-2xl rounded-md">
@@ -91,183 +93,70 @@ function DetailsCoursePage() {
                             <FaPlusCircle />
                             Đăng ký học ngay
                         </Button>
-                        <Button className={"mt-6 px-2 text-sm leading-6 tracking-wide"} type="outline-primary">Học thử</Button>
+                        <Button className={"mt-6 px-2 text-sm leading-6 tracking-wide bg-blue-100"} type="outline-primary">Học thử</Button>
                     </div>
                 </div>
             </div>
             {course.author && (
                 <div className="author-course mt-8 flex flex-row gap-4 p-4 rounded-lg flex-shrink-0">
                     <div className="w-full flex flex-col">
-                        <div className="hs-accordion-group">
-                            {/* Accordion #1 */}
-                            <div className={`hs-accordion ${isOpen.accordion1 ? 'active' : ''}`} id="hs-basic-nested-heading-one">
-                                <button
-                                    className="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
-                                    // aria-expanded={isOpen.accordion1}
-                                    aria-controls="hs-basic-nested-collapse-one"
-                                    onClick={() => toggleAccordion('accordion1')}
-                                >
-                                    <svg className={`${isOpen.accordion1 ? 'hidden' : 'block'} size-3.5`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14"></path>
-                                        <path d="M12 5v14"></path>
-                                    </svg>
-                                    <svg className={`${isOpen.accordion1 ? 'block' : 'hidden'} size-3.5`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14"></path>
-                                    </svg>
-                                    Accordion #1
-                                </button>
-                                <div
-                                    id="hs-basic-nested-collapse-one"
-                                    className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300 ${isOpen.accordion1 ? '' : 'hidden'}`}
-                                    role="region"
-                                    aria-labelledby="hs-basic-nested-heading-one"
-                                >
-                                    <div className="hs-accordion-group pl-6">
-                                        {/* Sub accordion #1 */}
-                                        <div className={`hs-accordion ${isOpen.subAccordion1 ? 'active' : ''}`} id="hs-basic-nested-sub-heading-one">
-                                            <button
-                                                className="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
-                                                aria-expanded={isOpen.subAccordion1}
-                                                aria-controls="hs-basic-nested-sub-collapse-one"
-                                                onClick={() => toggleAccordion('subAccordion1')}
-                                            >
-                                                <svg className={`${isOpen.subAccordion1 ? 'hidden' : 'block'} size-3`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                                    <path d="M2.624 7.86L13.624 7.86" strokeLinecap="round"></path>
-                                                    <path d="M8.124 13.36V2.36" strokeLinecap="round"></path>
-                                                </svg>
-                                                <svg className={`${isOpen.subAccordion1 ? 'block' : 'hidden'} size-3`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                                    <path d="M2.624 7.86L13.624 7.86" strokeLinecap="round"></path>
-                                                </svg>
-                                                Sub accordion #1
-                                            </button>
-                                            <div
-                                                id="hs-basic-nested-sub-collapse-one"
-                                                className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300 ${isOpen.subAccordion1 ? '' : 'hidden'}`}
-                                                role="region"
-                                                aria-labelledby="hs-basic-nested-sub-heading-one"
-                                            >
-                                                <p className="text-gray-800">
-                                                    <em>This is the third item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* Sub accordion #2 */}
-                                        <div className={`hs-accordion ${isOpen.subAccordion2 ? 'active' : ''}`} id="hs-basic-nested-sub-heading-two">
-                                            <button
-                                                className="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
-                                                aria-expanded={isOpen.subAccordion2}
-                                                aria-controls="hs-basic-nested-sub-collapse-two"
-                                                onClick={() => toggleAccordion('subAccordion2')}
-                                            >
-                                                <svg className={`${isOpen.subAccordion2 ? 'hidden' : 'block'} size-3`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                                    <path d="M2.624 7.86L13.624 7.86" strokeLinecap="round"></path>
-                                                    <path d="M8.124 13.36V2.36" strokeLinecap="round"></path>
-                                                </svg>
-                                                <svg className={`${isOpen.subAccordion2 ? 'block' : 'hidden'} size-3`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                                    <path d="M2.624 7.86L13.624 7.86" strokeLinecap="round"></path>
-                                                </svg>
-                                                Sub accordion #2
-                                            </button>
-                                            <div
-                                                id="hs-basic-nested-sub-collapse-two"
-                                                className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300 ${isOpen.subAccordion2 ? '' : 'hidden'}`}
-                                                role="region"
-                                                aria-labelledby="hs-basic-nested-sub-heading-two"
-                                            >
-                                                <p className="text-gray-800">
-                                                    <em>This is the second item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes.
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* Sub accordion #3 */}
-                                        <div className={`hs-accordion ${isOpen.subAccordion3 ? 'active' : ''}`} id="hs-basic-nested-sub-heading-three">
-                                            <button
-                                                className="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
-                                                aria-expanded={isOpen.subAccordion3}
-                                                aria-controls="hs-basic-nested-sub-collapse-three"
-                                                onClick={() => toggleAccordion('subAccordion3')}
-                                            >
-                                                <svg className={`${isOpen.subAccordion3 ? 'hidden' : 'block'} size-3`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                                    <path d="M2.624 7.86L13.624 7.86" strokeLinecap="round"></path>
-                                                    <path d="M8.124 13.36V2.36" strokeLinecap="round"></path>
-                                                </svg>
-                                                <svg className={`${isOpen.subAccordion3 ? 'block' : 'hidden'} size-3`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                                    <path d="M2.624 7.86L13.624 7.86" strokeLinecap="round"></path>
-                                                </svg>
-                                                Sub accordion #3
-                                            </button>
-                                            <div
-                                                id="hs-basic-nested-sub-collapse-three"
-                                                className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300 ${isOpen.subAccordion3 ? '' : 'hidden'}`}
-                                                role="region"
-                                                aria-labelledby="hs-basic-nested-sub-heading-three"
-                                            >
-                                                <p className="text-gray-800">
-                                                    <em>This is the first item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes.
-                                                </p>
-                                            </div>
-                                        </div>
+                        <div className="container-accordion flex flex-col gap-1 w-full pb-20">
+                            <div className="accordion">
+                                <div className="px-4 py-3 ring-1 ring-inset bg-slate-100 ring-slate-200 rounded-md cursor-pointer">
+                                    <div className="flex items-center gap-2" onClick={() => toggleAccordion(`accordion1`)}>
+                                        <AiOutlinePlus className="text-bluePrimary" />
+                                        <p className="text-sm text-slate-800 tracking-wide font-medium">Chương 1</p>
+                                    </div>
+                                </div>
+                                <div className={`transition-all duration-1000 ease-in-out ${isOpen.accordion1 ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                        Bài 1
+                                    </div>
+                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                        Bài 2
+                                    </div>
+                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                        Bài 3
+                                    </div>
+                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                        Bài 4
+                                    </div>
+                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                        Bài 5
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Accordion #2 */}
-                            <div className={`hs-accordion ${isOpen.accordion2 ? 'active' : ''}`} id="hs-basic-nested-heading-two">
-                                <button
-                                    className="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
-                                    aria-expanded={isOpen.accordion2}
-                                    aria-controls="hs-basic-nested-collapse-two"
-                                    onClick={() => toggleAccordion('accordion2')}
-                                >
-                                    <svg className={`${isOpen.accordion2 ? 'hidden' : 'block'} size-3.5`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14"></path>
-                                        <path d="M12 5v14"></path>
-                                    </svg>
-                                    <svg className={`${isOpen.accordion2 ? 'block' : 'hidden'} size-3.5`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14"></path>
-                                    </svg>
-                                    Accordion #2
-                                </button>
-                                <div
-                                    id="hs-basic-nested-collapse-two"
-                                    className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300 ${isOpen.accordion2 ? '' : 'hidden'}`}
-                                    role="region"
-                                    aria-labelledby="hs-basic-nested-heading-two"
-                                >
-                                    <p className="text-gray-800">
-                                        <em>This is the second item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                                    </p>
+                            <div className="accordion">
+                                <div className=" px-4 py-3 ring-1 ring-inset bg-slate-100 ring-slate-200 rounded-md">
+                                    <div className="flex items-center gap-2">
+                                        <AiOutlinePlus className="text-bluePrimary" />
+                                        <p className="text-sm text-slate-800 tracking-wide font-medium">Chương 1</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* Accordion #3 */}
-                            <div className={`hs-accordion ${isOpen.accordion3 ? 'active' : ''}`} id="hs-basic-nested-heading-three">
-                                <button
-                                    className="hs-accordion-toggle hs-accordion-active:text-blue-600 py-3 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
-                                    aria-expanded={isOpen.accordion3}
-                                    aria-controls="hs-basic-nested-collapse-three"
-                                    onClick={() => toggleAccordion('accordion3')}
-                                >
-                                    <svg className={`${isOpen.accordion3 ? 'hidden' : 'block'} size-3.5`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14"></path>
-                                        <path d="M12 5v14"></path>
-                                    </svg>
-                                    <svg className={`${isOpen.accordion3 ? 'block' : 'hidden'} size-3.5`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14"></path>
-                                    </svg>
-                                    Accordion #3
-                                </button>
-                                <div
-                                    id="hs-basic-nested-collapse-three"
-                                    className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300 ${isOpen.accordion3 ? '' : 'hidden'}`}
-                                    role="region"
-                                    aria-labelledby="hs-basic-nested-heading-three"
-                                >
-                                    <p className="text-gray-800">
-                                        <em>This is the third item's accordion body.</em> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                                    </p>
+                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                    Bài 1
+                                </div>
+                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                    Bài 1
+                                </div>
+                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                    Bài 1
+                                </div>
+                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                    Bài 1
+                                </div>
+                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
+                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                    Bài 1
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ const HeroSection = () => {
                             Vi Education có thể làm điều đó khi bạn có thể tìm thấy mọi khóa học ở đây.
                         </p>
                         <div className="flex gap-5 mt-7 max-w-full text-xl w-[465px]">
-                            <button className="flex items-center bg-gradient-to-b to-[#1733ae] from-blue-600  justify-center gap-2 text-base gap-2.5 self-stretch px-5 py-1 text-white rounded-lg min-h-[41px] w-[300px]">
+                            <button className="flex items-center bg-gradient-to-r to-[#1733ae] from-blue-600  justify-center gap-2 text-base gap-2.5 self-stretch px-5 py-1 text-white rounded-lg min-h-[41px] w-[300px]">
                                 <IoCheckmarkSharp />
                                 Đăng ký học ngay
                             </button>
