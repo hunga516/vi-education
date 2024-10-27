@@ -35,6 +35,7 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
         setIsLoadingSubmit(!isLoadingSubmit)
         const DataSend = new FormData()
         DataSend.append('files', formData.files)
+        DataSend.append('updatedBy', userId)
 
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/import-csv`, DataSend, {
@@ -48,6 +49,29 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
             console.log(error);
 
         }
+    }
+
+    const handleSubmitExport = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/courses/export-csv`, {
+                updatedBy: userId
+            }, {
+                responseType: 'blob'
+            });
+
+            // Tạo URL cho file blob
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'all-courses.csv'); // Tên file khi tải về
+            document.body.appendChild(link);
+            link.click();
+            link.remove(); // Xóa link sau khi click
+        } catch (error) {
+            console.error('Lỗi khi tải file:', error);
+        }
+
     }
 
 
@@ -71,7 +95,9 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
                             </button>
 
                             <div className="container-action flex items-center gap-2">
-                                <Button size='medium' type='upload'>
+                                <Button size='medium' type='upload'
+                                    onClick={handleSubmitExport}
+                                >
                                     <CiImport strokeWidth={"1px"} />
                                     Tải xuống
                                 </Button>

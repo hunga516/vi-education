@@ -26,7 +26,21 @@ module.exports = {
         'left': '-2px 0 5px 0 rgba(0,0,0,0.3)',
         'top': '0 -2px 5px 0 rgba(0,0,0,0.3)',
         'bottom': '0 2px 5px rgba(0,0,0,0.3)',
-      }
+      },
+      keyframes: {
+        slideInFormRight: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideInFormLeft: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        slideInFormRight: 'slideInFormRight 0.5s ease-out',
+        slideInFormLeft: 'slideInFormLeft 0.5s ease-out',
+      },
     },
   },
   plugins: [],

@@ -34,8 +34,6 @@ function AdminSidebarLeft({ className }) {
             title: 'Bài học',
             to: '/admin/lessons'
         },
-
-
     ]
 
     return (

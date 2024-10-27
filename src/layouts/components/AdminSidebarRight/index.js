@@ -50,7 +50,7 @@ function AdminSidebarRight({ className }) {
         })
 
         socket.on('historycourse:update', newHistoryCourse => {
-            getAllHistoryCourses()
+            setHistory(prevHistory => [newHistoryCourse, ...prevHistory.slice(0, 2)]);
         })
 
 
@@ -59,6 +59,7 @@ function AdminSidebarRight({ className }) {
             // window.removeEventListener('beforeunload', handleBeforeUnload);
             socket.off('user:join-room')
             socket.off('user:update-online')
+            socket.off('historycourse:update')
             socket.emit('user:left-room', { room, userId })
             socket.disconnect();
         };
@@ -75,7 +76,7 @@ function AdminSidebarRight({ className }) {
                 <div className="activity-history flex flex-col gap-1 w-full h-96 drop-shadow-md">
                     {history ? (
                         history.map((item, index) => (
-                            <div key={index} className="bg-white py-4 px-4 rounded-md">
+                            <div key={index} className="bg-white py-4 px-4 rounded-md animate-slideInFormRight">
                                 <div className="flex justify-between items-center">
                                     <div className="flex gap-2 items-center">
                                         <img src={item.updatedBy?.photoURL} className="w-6 h-6 rounded-full" />
