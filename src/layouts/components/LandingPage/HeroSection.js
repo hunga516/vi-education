@@ -13,7 +13,7 @@ const HeroSection = () => {
                             Tự học <span className="bg-gradient-to-tr from-blue-700 to-purple-600 text-transparent bg-clip-text">lập trình</span> từ cơ bản đến nâng cao
                         </h1>
                         <p className="mt-3.5 text-base tracking-wide leading-7 text-neutral-300">
-                            Vi Education có thể làm điều đó khi bạn có thể tìm thấy mọi khóa học ở đây.
+                            Cùng chúng tôi từng bước tạo nên tương lai tuyệt vời
                         </p>
                         <div className="flex gap-5 mt-7 max-w-full text-xl w-[465px]">
                             <button className="flex items-center bg-gradient-to-r to-[#1733ae] from-blue-600  justify-center gap-2 text-base gap-2.5 self-stretch px-5 py-1 text-white rounded-lg min-h-[41px] w-[300px]">

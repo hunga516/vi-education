@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
 
@@ -13,6 +13,7 @@ import CourseTable from "../../components/Table/CourseTable";
 import FileCourseModal from "../../components/Modal/Course/FileCourseModal";
 import Button from "../../components/Button";
 import Skeleton from "react-loading-skeleton";
+import { AuthContext } from "../../context";
 
 function AdminCoursePage() {
     const [courses, setCourses] = useState()
@@ -25,6 +26,7 @@ function AdminCoursePage() {
     const [courseEditedId, setCourseEditedId] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
+    const { userId } = useContext(AuthContext)
 
     const socket = io('http://localhost:3001');
 
@@ -147,7 +149,7 @@ function AdminCoursePage() {
 
     const handleSoftDelete = async (course) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course._id}`)
+            await axios.delete(`${process.env.REACT_APP_API_URL}/courses/${course._id}?updatedBy=${userId}`);
         } catch (error) {
             console.log(error);
         }
@@ -155,7 +157,7 @@ function AdminCoursePage() {
 
     const handleRestore = async (course) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course._id}`)
+            await axios.post(`${process.env.REACT_APP_API_URL}/courses/restore/${course._id}?updatedBy=${userId}`)
         } catch (error) {
             console.log(error);
         }

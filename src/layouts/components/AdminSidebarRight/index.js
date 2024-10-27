@@ -49,6 +49,10 @@ function AdminSidebarRight({ className }) {
             getAllUsersOnline(usersOnlineIds)
         })
 
+        socket.on('historycourse:update', newHistoryCourse => {
+            getAllHistoryCourses()
+        })
+
 
         getAllHistoryCourses()
         return () => {
@@ -77,7 +81,7 @@ function AdminSidebarRight({ className }) {
                                         <img src={item.updatedBy?.photoURL} className="w-6 h-6 rounded-full" />
                                         <p className="text-sm text-slate-700 font-semibold">{item.updatedBy?.displayName}</p>
                                     </div>
-                                    <p className="text-xs text-slate-500 tracking-wide">{item.createdAt}</p>
+                                    <p className="text-xs text-slate-500 tracking-wide text-nowrap">{item.createdAt}</p>
                                 </div>
                                 <div className="mt-2 text-sm text-slate-700 leading-5">
                                     {item.updatedContent}

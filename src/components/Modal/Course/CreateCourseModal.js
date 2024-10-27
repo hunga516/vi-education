@@ -23,6 +23,7 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
         images: '',
         author: '',
         role: '',
+        updatedBy: userId
     });
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
     const editorRef = useRef(null);
