@@ -42,7 +42,6 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
-            console.log(e.target.files);
             setFormData({ ...formData, [e.target.name]: e.target.files[0] }) //URL.createObjectURL(e.target.files[0]) tạo local img preview blog://
             setImages(URL.createObjectURL(e.target.files[0]))
         } else {
@@ -63,11 +62,9 @@ function CreateCourseModal({ toggleIsShowCreateCourse }) {
 
 
         const formDataToSend = new FormData();
-
         for (const key in formData) {
             formDataToSend.append(key, formData[key]);
         }
-
         formDataToSend.append('content', editorRef.current.getContent());
 
         try {

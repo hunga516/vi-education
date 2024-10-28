@@ -28,7 +28,6 @@ function AdminCoursePage() {
     const [totalPages, setTotalPages] = useState(10)
     const { userId } = useContext(AuthContext)
 
-    const socket = io('http://localhost:3001');
 
     useEffect(() => {
         // Đặt lại currentPage về 1 khi activeButton thay đổi
@@ -36,6 +35,8 @@ function AdminCoursePage() {
     }, [activeButton]) // Chỉ theo dõi activeButton
 
     useEffect(() => {
+        const socket = io('http://localhost:3001');
+
         const getAllCourses = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?page=${currentPage}`)
@@ -83,8 +84,13 @@ function AdminCoursePage() {
 
         //Listen socketi io for realtime
         socket.on('course:create', (newCourse) => {
-            setCourses((prevCourses) => [...newCourse, ...prevCourses]);
+            if (Array.isArray(newCourse)) {
+                setCourses((prevCourses) => [...newCourse, ...prevCourses]);
+            } else {
+                setCourses((prevCourses) => [newCourse, ...prevCourses]);
+            }
         });
+
 
         socket.on('course:update', (updatedCourse) => {
             setCourses((prevCourses) => {
@@ -154,6 +160,7 @@ function AdminCoursePage() {
             console.log(error);
         }
     }
+
 
     const handleRestore = async (course) => {
         try {

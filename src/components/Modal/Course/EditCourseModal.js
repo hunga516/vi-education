@@ -14,13 +14,13 @@ import { AuthContext } from '../../../context/AuthContext';
 
 function EditCourseModal({ course, toggleIsShowEditCourse }) {
     const { userId } = useContext(AuthContext)
+    const [images, setImages] = useState()
     const [formData, setFormData] = useState({
         title: course.title,
         description: course.description,
         images: course.images,
         updatedBy: userId,
         role: course.role,
-        content: course.content
     });
     const editorRef = useRef(null);
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
@@ -28,7 +28,8 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
 
     const handleChange = (e) => {
         if (e.target.name === 'images' && e.target.files[0].size > 0) {
-            setFormData({ ...formData, [e.target.name]: URL.createObjectURL(e.target.files[0]) })
+            setFormData({ ...formData, [e.target.name]: e.target.files[0] }) //URL.createObjectURL(e.target.files[0]) tạo local img preview blog://
+            setImages(URL.createObjectURL(e.target.files[0]))
         } else {
             setFormData({ ...formData, [e.target.name]: e.target.value })
         }
@@ -38,10 +39,18 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
         e.preventDefault();
         setIsLoadingSubmit(true)
 
-        try {
-            formData.content = editorRef.current.getContent()
+        const formDataToSend = new FormData();
+        for (const key in formData) {
+            formDataToSend.append(key, formData[key]);
+        }
+        formDataToSend.append('content', editorRef.current.getContent());
 
-            await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course._id}`, formData)
+        try {
+            await axios.put(`${process.env.REACT_APP_API_URL}/courses/${course._id}`, formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             setIsLoadingSubmit(false)
             toggleIsShowEditCourse();
         } catch (error) {
@@ -129,28 +138,38 @@ function EditCourseModal({ course, toggleIsShowEditCourse }) {
 
                                 <div className='title-input flex flex-col gap-2'>
                                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                        {formData.images ? (
+                                        {images ? (
                                             <div className='relative'>
-                                                <img src={formData.images} alt='' className='' />
+                                                <img src={images} alt='' className='' />
                                                 <label for="file-upload" class="absolute bottom-0 w-full p-4  cursor-pointer rounded-tl-md rounded-tr-md bg-gray-400/60 text-white font-normal">
                                                     <span>Đổi hình khác</span>
                                                 </label>
                                                 <input id="file-upload" type="file" class="sr-only" name='images' placeholder='test' onChange={handleChange} />
                                             </div>
                                         ) : (
-                                            <div class="text-center">
-                                                <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-                                                </svg>
-                                                <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                                                    <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                        <span>Tải ảnh lên</span>
-                                                        <input id="file-upload" type="file" class="sr-only" name='images' onChange={handleChange} />
+                                            formData.images ? (
+                                                <div className='relative'>
+                                                    <img src={formData.images} alt='' className='' />
+                                                    <label for="file-upload" class="absolute bottom-0 w-full p-4  cursor-pointer rounded-tl-md rounded-tr-md bg-gray-400/60 text-white font-normal">
+                                                        <span>Đổi hình khác</span>
                                                     </label>
-                                                    <p class="pl-1">bằng kéo hoặc thả</p>
+                                                    <input id="file-upload" type="file" class="sr-only" name='images' placeholder='test' onChange={handleChange} />
                                                 </div>
-                                                <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF dưới 10MB</p>
-                                            </div>
+                                            ) : (
+                                                <div class="text-center">
+                                                    <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                                        <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                                            <span>Tải ảnh lên</span>
+                                                            <input id="file-upload" type="file" class="sr-only" name='images' onChange={handleChange} />
+                                                        </label>
+                                                        <p class="pl-1">bằng kéo hoặc thả</p>
+                                                    </div>
+                                                    <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF dưới 10MB</p>
+                                                </div>
+                                            )
                                         )}
                                     </div>
                                 </div>
