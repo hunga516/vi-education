@@ -102,7 +102,7 @@ function AdminSidebarRight({ className }) {
                 </div>
 
                 <div className="w-full h-72">
-                    <p className="text-base text-slate-700">Trong trang này</p>
+                    <p className="text-base mt-8 text-slate-700">Trong trang này</p>
                     <div className="flex flex-col justify-between gap-2 mt-2">
                         {usersOnlineState ? (
                             usersOnlineState.map((user, index) => (

@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
 
@@ -10,6 +10,8 @@ import { CiFileOn } from "react-icons/ci";
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
+import images from '../../../assets/images';
+import Skeleton from 'react-loading-skeleton';
 
 
 function FileCourseModal({ toggleIsShowFileCourse }) {
@@ -17,8 +19,36 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
     const [files, setFiles] = useState()
     const [searchedUsers, setSearchedUsers] = useState([])
     const [formData, setFormData] = useState({})
+    const [historyImports, setHistoryImports] = useState()
+    const [historyExports, setHistoryExports] = useState()
 
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
+
+    useEffect(() => {
+        const getAllHistoryImports = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/import-csv`)
+                setHistoryImports(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        const getAllHistoryExports = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/export-csv`)
+                setHistoryExports(response.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getAllHistoryImports()
+        getAllHistoryExports()
+    }, [])
+
+    console.log(historyExports);
+
 
     const handleChange = (e) => {
         if (e.target.name === "files") {
@@ -28,7 +58,6 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
             setFormData({ ...formData, [e.target.name]: selectedFile });
         }
     }
-
 
     const handleSubmitImport = async (e) => {
         e.preventDefault();
@@ -119,7 +148,7 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
                                 )}
                             </div>
                         </div>
-                        <div class="border-b border-gray-900/10 pb-12 mt-4">
+                        <div class="pb-12 mt-4">
                             <div class="mt-2 flex justify-center items-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                 {files ? (
                                     <div className='flex w-32 flex-col'>
@@ -143,6 +172,59 @@ function FileCourseModal({ toggleIsShowFileCourse }) {
                                         <p className="text-xs leading-5 text-gray-600">.csv dưới 10MB</p>
                                     </div>
                                 )}
+                            </div>
+                        </div>
+
+                        <div className='grid grid-cols-2 gap-4'>
+                            <div className=''>
+                                <p className='text-sm text-slate-800 font-semibold leading-7'>Tải lên gần đây</p>
+                                <div className='flex flex-col gap-2 items-center mt-2'>
+                                    {historyImports ? (
+                                        historyImports.map((item, index) => (
+                                            <div key={index} className='p-2 flex gap-2 items-center bg-slate-100 rounded-md w-full'>
+                                                <img src="https://cdn-icons-png.flaticon.com/512/8242/8242984.png" className='w-8 h-8 object-cover' alt='img-csv' />
+                                                <div className='w-full'>
+                                                    <h1 className='text-slate-600 text-xs font-semibold tracking-wide'>{item.fileName}</h1>
+                                                    <div className='flex justify-between mt-1'>
+                                                        <div className='flex gap-2'>
+                                                            <p className='text-xs text-slate-400'>{item.size}</p>
+                                                            <p className='text-xs text-slate-400'>100%</p>
+                                                        </div>
+                                                        <p className='text-xs text-slate-400'>{item.createdAt}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <Skeleton width={200} height={40} />
+                                    )}
+
+                                </div>
+                            </div>
+
+                            <div className=''>
+                                <p className='text-sm text-slate-800 font-semibold leading-7'>Tải xuống gần đây</p>
+                                <div className='flex flex-col gap-2 mt-2'>
+                                    {historyExports ? (
+                                        historyExports.map((item, index) => (
+                                            <div key={index} className='p-2 flex gap-2 items-center bg-slate-100 rounded-md w-full'>
+                                                <img src="https://cdn-icons-png.flaticon.com/512/8242/8242984.png" className='w-8 h-8 object-cover' alt='img-csv' />
+                                                <div className='w-full'>
+                                                    <h1 className='text-slate-600 text-xs font-semibold tracking-wide'>{item.fileName}</h1>
+                                                    <div className='flex justify-between mt-1'>
+                                                        <div className='flex gap-2'>
+                                                            <p className='text-xs text-slate-400'>100%</p>
+                                                        </div>
+                                                        <p className='text-xs text-slate-400'>{item.createdAt}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <Skeleton width={200} height={40} />
+                                    )}
+
+                                </div>
                             </div>
                         </div>
                     </div>
