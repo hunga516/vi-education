@@ -14,6 +14,8 @@ import AdminHomePage from "../pages/AdminPage/AdminUserPage";
 import AdminLayout from "../layouts/AdminLayout";
 import AdminUserPage from "../pages/AdminPage/AdminUserPage";
 import Meeting from "../pages/Meeting";
+import LearnCoursesPage from "../pages/LearnCoursesPage";
+import OneSideLearnLayout from "../layouts/OneSideLearnLayout";
 
 export const publicRoute = [
     { path: '/', element: HomePage, layout: DefautLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
@@ -26,6 +28,7 @@ export const publicRoute = [
     { path: '/admin/courses', element: AdminCoursePage, layout: AdminLayout },
     { path: '/admin/lessons', element: AdminChapterPage, layout: AdminLayout },
     { path: '/admin/users', element: AdminUserPage, layout: AdminLayout },
+    { path: '/courses/:course_id/lessons/:lesson_id', element: LearnCoursesPage, layout: OneSideLearnLayout },
     { path: '/courses/:id', element: DetailsCoursePage, layout: OnSideLayout },
     { path: '/landing', element: LandingPage, layout: NoneLayout },
     { path: '/:nickname', element: ProfilePage },

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 
 import { FaFilm } from "react-icons/fa6";
 import { IoTimeSharp } from "react-icons/io5";
@@ -21,6 +21,7 @@ function DetailsCoursePage() {
     const [authorCourses, setAuthorCourses] = useState([])
     const [lessons, setLessons] = useState()
     const [chapters, setChapters] = useState()
+    const location = useLocation()
 
     useEffect(() => {
         const getCourseById = async () => {
@@ -150,10 +151,12 @@ function DetailsCoursePage() {
                                         </div>
                                         <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen[`accordion${index + 1}`] ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                                             {handleGetLessonsOnChapter(chapter).map((lesson, index) => (
-                                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]" key={index}>
-                                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                                    {lesson.title}
-                                                </div>
+                                                <Link to={`${location.pathname}/lessons/${lesson._id}`}>
+                                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]" key={index}>
+                                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                                        {lesson.title}
+                                                    </div>
+                                                </Link>
                                             ))}
                                         </div>
                                     </div>
