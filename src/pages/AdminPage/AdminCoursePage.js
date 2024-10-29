@@ -209,8 +209,7 @@ function AdminCoursePage() {
                     <div>
                         <div className="flex items-center gap-x-3">
                             <h2 className="text-lg font-medium text-gray-800">Khoá học</h2>
-
-                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">3 khoá học</span>
+                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">{courses?.length} khoá học</span>
                         </div>
 
                         <p className="mt-1 text-sm text-gray-500">Quản lý các khoá học</p>

@@ -1,37 +1,45 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
 
 import { FaRegTrashAlt } from "react-icons/fa";
 import { TiEdit } from "react-icons/ti";
 import { MdDeleteOutline } from "react-icons/md";
+import { CiFolderOn } from "react-icons/ci";
 
-import EditCourseModal from "../../components/Modal/Course/EditCourseModal";
-import CreateLessonModal from "../../components/Modal/Lesson/CreateLessonModal";
+import Button from "../../components/Button";
+import Skeleton from "react-loading-skeleton";
+import { AuthContext } from "../../context";
 import LessonTable from "../../components/Table/LessonTable";
+import CreateLessonModal from "../../components/Modal/Lesson/CreateLessonModal";
+import EditLessonModal from "../../components/Modal/Lesson/EditLessonModal";
+import FileLessonModal from "../../components/Modal/Lesson/FileLessonModal";
 
 function AdminLessonPage() {
-    const [lessons, setLessons] = useState([])
+    const [lessons, setLessons] = useState()
     const [isShowCreateLesson, setIsShowCreateLesson] = useState(false)
     const [isShowEditLesson, setIsShowEditLesson] = useState(false)
-    const [selectedLesson, setSelectedLesson] = useState(null)
+    const [isShowFileLesson, setIsShowFileLesson] = useState(false)
+    const [selectedLesson, setSelectedLesson] = useState(null) //for render lessons
     const [activeButton, setActiveButton] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
-    const [chapterEditedId, setChapterEditedId] = useState('')
+    const [lessonEditedId, setLessonEditedId] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
+    const { userId } = useContext(AuthContext)
 
-    const socket = io('http://localhost:3001');
 
     useEffect(() => {
+        // Đặt lại currentPage về 1 khi activeButton thay đổi
         setCurrentPage(1);
-    }, [activeButton])
-
+    }, [activeButton]) // Chỉ theo dõi activeButton
 
     useEffect(() => {
+        const socket = io('http://localhost:3001');
+
         const getAllLessons = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/lessons?page=${currentPage}`)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?page=${currentPage}`)
                 setLessons(response.data.lessons)
                 setTotalPages(Math.ceil(response.data.totalLessons / 10))
             } catch (error) {
@@ -59,6 +67,7 @@ function AdminLessonPage() {
             }
         }
 
+        //For active button (all,recent,trash)
         switch (activeButton) {
             case 'all':
                 getAllLessons()
@@ -73,21 +82,27 @@ function AdminLessonPage() {
                 break;
         }
 
-        socket.on('lesson_added', (newLesson) => {
-            setLessons((prevLessons) => [...prevLessons, newLesson]);
+        //Listen socketi io for realtime
+        socket.on('lesson:create', (newLesson) => {
+            if (Array.isArray(newLesson)) {
+                setLessons((prevLessons) => [...newLesson, ...prevLessons]);
+            } else {
+                setLessons((prevLessons) => [newLesson, ...prevLessons]);
+            }
         });
 
-        socket.on('lesson_edited', (updatedLesson) => {
+
+        socket.on('lesson:update', (updatedLesson) => {
             setLessons((prevLessons) => {
                 const updatedLessons = prevLessons.map(lesson =>
                     lesson._id === updatedLesson._id ? updatedLesson : lesson
                 );
-                setChapterEditedId(updatedLesson._id)
+                setLessonEditedId(updatedLesson._id)
                 return updatedLessons
             });
         });
 
-        socket.on('lesson_soft_deleted', (lessonDeleteds) => {
+        socket.on('lesson:soft-delete', (lessonDeleteds) => {
             setLessons(prevLessons =>
                 prevLessons.filter(lesson => {
                     if (Array.isArray(lessonDeleteds)) {
@@ -100,10 +115,9 @@ function AdminLessonPage() {
                 }
                 )
             )
-            console.log('xoa ne');
         })
 
-        socket.on('lesson_restored', (lessonRestoreds) => {
+        socket.on('lesson:restore', (lessonRestoreds) => {
             setLessons(prevLessons =>
                 prevLessons.filter(lesson => {
                     if (Array.isArray(lessonRestoreds)) {
@@ -118,13 +132,13 @@ function AdminLessonPage() {
         })
 
         return () => {
-            socket.off('lesson_added');
-            socket.off('lesson_edited');
-            socket.off('lesson_soft_deleted');
-            socket.off('lesson_restored');
+            socket.off('lesson:create');
+            socket.off('lesson:update');
+            socket.off('lesson:soft-delete');
+            socket.off('lesson:restore');
             socket.disconnect()
         };
-    }, [currentPage, activeButton])
+    }, [currentPage, activeButton]) // Theo dõi cả currentPage và activeButton
 
     const toggleIsShowCreateLesson = () => {
         setIsShowCreateLesson(!isShowCreateLesson)
@@ -135,17 +149,22 @@ function AdminLessonPage() {
         setIsShowEditLesson(!isShowEditLesson)
     }
 
+    const toggleIsShowFileLesson = () => {
+        setIsShowFileLesson(!isShowFileLesson)
+    }
+
     const handleSoftDelete = async (lesson) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/lessons/${lesson._id}`)
+            await axios.delete(`${process.env.REACT_APP_API_URL}/lessons/${lesson._id}?updatedBy=${userId}`);
         } catch (error) {
             console.log(error);
         }
     }
 
+
     const handleRestore = async (lesson) => {
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/lessons/restore/${lesson._id}`)
+            await axios.post(`${process.env.REACT_APP_API_URL}/lessons/restore/${lesson._id}?updatedBy=${userId}`)
         } catch (error) {
             console.log(error);
         }
@@ -189,29 +208,21 @@ function AdminLessonPage() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-x-3">
-                            <h2 className="text-lg font-medium text-gray-800">Bài học</h2>
+                            <h2 className="text-lg font-medium text-gray-800">Bài học</h2>
 
-                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">17 bài học</span>
+                            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">{lessons?.length} bài học</span>
                         </div>
 
-                        <p className="mt-1 text-sm text-gray-500">Quản lý các bài học của khoá học</p>
+                        <p className="mt-1 text-sm text-gray-500">Quản lý các bài học</p>
                     </div>
 
                     <div className="flex items-center mt-4 gap-x-3">
-                        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto hover:bg-gray-100">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clipPath="url(#clip0_3098_154395)">
-                                    <path d="M13.3333 13.3332L9.99997 9.9999M9.99997 9.9999L6.66663 13.3332M9.99997 9.9999V17.4999M16.9916 15.3249C17.8044 14.8818 18.4465 14.1806 18.8165 13.3321C19.1866 12.4835 19.2635 11.5359 19.0351 10.6388C18.8068 9.7417 18.2862 8.94616 17.5555 8.37778C16.8248 7.80939 15.9257 7.50052 15 7.4999H13.95C13.6977 6.52427 13.2276 5.61852 12.5749 4.85073C11.9222 4.08295 11.104 3.47311 10.1817 3.06708C9.25943 2.66104 8.25709 2.46937 7.25006 2.50647C6.24304 2.54358 5.25752 2.80849 4.36761 3.28129C3.47771 3.7541 2.70656 4.42249 2.11215 5.23622C1.51774 6.04996 1.11554 6.98785 0.935783 7.9794C0.756025 8.97095 0.803388 9.99035 1.07431 10.961C1.34523 11.9316 1.83267 12.8281 2.49997 13.5832" stroke="currentColor" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_3098_154395">
-                                        <rect width="20" height="20" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-
-                            <span>Tải lên</span>
-                        </button>
+                        <Button type="upload"
+                            onClick={toggleIsShowFileLesson}
+                        >
+                            <CiFolderOn strokeWidth="1px" className="text-base text-slate-500" />
+                            <span className="text-slate-500">Tệp</span>
+                        </Button>
 
                         <button
                             onClick={toggleIsShowCreateLesson}
@@ -221,7 +232,7 @@ function AdminLessonPage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
 
-                            <span>Thêm khoá học</span>
+                            <span>Đăng bài học</span>
                         </button>
                     </div>
                 </div>
@@ -258,32 +269,43 @@ function AdminLessonPage() {
                             </svg>
                         </span>
 
-                        <input onChange={(e) => handleSearch(e)} type="text" placeholder="Tìm khoá học" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                        <input onChange={(e) => handleSearch(e)} type="text" placeholder="Tìm bài học" className="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
                 </div>
 
                 <div className="table max-w-full flex flex-col w-full mt-6 drop-shadow-md">
                     {activeButton === 'all' || activeButton === 'recent' ? (
-                        <LessonTable
-                            headers={["STT", "Khoá học", "Bài học", "Người đăng", "Lượt học", "Cập nhật"]}
-                            data={lessons}
-                            activeButton={activeButton}
-                            handleRestore={handleRestore}
-                            itemEditedId={chapterEditedId}
-                            actions={LESSON_ACTIONS}
-                            handleActionForm={handleActionForm}
-                        />
+                        lessons ? (
+                            <LessonTable
+                                headers={["STT", "Tiêu đề", "Khoá học", "Người đăng", "Lượt học", "Cập nhật"]}
+                                data={lessons}
+                                activeButton={activeButton}
+                                handleRestore={handleRestore}
+                                itemEditedId={lessonEditedId}
+                                lessonActions={LESSON_ACTIONS}
+                                handleActionForm={handleActionForm}
+                            />
+                        ) : (
+                            <div className="flex flex-col gap-1 justify-center mt-10">
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                                <Skeleton height={100} width={796} />
+                            </div>
+
+                        )
                     ) : (
                         <LessonTable
-                            headers={["STT", "Lĩnh vực", "Tiêu đề", "Người đăng", "Lượt đăng ký", "Ngày xoá"]}
+                            headers={["STT", "Tiêu đề", "Khoá học", "Người đăng", "Lượt học", "Ngày xoá"]}
                             data={lessons}
                             activeButton={activeButton}
                             handleRestore={handleRestore}
-                            itemEditedId={chapterEditedId}
-                            actions={LESSON_ACTIONS}
+                            itemEditedId={lessonEditedId}
+                            lessonActions={LESSON_ACTIONS}
                         />
                     )}
-                </div>
+                </div >
                 <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
                     <div class="text-sm text-gray-500">
                         Trang <span class="font-medium text-gray-700">{currentPage} / {totalPages}</span>
@@ -314,7 +336,12 @@ function AdminLessonPage() {
             }
             {
                 isShowEditLesson && (
-                    <EditCourseModal course={selectedLesson} toggleIsShowEditCourse={toggleIsShowEditLesson} />
+                    <EditLessonModal lesson={selectedLesson} toggleIsShowEditLesson={toggleIsShowEditLesson} />
+                )
+            }
+            {
+                isShowFileLesson && (
+                    <FileLessonModal toggleIsShowFileLesson={toggleIsShowFileLesson} />
                 )
             }
         </>

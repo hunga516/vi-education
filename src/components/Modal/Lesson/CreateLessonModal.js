@@ -4,22 +4,38 @@ import axios from 'axios';
 import { Editor } from '@tinymce/tinymce-react';
 
 import { IoArrowBack } from "react-icons/io5";
+import { VscLoading } from "react-icons/vsc";
+import { RiDraftLine } from "react-icons/ri";
 
 import Button from '../../Button';
 import { AuthContext } from '../../../context/AuthContext';
+import SearchUserResult from '../../Popper/Menu/SearchUserResult';
+import SearchCourseResult from '../../Popper/Menu/SearchCourseResult';
 
 
 function CreateLessonModal({ toggleIsShowCreateLesson }) {
     const { userId } = useContext(AuthContext)
     const [images, setImages] = useState()
+    const [searchedCourses, setSearchedCourses] = useState([])
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         images: '',
-        author: userId,
-        role: ''
+        course_id: '',
+        updatedBy: userId
     });
+    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
     const editorRef = useRef(null);
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.title.trim()) newErrors.title = 'Tiêu đề không được để trống';
+        if (formData.description.trim().length < 20) newErrors.description = 'Mô tả phải ít nhất 20 ký tự';
+        if (!formData.images) newErrors.images = 'Bạn phải tải lên một hình ảnh';
+
+        return newErrors;
+    }
 
 
     const handleChange = (e) => {
@@ -33,13 +49,20 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoadingSubmit(true)
+
+        const newErrors = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            setIsLoadingSubmit(false);
+            return;
+        }
+
 
         const formDataToSend = new FormData();
-
         for (const key in formData) {
             formDataToSend.append(key, formData[key]);
         }
-
         formDataToSend.append('content', editorRef.current.getContent());
 
         try {
@@ -48,12 +71,30 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            setIsLoadingSubmit(false)
             toggleIsShowCreateLesson();
         } catch (error) {
             console.log(error);
+            setIsLoadingSubmit(false)
         }
     };
 
+    const handleSearchCourses = async (e) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?title=${e.target.value}`)
+            setFormData({ ...formData, course_id: e.target.value })
+            setSearchedCourses(response.data.courses)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleClickCourse = async (e, course) => {
+        e.preventDefault()
+        setSearchedCourses(null)
+        // setFormData(prev => {...prev,  })
+        setFormData({ ...formData, course_id: course._id })
+    }
 
     return createPortal(
         <div className="relative">
@@ -70,57 +111,82 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                         >
                             <button onClick={toggleIsShowCreateLesson} className="flex items-center gap-2">
                                 <IoArrowBack />
-                                <h2 className="text-base font-semibold text-gray-700 leading-9">Trở về</h2>
+                                <h2 className="text-base text-gray-700 leading-9">Trở về</h2>
                             </button>
 
                             <div className="container-action flex items-center gap-2">
-                                <Button size='medium' type='outline-dark'>
-                                    Lưu nháp
+                                <Button size='medium' type='upload'>
+                                    <RiDraftLine />
+                                    Lưu nháp
                                 </Button>
-                                <Button
-                                    className="px-4" type='primary'
-                                    onClick={handleSubmit}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Đăng bài học</span>
-                                </Button>
+                                {isLoadingSubmit ? (
+                                    <Button
+                                        className="px-4 w-48 opacity-70" type='primary'
+                                        onClick={handleSubmit}
+                                    >
+                                        <VscLoading className='animate-spin text-lg' />
+                                        <span></span>
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        className="px-4 w-48" type='primary'
+                                        onClick={handleSubmit}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Đăng bài học</span>
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div class="border-b border-gray-900/10 pb-12 mt-4">
-                            <h2 class="text-base font-semibold leading-7 text-gray-900">Đăng bài học mới</h2>
+                            <h2 class="text-base font-normal leading-7 text-gray-900">Đăng bài học mới</h2>
                             <div className='flex flex-col mt-8 gap-6'>
                                 <div className='flex flex-row gap-6'>
-                                    <div className='course-input flex flex-col gap-2'>
-                                        <label htmlFor='course' className='text-sm font-medium text-gray-900 leading-6'>Khoá học</label>
-                                        <select
-                                            name='course'
-                                            className='py-2 h-9 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2 placeholder:text-gray-400 placeholder:font-medium placeholder:text-sm'
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Chọn khoá học</option>
-                                            <option value='Backend'>Backend</option>
-
-                                        </select>
-                                    </div>
+                                    <SearchCourseResult searchedCourses={searchedCourses} handleClickCourse={handleClickCourse}>
+                                        <div className='author-input flex flex-1 flex-col gap-2'>
+                                            <label htmlFor='course' className='text-sm font-medium text-gray-900 leading-6'>Khoá học</label>
+                                            <input
+                                                type='text'
+                                                id='course_id'
+                                                name='course_id'
+                                                value={formData.course_id || ''}
+                                                className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                                placeholder={'Tìm khoá học'}
+                                                onChange={(e) => {
+                                                    handleChange(e)
+                                                    handleSearchCourses(e)
+                                                }}
+                                                onFocus={() => setFormData({ ...formData, course_id: '' })}
+                                            />
+                                            {errors.course && <p className="text-red-500 text-sm">{errors.course}</p>}
+                                        </div>
+                                    </SearchCourseResult>
                                     <div className='title-input flex flex-1 flex-col gap-2'>
-                                        <label htmlFor='title' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề khoá học</label>
+                                        <label htmlFor='title' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề bài học</label>
                                         <input
                                             type='text'
                                             id='title'
                                             name='title'
                                             className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
-                                            placeholder={'Nhập tiêu đề khoá học'}
+                                            placeholder={'Nhập tiêu đề bài học'}
                                             onChange={handleChange}
                                         />
+                                        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
                                     </div>
                                 </div>
 
                                 <div className='title-input flex flex-col gap-2'>
                                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                         {images ? (
-                                            <img src={images} alt='' />
+                                            <div className='relative'>
+                                                <img src={images} alt='' className='' />
+                                                <label for="file-upload" class="absolute bottom-0 w-full p-4  cursor-pointer rounded-tl-md rounded-tr-md bg-gray-400/60 text-white font-normal">
+                                                    <span>Đổi hình khác</span>
+                                                </label>
+                                                <input id="file-upload" type="file" class="sr-only" name='images' placeholder='test' onChange={handleChange} />
+                                            </div>
                                         ) : (
                                             <div class="text-center">
                                                 <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -137,10 +203,11 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                                             </div>
                                         )}
                                     </div>
+                                    {errors.images && <p className="text-red-500 text-sm">{errors.images}</p>}
                                 </div>
 
                                 <div className='topic-description flex flex-col gap-2'>
-                                    <label htmlFor='topic' className='text-sm font-medium text-gray-900 leading-6'>Mô tả khoá học</label>
+                                    <label htmlFor='topic' className='text-sm font-medium text-gray-900 leading-6'>Mô tả bài học</label>
                                     <textarea
                                         id='topic'
                                         name='description'
@@ -148,6 +215,7 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                                         placeholder={'...'}
                                         onChange={handleChange}
                                     />
+                                    {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
                                 </div>
 
                                 <div className='content'>
@@ -174,8 +242,8 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </div >
+            </form >
         </div >,
         document.body
     );
