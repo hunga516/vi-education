@@ -98,7 +98,10 @@ const LessonTable = ({ headers, data, activeButton, handleRestore, itemEditedId,
                                     <div className="py-1 text-sm font-normal rounded-full overflow-hidden text-ellipsis">{item.title}</div>
                                 </td>
                                 <td className="px-4 py-4 max-w-36 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
-                                    <div className="py-1 text-sm font-normal rounded-full overflow-hidden text-ellipsis">{item.course.title}</div>
+                                    <div className="flex gap-2 items-center">
+                                        <img src={item.course.images} className='w-8 h-8 rounded-md'></img>
+                                        <div className="py-1 text-sm font-normal rounded-full overflow-hidden text-ellipsis">{item.course.title}</div>
+                                    </div>
                                 </td>
                                 <td className="px-4 py-4 text-sm font-medium text-ellipsis overflow-hidden whitespace-nowrap">
                                     <div className="flex gap-2 items-center py-1 text-sm font-normal rounded-full">

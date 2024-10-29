@@ -23,7 +23,8 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
         description: '',
         images: '',
         course_id: '',
-        updatedBy: userId
+        updatedBy: userId,
+        chapter: ''
     });
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
     const editorRef = useRef(null);
@@ -176,7 +177,18 @@ function CreateLessonModal({ toggleIsShowCreateLesson }) {
                                         {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
                                     </div>
                                 </div>
-
+                                <div className='chapter-input flex flex-1 flex-col gap-2'>
+                                    <label htmlFor='chapter' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề bài học</label>
+                                    <input
+                                        type='text'
+                                        id='chapter'
+                                        name='chapter'
+                                        value={formData.chapter}
+                                        className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                        placeholder={'Nhập tiêu đề chương'}
+                                        onChange={handleChange}
+                                    />
+                                </div>
                                 <div className='title-input flex flex-col gap-2'>
                                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                         {images ? (

@@ -267,8 +267,8 @@ export function MeetingContainer({
   });
 
   return (
-    <div className="fixed inset-0">
-      <div ref={containerRef} className="h-full flex flex-col bg-gray-800">
+    <div className="">
+      <div ref={containerRef} className="h-100vh flex flex-col bg-gray-800">
         {typeof localParticipantAllowedJoin === "boolean" ? (
           localParticipantAllowedJoin ? (
             <>

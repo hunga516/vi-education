@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { AuthContext, LoadingContext } from "../../../context";
 import axios from "axios";
 import { io } from "socket.io-client";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 function AdminSidebarRight({ className }) {
     const [history, setHistory] = useState([])
@@ -13,11 +13,12 @@ function AdminSidebarRight({ className }) {
     const socket = io('http://localhost:3001');
 
     const location = useLocation()
+    const params = location.pathname.split("/").pop()
 
     useEffect(() => {
-        const getAllHistoryCourses = async () => {
+        const getAllHistory = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/history?limit=3`)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/${params}/history?limit=3`)
                 setHistory(response.data)
             } catch (error) {
                 console.log(error);
@@ -54,7 +55,7 @@ function AdminSidebarRight({ className }) {
         })
 
 
-        getAllHistoryCourses()
+        getAllHistory()
         return () => {
             // window.removeEventListener('beforeunload', handleBeforeUnload);
             socket.off('user:join-room')

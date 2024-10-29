@@ -23,6 +23,7 @@ function EditLessonModal({ lesson, toggleIsShowEditLesson }) {
         description: lesson.description,
         images: lesson.images,
         course_id: lesson.course._id,
+        chapter: lesson.chapter,
         updatedBy: userId,
     });
     const editorRef = useRef(null);
@@ -157,7 +158,18 @@ function EditLessonModal({ lesson, toggleIsShowEditLesson }) {
                                         />
                                     </div>
                                 </div>
-
+                                <div className='chapter-input flex flex-1 flex-col gap-2'>
+                                    <label htmlFor='chapter' className='text-sm font-medium text-gray-900 leading-6'>Tiêu đề bài học</label>
+                                    <input
+                                        type='text'
+                                        id='chapter'
+                                        name='chapter'
+                                        value={formData.chapter}
+                                        className='py-1.5 text-sm font-medium leading-6 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 rounded-md p-2'
+                                        placeholder={'Nhập tiêu đề chương'}
+                                        onChange={handleChange}
+                                    />
+                                </div>
                                 <div className='title-input flex flex-col gap-2'>
                                     <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                         {images ? (

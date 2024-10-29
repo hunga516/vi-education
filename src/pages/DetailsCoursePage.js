@@ -19,6 +19,8 @@ function DetailsCoursePage() {
     const params = useParams()
     const [course, setCourse] = useState({})
     const [authorCourses, setAuthorCourses] = useState([])
+    const [lessons, setLessons] = useState()
+    const [chapters, setChapters] = useState()
 
     useEffect(() => {
         const getCourseById = async () => {
@@ -30,7 +32,21 @@ function DetailsCoursePage() {
             }
         }
 
+        const getLessonsByCourseId = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?course_id=${params.id}&sort=createdAt&order=asc`)
+                setLessons(response.data.lessons)
+
+                const uniqueChapters = [...new Set(response.data.lessons.map((lesson) => lesson.chapter))]
+                setChapters(uniqueChapters)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+
         getCourseById()
+        getLessonsByCourseId()
     }, [params.id])
 
     useEffect(() => {
@@ -60,6 +76,10 @@ function DetailsCoursePage() {
 
     console.log(isOpen);
 
+    const handleGetLessonsOnChapter = (chapter) => {
+        return lessons.filter(lesson => lesson.chapter === chapter)
+    }
+
 
     return (
         <div className="course-detail-wrapper bg-white shadow-2xl rounded-md">
@@ -67,6 +87,7 @@ function DetailsCoursePage() {
                 <img
                     src={course.images}
                     className="w-64 h-64 rounded-lg object-cover"
+                    alt=""
                 />
                 <div className="info-course flex flex-col justify-between p-2 flex-grow">
                     <h1 className="flex justify-between text-lg font-semibold leading-7 tracking-normal">
@@ -118,64 +139,26 @@ function DetailsCoursePage() {
                 <div className="author-course mt-8 flex flex-row gap-4 p-4 rounded-lg flex-shrink-0">
                     <div className="w-full flex flex-col">
                         <div className="container-accordion mt-9 flex flex-col gap-1 w-full pb-20">
-                            <div className="accordion">
-                                <div onClick={() => toggleAccordion(`accordion1`)} className="px-4 py-3 ring-1 ring-inset bg-slate-100 ring-slate-200 rounded-md cursor-pointer">
-                                    <div className="flex items-center gap-2">
-                                        <AiOutlinePlus className="text-bluePrimary" />
-                                        <p className="text-sm text-slate-800 tracking-wide font-medium">Chương 1</p>
+                            {chapters && (
+                                chapters.map((chapter, index) => (
+                                    <div className="accordion">
+                                        <div onClick={() => toggleAccordion(`accordion${index + 1}`)} className="px-4 py-3 ring-1 ring-inset bg-slate-100 ring-slate-200 rounded-md cursor-pointer">
+                                            <div className="flex items-center gap-2">
+                                                <AiOutlinePlus className="text-bluePrimary" />
+                                                <p className="text-sm text-slate-800 tracking-wide font-medium">{chapter}</p>
+                                            </div>
+                                        </div>
+                                        <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen[`accordion${index + 1}`] ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                            {handleGetLessonsOnChapter(chapter).map((lesson, index) => (
+                                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]" key={index}>
+                                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
+                                                    {lesson.title}
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className={`transition-all duration-300 ease-in-out ${isOpen.accordion1 ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                        Bài 1
-                                    </div>
-                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                        Bài 2
-                                    </div>
-                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                        Bài 3
-                                    </div>
-                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                        Bài 4
-                                    </div>
-                                    <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                        <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                        Bài 5
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="accordion">
-                                <div className=" px-4 py-3 ring-1 ring-inset bg-slate-100 ring-slate-200 rounded-md">
-                                    <div className="flex items-center gap-2">
-                                        <AiOutlinePlus className="text-bluePrimary" />
-                                        <p className="text-sm text-slate-800 tracking-wide font-medium">Chương 1</p>
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                    Bài 1
-                                </div>
-                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                    Bài 1
-                                </div>
-                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                    Bài 1
-                                </div>
-                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                    Bài 1
-                                </div>
-                                <div className="flex gap-2 items-center ml-8 px-4 py-3 border-b-[0.5px]">
-                                    <IoPlayCircle strokeWidth={1} className="text-bluePrimary" />
-                                    Bài 1
-                                </div>
-                            </div>
+                                ))
+                            )}
                         </div>
                         <div dangerouslySetInnerHTML={{ __html: course.content }} className="w-full">
                         </div>
