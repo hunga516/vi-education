@@ -8,12 +8,16 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BsCameraVideoFill } from "react-icons/bs";
 import { BiImages } from "react-icons/bi";
 import { FaRegSmile } from "react-icons/fa";
+import Button from "../components/Button/index.js";
+import { PiMusicNotesSimpleFill } from "react-icons/pi";
+import { BsThreeDots } from "react-icons/bs";
 
 import images from "../assets/images"
 import video from "../assets/video";
 import Comment from "../layouts/components/Comment";
 import UploadPostModal from "../components/Modal/UploadPostModal";
 import axios from "axios";
+import { renderContentWithHighlight } from "../utils/renderContentWithHighlight.js";
 
 function FeedPage() {
     const [isShowUploadPost, setIsShowUploadPost] = useState(false)
@@ -65,8 +69,6 @@ function FeedPage() {
         getAllPosts()
     }, [])
 
-    const VIDEO_ITEMS = Object.values(video)
-
     const toggleIsShowUploadPost = () => {
         setIsShowUploadPost(!isShowUploadPost)
     }
@@ -100,59 +102,81 @@ function FeedPage() {
                     </button>
                 </div>
             </div>
+            <div className="hot-posts mt-4 grid grid-cols-6 gap-2">
+                <div className="item-grid relative pb-56 bg-red-400">
 
-            {posts.map((post, index) => (
-                <div className="wrapper-feed-page mt-6 bg-white backdrop-blur-md shadow-2xl rounded-md">
-                    <div key={index} className={`flex px-5 py-4 gap-3 mx-auto border-b-[1px] first:mt-0 mt-[20px]`}>
-                        <div className="video-container relative w-[350px] h-auto">
-                            {LoadingContextValue ? (
-                                <Skeleton className="rounded-md" width={350} height={600} />
-                            ) : (
-                                <>
+                </div>
+                <div className="item-grid relative pb-56 bg-red-400">
+
+                </div>
+                <div className="item-grid relative pb-56 bg-red-400">
+
+                </div>
+                <div className="item-grid relative pb-56 bg-red-400">
+
+                </div>
+                <div className="item-grid relative pb-56 bg-red-400">
+
+                </div>
+                <div className="item-grid relative pb-56 bg-red-400">
+
+                </div>
+            </div>
+            {posts ? (
+                posts?.map((post, index) => (
+                    <div className="">
+                        <div key={index} className={`w-full mx-auto border-b-[1px] first:mt-4`}>
+                            <div className="video-info-comment flex flex-col gap-4 p-4 bg-white rounded-tr-md rounded-tl-md shadow-2xl">
+                                <div className="video-info-container flex justify-between items-center">
+                                    <div className="user-info flex flex-row gap-3">
+                                        <img src={post.author.photoURL} alt="avatar" className="rounded-full w-12" />
+                                        <div className="user-details flex flex-col justify-between">
+                                            <h1 className="font-semibold">{post.author.displayName}</h1>
+                                            <h2 className="text-sm">{post.author.email}</h2>
+                                        </div>
+                                    </div>
+                                    <BsThreeDots className="text-2xl text-slate-600" />
+                                </div>
+                                <p className="video-description tracking-wide text-gray-600 ">
+                                    {renderContentWithHighlight(post.content)}
+                                </p>
+                                <div className="music-info flex items-center gap-2">
+                                    <PiMusicNotesSimpleFill />
+                                    <span className="text-sm opacity-80">nhạc nền - Không có</span>
+                                </div>
+                            </div>
+                            <div className="video-container w-full h-auto shadow-2xl">
+                                {post.media ? (
                                     <video
-                                        className="rounded-md w-full object-cover"
+                                        className="w-full object-cover"
                                         src={post.media}
                                         type="video/mp4"
                                         controls
                                     >
                                     </video>
-                                    <div className="social-interaction absolute bottom-0 right-0 flex flex-col items-center justify-end p-4">
-                                        <div className="avatar relative mb-6">
-                                            {LoadingContextValue ? (
-                                                <Skeleton height={48} width={48} />
-                                            ) : (
-                                                <img className="h-[48px] w-[48px] rounded-full" src={images.sony} alt="avatar" />
-                                            )}
-                                            <FaCirclePlus className="absolute bottom-[-8%] right-[33%] text-bluePrimary text-[16px]" />
-                                        </div>
-                                        {ACTION_ITEMS.map((item, index) => (
-                                            <div key={index} className="flex flex-col items-center mb-4">
-                                                <button className="love-react flex text-white justify-center items-center rounded-full h-[40px] w-[40px] bg-black bg-opacity-50 text-[18px] mb-1">
-                                                    {LoadingContextValue ? (
-                                                        <Skeleton circle={true} height={40} width={40} />
-                                                    ) : (
-                                                        <item.icon />
-                                                    )}
-                                                </button>
-                                                <span className="text-[12px] font-semibold text-white">
-                                                    {!LoadingContextValue && (
-                                                        <>{item.data.count}K</>
-                                                    )}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </>
-                            )}
+                                ) : (
+                                    <Skeleton width={836} height={557} />
+                                )}
+                            </div>
+                            <div className="social-interaction flex justify-between px-4">
+                                <div className="flex">
+
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className=""></div>
+                                    <div className=""></div>
+                                </div>
+                            </div>
+                            <Comment posts={posts} />
                         </div>
-                        {LoadingContextValue ? (
-                            <Skeleton height={600} width={400} />
-                        ) : (
-                            <Comment />
-                        )}
                     </div>
+                ))
+            ) : (
+                <div className="wrapper-feed-page p-4 mt-6 bg-white backdrop-blur-md shadow-2xl rounded-md">
+                    <Skeleton height={800} width={836} />
                 </div>
-            ))}
+            )
+            }
             {isShowUploadPost && (
                 <UploadPostModal toggleIsShowUploadPost={toggleIsShowUploadPost} />
             )}
