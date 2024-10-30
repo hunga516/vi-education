@@ -8,6 +8,7 @@ import { MdOndemandVideo } from "react-icons/md";
 import { MdOutlineForum } from "react-icons/md";
 import { PiUsers } from "react-icons/pi";
 import { RiHome5Line } from "react-icons/ri";
+import { CgFeed } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 function SidebarLeft({ className }) {
@@ -19,6 +20,11 @@ function SidebarLeft({ className }) {
             icon: RiHome5Line,
             title: 'Trang chủ',
             to: '/home'
+        },
+        {
+            icon: CgFeed,
+            title: 'Bảng tin',
+            to: '/feed'
         },
         {
             icon: MdOndemandVideo,

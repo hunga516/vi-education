@@ -16,10 +16,12 @@ import AdminUserPage from "../pages/AdminPage/AdminUserPage";
 import Meeting from "../pages/Meeting";
 import LearnCoursesPage from "../pages/LearnCoursesPage";
 import OneSideLearnLayout from "../layouts/OneSideLearnLayout";
+import FeedPage from "../pages/FeedPage";
 
 export const publicRoute = [
     { path: '/', element: HomePage, layout: DefautLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
     { path: '/home', element: HomePage, layout: DefautLayout },
+    { path: '/feed', element: FeedPage, layout: DefautLayout },
     { path: '/meeting', element: Meeting, layout: OnSideLayout },
     { path: '/reels', element: ReelsPage, layout: DefautLayout },
     { path: '/sign-in', element: PopupLogin, layout: NoneLayout },
