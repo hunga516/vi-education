@@ -17,16 +17,16 @@ import Meeting from "../pages/Meeting";
 import LearnCoursesPage from "../pages/LearnCoursesPage";
 import OneSideLearnLayout from "../layouts/OneSideLearnLayout";
 import FeedPage from "../pages/FeedPage";
+import AdminDashboardPage from "../pages/AdminPage/AdminDashboardPage";
 
 export const publicRoute = [
-    { path: '/', element: HomePage, layout: DefautLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
-    { path: '/home', element: HomePage, layout: OnSideLayout },
+    { path: '/', element: HomePage, layout: OnSideLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
     { path: '/feed', element: FeedPage, layout: DefautLayout },
     { path: '/meeting', element: Meeting, layout: OnSideLayout },
     { path: '/reels', element: ReelsPage, layout: DefautLayout },
     { path: '/sign-in', element: PopupLogin, layout: NoneLayout },
     { path: '/forums', element: ForumsPage },
-    { path: '/admin', element: AdminHomePage, layout: AdminLayout },
+    { path: '/admin', element: AdminDashboardPage, layout: AdminLayout },
     { path: '/admin/courses', element: AdminCoursePage, layout: AdminLayout },
     { path: '/admin/lessons', element: AdminChapterPage, layout: AdminLayout },
     { path: '/admin/users', element: AdminUserPage, layout: AdminLayout },

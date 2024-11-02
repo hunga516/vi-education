@@ -19,7 +19,7 @@ function SidebarLeft({ className }) {
         {
             icon: RiHome5Line,
             title: 'Trang chủ',
-            to: '/home'
+            to: '/'
         },
         {
             icon: CgFeed,
@@ -59,15 +59,15 @@ function SidebarLeft({ className }) {
             <div className="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 border-r-[1px] border-gray-400/30">
                 <nav className="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (
-                        <>
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                        </>
+                        <div className="flex flex-col gap-1 mx-auto">
+                            <Skeleton width={230} height={36} />
+                            <Skeleton width={230} height={36} />
+                            <Skeleton width={230} height={36} />
+                            <Skeleton width={230} height={36} />
+                            <Skeleton width={230} height={36} />
+                            <Skeleton width={230} height={36} />
+                            <Skeleton width={230} height={36} />
+                        </div>
                     ) : (
                         <>
                             {NAV_ITEMS.map((item, index) => (
@@ -90,33 +90,25 @@ function SidebarLeft({ className }) {
 
                 <div>
                     <div className="flex items-center justify-between gap-2">
-                        {LoadingContextValue ? (
-                            <>
-                                <Skeleton width={190} height={24} />
-                                <Skeleton width={25} height={24} />
-                            </>
-                        ) : (
-                            <>
-                                <h2 className="text-base font-semibold text-gray-800">Khoá học gần đây</h2>
-                                <button className="p-0.5 hover:bg-gray-100 duration-200 transition-colors text-gray-500 border rounded-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                    </svg>
-                                </button>
-                            </>
-                        )}
-
+                        <>
+                            <h2 className="text-base font-semibold text-gray-800">Khoá học gần đây</h2>
+                            <button className="p-0.5 hover:bg-gray-100 duration-200 transition-colors text-gray-500 border rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </button>
+                        </>
                     </div>
 
                     <nav className="mt-4 -mx-3 space-y-3 ">
                         {LoadingContextValue ? (
-                            <>
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                            </>
+                            <div className="flex flex-col gap-1 mx-auto">
+                                <Skeleton width={230} height={36} />
+                                <Skeleton width={230} height={36} />
+                                <Skeleton width={230} height={36} />
+                                <Skeleton width={230} height={36} />
+                                <Skeleton width={230} height={36} />
+                            </div>
                         ) : (
                             <>
                                 <button className="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100  hover:text-gray-700">

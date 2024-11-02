@@ -188,7 +188,7 @@ function AdminCoursePage() {
 
     return (
         <>
-            <div className="home-page-wrapper bg-white rounded-md shadow-2xl px-5 py-4">
+            <div className="home-page-wrapper ring-1 ring-slate-300/30 bg-white rounded-md shadow-2xl px-5 py-4">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div>
                         <div className="flex items-center gap-x-3">

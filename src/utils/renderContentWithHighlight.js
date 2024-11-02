@@ -7,7 +7,7 @@ export const renderContentWithHighlight = (content) => {
     const doc = parser.parseFromString(content, 'text/html');
 
     const highlightElements = (element) => { //doc.body = element
-        if (element.tagName === 'H6') {
+        if (element.tagName === 'H6') { //render ra code format
             return (
                 <SyntaxHighlighter language="javascript" style={duotoneLight}>
                     {element.textContent}
@@ -16,19 +16,19 @@ export const renderContentWithHighlight = (content) => {
         }
         else if (element.tagName === 'H1' || element.tagName === 'H2') {
             return React.createElement(element.tagName.toLowerCase(), {
-                className: 'text-slate-800 text-xl font-bold', // Class tùy ý
+                className: 'text-slate-800 text-xl font-bold',
+                key: element.textContent
+            }, element.textContent);
+        }
+        else if (element.tagName === 'H4') {
+            return React.createElement(element.tagName.toLowerCase(), {
+                className: 'text-slate-800 underline decoration-2 decoration-pink-500', // Class tùy ý
                 key: element.textContent // Đảm bảo mỗi thẻ có key duy nhất
             }, element.textContent);
         }
-        else if (element.tagName === 'EM') {
+        else if (element.tagName === 'H5') {
             return React.createElement(element.tagName.toLowerCase(), {
-                className: 'text-slate-800 underline decoration-pink-500', // Class tùy ý
-                key: element.textContent // Đảm bảo mỗi thẻ có key duy nhất
-            }, element.textContent);
-        }
-        else if (element.tagName === 'h4') {
-            return React.createElement(element.tagName.toLowerCase(), {
-                className: 'text-slate-800 underline decoration-sky-500', // Class tùy ý
+                className: 'text-slate-800 underline decoration-2 decoration-sky-500', // Class tùy ý
                 key: element.textContent // Đảm bảo mỗi thẻ có key duy nhất
             }, element.textContent);
         }

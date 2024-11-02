@@ -7,6 +7,16 @@ import axios from "axios";
 import request from "../utils/request";
 import { Link } from "react-router-dom";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/bundle';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
 function HomePage() {
     const [courses, setCourses] = useState([])
 
@@ -29,18 +39,50 @@ function HomePage() {
     return (
         <>
             <div className="home-page-wrapper bg-white rounded-md shadow-2xl px-5 py-4">
-                <img
-                    src={"https://caodang.fpt.edu.vn/wp-content/uploads/express-js-an-ideal-node-js-framework-to-develop-enterprise-web-applications.jpg"}
-                    className="h-100 w-full rounded-2xl object-"
-                    alt=""
-                />
+                <div className="w-full rounded-2xl">
+                    <Swiper
+                        modules={[Navigation, Pagination, Scrollbar, A11y]}
+                        spaceBetween={20}
+                        slidesPerView={1}
+                        loop={true}
+                        navigation // Đảm bảo có dòng này
+                        pagination={{ clickable: true }}
+                        scrollbar={{ draggable: true }}
+                        className="mySwiper"
+                    >
+                        <SwiperSlide>
+                            <img
+                                src={"https://aptech.vn/wp-content/uploads/2021/05/lap-trinh-java.png"}
+                                loading="lazy" // Thêm thuộc tính này
+                                className="h-100 w-full rounded-2xl"
+                                alt=""
+                            />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img
+                                src={"https://aptech.vn/wp-content/uploads/2021/05/lap-trinh-java.png"}
+                                loading="lazy" // Thêm thuộc tính này
+                                className="h-100 w-full rounded-2xl"
+                                alt=""
+                            />
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <img
+                                src={"https://aptech.vn/wp-content/uploads/2021/05/lap-trinh-java.png"}
+                                loading="lazy" // Thêm thuộc tính này
+                                className="h-100 w-full rounded-2xl"
+                                alt=""
+                            />
+                        </SwiperSlide>
+                    </Swiper>
+                </div>
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
                 <div className="grid grid-cols-4 gap-2 mt-2">
                     {courses.map((item, index) => (
                         <Link to={`/courses/${item._id}`} className="course-item-info" key={index}>
-                            <img src={item.images} alt="course" className="w-64 h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                            <div className="course-info-content flex flex-col gap-2 w-64 h-32 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
+                            <img src={item.images} alt="course" className="object-cover rounded-tl-xl rounded-tr-xl" />
+                            <div className="course-info-content flex flex-col gap-2 h-36 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
                                 <h3 className="text-sm font-semibold text-gray-800 overflow-hidden text-ellipsis">{item.title}</h3>
                                 <p className="text-pink-600 font-medium">2.399.000 vnđ</p>
                                 <div className="flex justify-between items-center mt-4">

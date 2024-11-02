@@ -84,18 +84,18 @@ function DetailsCoursePage() {
 
     return (
         <div className="course-detail-wrapper bg-white shadow-2xl rounded-md">
-            <div className="flex justify-between gap-4 p-4">
+            <div className="flex justify-between gap-4 p-4 w-full">
                 <img
                     src={course.images}
-                    className="w-64 h-64 rounded-lg object-cover"
+                    className="rounded-lg object-cover"
                     alt=""
                 />
-                <div className="info-course flex flex-col justify-between p-2 flex-grow">
-                    <h1 className="flex justify-between text-lg font-semibold leading-7 tracking-normal">
+                <div className="info-course flex flex-col justify-between px-4">
+                    <h1 className="flex justify-between text-xl font-semibold leading-7 tracking-normal">
                         {course.title}
                         <MdQuestionMark className="text-slate-600" />
                     </h1>
-                    <p className="text-sm font-normal leading-6 text-slate-600 text-justify">{course.description}</p>
+                    <p className="text-sm font-normal text-slate-600 text-justify">{course.description}</p>
                     <div className="info-2-course flex gap-4 items-center justify-between">
                         <div className="flex gap-4">
                             <div className="flex gap-2 items-center text-sm font-sans leading-6 text-slate-500">
@@ -111,7 +111,7 @@ function DetailsCoursePage() {
                                 120 tiếng học
                             </div>
                         </div>
-                        <div className="relative w-96 bg-white pb-1 rounded-lg">
+                        {/* <div className="relative w-96 bg-white pb-1 rounded-lg">
                             <div className="pb-1 w-full rounded-lg bg-slate-300">
                                 <div className="absolute w-36 pb-1 bg-gradient-to-r from-blue-300 to-blue-500 rounded-lg"></div>
                                 <div className="absolute w-96 mt-2 flex justify-between items-center">
@@ -120,7 +120,7 @@ function DetailsCoursePage() {
                                     <p className="text-xs text-slate-400 tracking-wide">Thực hành</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="flex gap-4 justify-between items-center">
                         <div className="flex gap-2">
@@ -172,6 +172,7 @@ function DetailsCoursePage() {
                                 <img
                                     src={course.author.photoURL}
                                     className="rounded-full w-16 h-16 mx-auto object-cover"
+                                    alt=""
                                 />
                                 <h2 className="text-sm font-semibold leading-6 text-slate-700">{course.author.displayName}</h2>
                                 <span className="text-sm font-light leading-6 text-slate-500">{course.author.email}</span>

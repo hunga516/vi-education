@@ -85,7 +85,7 @@ function AdminSidebarRight({ className }) {
                                     </div>
                                     <p className="text-xs text-slate-500 tracking-wide text-nowrap">{item.createdAt}</p>
                                 </div>
-                                <div className="mt-2 text-sm text-slate-700 leading-5">
+                                <div className="mt-2 text-sm text-slate-700 leading-5 h-14">
                                     {item.updatedContent}
                                 </div>
                                 <div className="flex items-center justify-between mt-2">

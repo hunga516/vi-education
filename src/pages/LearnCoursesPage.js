@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import { FaNoteSticky } from "react-icons/fa6";
 import Button from "../components/Button";
 import { renderContentWithHighlight } from "../utils/renderContentWithHighlight";
+import CreateTakeNoteModal from "../components/Modal/CreateTakeNoteModal";
 
 
 function LearnCoursesPage() {
@@ -12,6 +13,7 @@ function LearnCoursesPage() {
     const [lesson, setLesson] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isShowCreateTakeNoteModal, setIsShowCreateTakeNoteModal] = useState(false)
 
     useEffect(() => {
         const getLesson = async () => {
@@ -27,6 +29,10 @@ function LearnCoursesPage() {
 
         getLesson();
     }, [params.lesson_id]);
+
+    const toggleIsShowCreateTakeNoteModal = () => {
+        setIsShowCreateTakeNoteModal(!isShowCreateTakeNoteModal)
+    }
 
     if (loading) return <Skeleton height={600} width={1140} />;
     if (error) return <div>{error}</div>;
@@ -49,13 +55,16 @@ function LearnCoursesPage() {
                     </div>
                     <Button className="note-button text-slate-600 ring-red-800" type="upload">
                         <FaNoteSticky className="text-sm text-slate-600" />
-                        <p className="text-sm leading-6">Thêm ghi chú</p>
+                        <p onClick={() => toggleIsShowCreateTakeNoteModal()} className="text-sm leading-6">Thêm ghi chú</p>
                     </Button>
                 </div>
                 <div className="w-full mt-12">
                     {renderContentWithHighlight(lesson.content)}
                 </div>
             </div>
+            {isShowCreateTakeNoteModal && (
+                <CreateTakeNoteModal toggleIsShowCreateTakeNoteModal={toggleIsShowCreateTakeNoteModal} />
+            )}
         </div>
     );
 }
