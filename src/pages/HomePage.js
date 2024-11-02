@@ -36,13 +36,13 @@ function HomePage() {
                 />
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
-                <div className="flex flex-wrap gap-x-2 gap-y-4 items-center mt-2">
+                <div className="grid grid-cols-4 gap-2 mt-2">
                     {courses.map((item, index) => (
                         <Link to={`/courses/${item._id}`} className="course-item-info" key={index}>
                             <img src={item.images} alt="course" className="w-64 h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                            <div className="course-info-content flex flex-col gap-2 w-64 h-54 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                                <h3 className="text-lg font-medium leading-7 text-gray-800 overflow-hidden text-ellipsis">{item.title}</h3>
-                                <span className="h-24 text-sm font-medium leading-6 text-gray-600 overflow-hidden text-ellipsis">{item.description}</span>
+                            <div className="course-info-content flex flex-col gap-2 w-64 h-32 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
+                                <h3 className="text-sm font-semibold text-gray-800 overflow-hidden text-ellipsis">{item.title}</h3>
+                                <p className="text-pink-600 font-medium">2.399.000 vnđ</p>
                                 <div className="flex justify-between items-center mt-4">
                                     <div className="user-upload flex items-center gap-1">
                                         {item.author && (
@@ -64,141 +64,6 @@ function HomePage() {
                             </div>
                         </Link>
                     ))}
-                </div>
-
-                {/* list courses */}
-                <div className="flex flex-wrap gap-x-2 gap-y-4 items-center mt-2">
-                    <div className="course-item-info">
-                        <img src={images.sony} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                        <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                            <h3 className="text-lg font-medium leading-7 text-gray-800">Sony Alpha 7 III</h3>
-                            <span className="text-sm font-medium leading-6 text-gray-600">Sony</span>
-                            <div className="flex justify-between items-center mt-4">
-                                <div className="user-upload flex items-center gap-1">
-                                    <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                    <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
-                                </div>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    120
-                                    <FaUsers />
-                                </span>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    12
-                                    <BsFillClockFill />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="course-item-info">
-                        <img src={images.sony} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                        <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                            <h3 className="text-lg font-medium leading-7 text-gray-800">Sony Alpha 7 III</h3>
-                            <span className="text-sm font-medium leading-6 text-gray-600">Sony</span>
-                            <div className="flex justify-between items-center mt-4">
-                                <div className="user-upload flex items-center gap-1">
-                                    <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                    <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
-                                </div>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    120
-                                    <FaUsers />
-                                </span>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    12
-                                    <BsFillClockFill />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="course-item-info">
-                        <img src={images.sony} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                        <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                            <h3 className="text-lg font-medium leading-7 text-gray-800">Sony Alpha 7 III</h3>
-                            <span className="text-sm font-medium leading-6 text-gray-600">Sony</span>
-                            <div className="flex justify-between items-center mt-4">
-                                <div className="user-upload flex items-center gap-1">
-                                    <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                    <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
-                                </div>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    120
-                                    <FaUsers />
-                                </span>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    12
-                                    <BsFillClockFill />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
-                {/* list courses */}
-                <div className="flex flex-wrap gap-x-2 gap-y-4 items-center mt-2">
-                    <div className="course-item-info">
-                        <img src={images.sony} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                        <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                            <h3 className="text-lg font-medium leading-7 text-gray-800">Sony Alpha 7 III</h3>
-                            <span className="text-sm font-medium leading-6 text-gray-600">Sony</span>
-                            <div className="flex justify-between items-center mt-4">
-                                <div className="user-upload flex items-center gap-1">
-                                    <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                    <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
-                                </div>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    120
-                                    <FaUsers />
-                                </span>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    12
-                                    <BsFillClockFill />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="course-item-info">
-                        <img src={images.sony} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                        <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                            <h3 className="text-lg font-medium leading-7 text-gray-800">Sony Alpha 7 III</h3>
-                            <span className="text-sm font-medium leading-6 text-gray-600">Sony</span>
-                            <div className="flex justify-between items-center mt-4">
-                                <div className="user-upload flex items-center gap-1">
-                                    <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                    <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
-                                </div>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    120
-                                    <FaUsers />
-                                </span>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    12
-                                    <BsFillClockFill />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="course-item-info">
-                        <img src={images.sony} alt="course" className="w-[260px] h-[150px] object-cover rounded-tl-xl rounded-tr-xl" />
-                        <div className="course-info-content flex flex-col gap-2 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
-                            <h3 className="text-lg font-medium leading-7 text-gray-800">Sony Alpha 7 III</h3>
-                            <span className="text-sm font-medium leading-6 text-gray-600">Sony</span>
-                            <div className="flex justify-between items-center mt-4">
-                                <div className="user-upload flex items-center gap-1">
-                                    <img src={images.sony} alt="" className="w-[16px] rounded-full" />
-                                    <span className="text-sm leading-6 font-medium text-gray-600">Sony Việt Nam</span>
-                                </div>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    120
-                                    <FaUsers />
-                                </span>
-                                <span className="flex gap-1 items-center text-sm font-medium leading-6 text-gray-600">
-                                    12
-                                    <BsFillClockFill />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div >
         </>

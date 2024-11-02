@@ -11,6 +11,7 @@ import { FaRegSmile } from "react-icons/fa";
 import Button from "../components/Button/index.js";
 import { PiMusicNotesSimpleFill } from "react-icons/pi";
 import { BsThreeDots } from "react-icons/bs";
+import { AiOutlineLike } from "react-icons/ai";
 
 import images from "../assets/images"
 import video from "../assets/video";
@@ -24,6 +25,9 @@ function FeedPage() {
     const LoadingContextValue = useContext(LoadingContext)
     const { user } = useContext(AuthContext)
     const [posts, setPosts] = useState()
+    const [comments, setComments] = useState()
+    const [commentsOfPost_id, setCommentsOfPost_id] = useState()
+    const [isShowComments, setIsShowComments] = useState()
 
     const ACTION_ITEMS = [
         {
@@ -72,6 +76,31 @@ function FeedPage() {
     const toggleIsShowUploadPost = () => {
         setIsShowUploadPost(!isShowUploadPost)
     }
+
+    const handleShowComments = async () => {
+        setIsShowComments(true)
+    }
+
+    const getCommentsByPostId = async (post_id) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/comments?post_id=${post_id}&limit=1`)
+            setComments(response.data.comments)
+            setCommentsOfPost_id(response.data.post_id)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getAllCommentsByPostId = async (post_id) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/comments?post_id=${post_id}`)
+            setComments(response.data.comments)
+            setCommentsOfPost_id(response.data.post_id)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <>
@@ -125,7 +154,7 @@ function FeedPage() {
             {posts ? (
                 posts?.map((post, index) => (
                     <div className="">
-                        <div key={index} className={`w-full mx-auto border-b-[1px] first:mt-4`}>
+                        <div key={index} className={`w-full mx-auto rounded-bl-md rounded-br-md border-b-[1px] first:mt-4`}>
                             <div className="video-info-comment flex flex-col gap-4 p-4 bg-white rounded-tr-md rounded-tl-md shadow-2xl">
                                 <div className="video-info-container flex justify-between items-center">
                                     <div className="user-info flex flex-row gap-3">
@@ -135,7 +164,10 @@ function FeedPage() {
                                             <h2 className="text-sm">{post.author.email}</h2>
                                         </div>
                                     </div>
-                                    <BsThreeDots className="text-2xl text-slate-600" />
+                                    <div className="flex flex-col gap-2 items-end">
+                                        <BsThreeDots className="text-2xl text-slate-600" />
+                                        <p className="text-slate-600 text-sm tracking-wide">{post.createdAt}</p>
+                                    </div>
                                 </div>
                                 <p className="video-description tracking-wide text-gray-600 ">
                                     {renderContentWithHighlight(post.content)}
@@ -158,16 +190,36 @@ function FeedPage() {
                                     <Skeleton width={836} height={557} />
                                 )}
                             </div>
-                            <div className="social-interaction flex justify-between px-4">
-                                <div className="flex">
-
-                                </div>
-                                <div className="flex gap-4">
-                                    <div className=""></div>
-                                    <div className=""></div>
+                            <div className="count-sosial-interaction flex items-center justify-between px-4 py-2 bg-white">
+                                <div className="flex gap-8 justify-between w-full">
+                                    <div className="flex gap-2 items-center">
+                                        <AiOutlineLike className="text-sm text-slate-600" />
+                                        <p className="text-sm">51 người thích</p>
+                                    </div>
+                                    <div className="flex gap-2 items-center">
+                                        <p className="text-sm">22 bình luận</p>
+                                    </div>
                                 </div>
                             </div>
-                            <Comment posts={posts} />
+                            <div className="social-interaction border-t-[1px] border-b-[1px] border-slate-200/60 flex justify-between">
+                                <div className="grid grid-cols-3 w-full">
+                                    <button className="flex gap-2 justify-center hover:bg-slate-200/60 bg-white p-2 text-slate-600 items-center">
+                                        <img src={images.like} alt="" className="w-6 h-6 object-cover" />
+                                        <p>Thích</p>
+                                    </button>
+                                    <button onClick={() => getCommentsByPostId(post._id)} className="flex gap-2 justify-center hover:bg-slate-200/60 bg-white p-2 text-slate-600 items-center">
+                                        <img src={images.comment} alt="" className="w-6 h-6 object-cover" />
+                                        <p>Bình luận</p>
+                                    </button>
+                                    <button className="flex gap-2 justify-center hover:bg-slate-200/60 bg-white p-2 text-slate-600 items-center">
+                                        <img src={images.share} alt="" className="w-6 h-6 object-cover" />
+                                        <p>Chia sẻ</p>
+                                    </button>
+                                </div>
+                            </div>
+                            {comments && commentsOfPost_id === post._id && (
+                                <Comment post_id={post._id} comments={comments} getAllCommentsByPostId={getAllCommentsByPostId} />
+                            )}
                         </div>
                     </div>
                 ))

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
-import { LoadingContext } from "../../../context";
+import { AuthContext, LoadingContext } from "../../../context";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -14,7 +14,9 @@ function SidebarLeftLearn({ className }) {
     const LoadingContextValue = useContext(LoadingContext);
     const location = useLocation();
     const params = useParams()
+    const { userId } = useContext(AuthContext)
     const [lessons, setLessons] = useState()
+    const [lessonsLearned, setLessonsLearned] = useState()
     const [chapters, setChapters] = useState()
     const [isOpen, setIsOpenAccordion] = useState({
         accordion1: false,
@@ -28,7 +30,7 @@ function SidebarLeftLearn({ className }) {
     useEffect(() => {
         const getLessonsByCourseId = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?course_id=${params.course_id}&sort=createdAt&order=asc`)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?course_id=${params.course_id}&sort=lessonOrder&order=asc`)
                 setLessons(response.data.lessons)
 
                 const uniqueChapters = [...new Set(response.data.lessons.map((lesson) => lesson.chapter))]
@@ -38,8 +40,18 @@ function SidebarLeftLearn({ className }) {
             }
         }
 
+        const getLessonsLearnedByUser = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons/check-user-eligibility?lesson_id=${params.lesson_id}&user_id=${userId}`)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
 
         getLessonsByCourseId()
+        // getLessonsLearnedByUser()
     }, [params.lesson_id])
 
     const toggleAccordion = (accordion) => {

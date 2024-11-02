@@ -35,7 +35,7 @@ function DetailsCoursePage() {
 
         const getLessonsByCourseId = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?course_id=${params.id}&sort=createdAt&order=asc`)
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/lessons?course_id=${params.id}&sort=lessonOrder&order=asc`)
                 setLessons(response.data.lessons)
 
                 const uniqueChapters = [...new Set(response.data.lessons.map((lesson) => lesson.chapter))]

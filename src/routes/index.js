@@ -20,7 +20,7 @@ import FeedPage from "../pages/FeedPage";
 
 export const publicRoute = [
     { path: '/', element: HomePage, layout: DefautLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
-    { path: '/home', element: HomePage, layout: DefautLayout },
+    { path: '/home', element: HomePage, layout: OnSideLayout },
     { path: '/feed', element: FeedPage, layout: DefautLayout },
     { path: '/meeting', element: Meeting, layout: OnSideLayout },
     { path: '/reels', element: ReelsPage, layout: DefautLayout },
