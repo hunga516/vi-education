@@ -268,11 +268,11 @@ export function MeetingContainer({
 
   return (
     <div className="">
-      <div ref={containerRef} className="h-100vh flex flex-col bg-gray-800">
+      <div ref={containerRef} className="flex flex-col h-100vh bg-white p-4 rounded-md drop-shadow-lg ring-1 ring-slate-300/70">
         {typeof localParticipantAllowedJoin === "boolean" ? (
           localParticipantAllowedJoin ? (
             <>
-              <div className={` flex flex-1 flex-row bg-gray-800 `}>
+              <div className={` flex flex-1 flex-row bg-white `}>
                 <div className={`flex flex-1 `}>
                   {isPresenting ? (
                     <PresenterView height={containerHeight - bottomBarHeight} />
@@ -287,7 +287,7 @@ export function MeetingContainer({
                 </div>
 
                 <SidebarConatiner
-                  height={containerHeight - bottomBarHeight}
+                  height={700}
                   sideBarContainerWidth={sideBarContainerWidth}
                 />
               </div>

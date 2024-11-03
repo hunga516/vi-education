@@ -23,7 +23,7 @@ const SideBarTabView = ({
 
   return (
     <div
-      className="bg-gray-800"
+      className="bg-blue-100 rounded-md drop-shadow-md"
       style={{
         height,
         width: sideBarContainerWidth,
@@ -54,12 +54,11 @@ const SideBarTabView = ({
               >
                 <p className="text-base text-white font-bold">
                   {sideBarMode === "PARTICIPANTS"
-                    ? `${
-                        sideBarMode.charAt(0).toUpperCase() +
-                          sideBarMode.slice(1).toLowerCase() || ""
-                      } (${new Map(participants)?.size})`
+                    ? `${sideBarMode.charAt(0).toUpperCase() +
+                    sideBarMode.slice(1).toLowerCase() || ""
+                    } (${new Map(participants)?.size})`
                     : sideBarMode.charAt(0).toUpperCase() +
-                        sideBarMode.slice(1).toLowerCase() || ""}
+                    sideBarMode.slice(1).toLowerCase() || ""}
                 </p>
                 <button
                   className="text-white"
@@ -97,22 +96,22 @@ export function SidebarConatiner({ height, sideBarContainerWidth }) {
   const panelHeaderHeight = isMobile
     ? 40
     : isTab
-    ? 44
-    : isLGDesktop
-    ? 48
-    : isXLDesktop
-    ? 52
-    : 0;
+      ? 44
+      : isLGDesktop
+        ? 48
+        : isXLDesktop
+          ? 52
+          : 0;
 
   const panelHeaderPadding = isMobile
     ? 6
     : isTab
-    ? 8
-    : isLGDesktop
-    ? 10
-    : isXLDesktop
-    ? 12
-    : 0;
+      ? 8
+      : isLGDesktop
+        ? 10
+        : isXLDesktop
+          ? 12
+          : 0;
 
   const handleClose = () => {
     setSideBarMode(null);

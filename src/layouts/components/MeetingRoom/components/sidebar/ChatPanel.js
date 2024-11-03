@@ -16,21 +16,20 @@ const ChatMessage = ({ senderId, senderName, text, timestamp }) => {
       }}
     >
       <div
-        className={`flex ${
-          localSender ? "items-end" : "items-start"
-        } flex-col py-1 px-2 rounded-md bg-gray-700`}
+        className={`flex ${localSender ? "items-end" : "items-start"
+          } flex-col py-1 px-2 rounded-md bg-pink-300/70`}
       >
-        <p style={{ color: "#ffffff80" }}>
-          {localSender ? "You" : nameTructed(senderName, 15)}
+        <p className="text-base font-medium" style={{ color: "black" }}>
+          {localSender ? "Bạn" : nameTructed(senderName, 15)}
         </p>
         <div>
-          <p className="inline-block whitespace-pre-wrap break-words text-right text-white">
+          <p className="inline-block text-sm whitespace-pre-wrap break-words text-right text-black">
             {text}
           </p>
         </div>
         <div className="mt-1">
-          <p className="text-xs italic" style={{ color: "#ffffff80" }}>
-            {formatAMPM(new Date(timestamp))}
+          <p className="text-xs italic text-slate-600" >
+            {formatAMPM(new Date(timestamp)).replace("AM", "SA").replace("PM", "CH")}
           </p>
         </div>
       </div>
@@ -66,16 +65,15 @@ const ChatInput = ({ inputHeight }) => {
             }}
           >
             <PaperAirplaneIcon
-              className={`w-6 h-6 ${
-                message.length < 2 ? "text-gray-500 " : "text-white"
-              }`}
+              className={`w-6 h-6 ${message.length < 2 ? "text-gray-500 " : "text-black"
+                }`}
             />
           </button>
         </span>
         <input
           type="text"
-          className="py-4 text-base text-white border-gray-400 border bg-gray-750 rounded pr-10 pl-2 focus:outline-none w-full"
-          placeholder="Write your message"
+          className="px-2 py-2 text-base text-black ring-1 ring-slate-400/60 border bg-gray-750 rounded pr-10 pl-2 focus:outline-none w-full"
+          placeholder="Nhập nội dung bạn muốn gửi"
           autocomplete="off"
           ref={input}
           value={message}

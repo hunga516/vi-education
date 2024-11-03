@@ -123,9 +123,8 @@ export const MobileIconButton = ({
             <div>
               {buttonText ? (
                 <p
-                  className={`${
-                    isFocused ? "text-white" : "text-gray-900"
-                  } text-sm`}
+                  className={`${isFocused ? "text-white" : "text-gray-900"
+                    } text-sm`}
                 >
                   {buttonText}
                 </p>
@@ -136,9 +135,8 @@ export const MobileIconButton = ({
       </div>
       <div
         style={{ zIndex: 999 }}
-        className={`${
-          tooltipShow ? "" : "hidden"
-        } overflow-hidden flex flex-col items-center justify-center pb-1`}
+        className={`${tooltipShow ? "" : "hidden"
+          } overflow-hidden flex flex-col items-center justify-center pb-1`}
         ref={tooltipRef}
       >
         <div className={"rounded-md p-1.5 bg-black "}>

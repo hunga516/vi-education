@@ -24,7 +24,7 @@ function Meeting() {
     useEffect(() => {
         if (isMobile) {
             window.onbeforeunload = () => {
-                return "Are you sure you want to exit?";
+                return "Bạn có chắc muốn thoát không ?";
             };
         }
     }, [isMobile]);

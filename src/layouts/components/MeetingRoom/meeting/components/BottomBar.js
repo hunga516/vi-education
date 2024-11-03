@@ -174,14 +174,14 @@ const MicBTN = () => {
     onDeviceChanged
   })
 
-  function onDeviceChanged(devices){
+  function onDeviceChanged(devices) {
     getMics();
     const newSpeakerList = devices.devices.filter(device => device.kind === 'audiooutput');
 
     if (newSpeakerList.length > 0) {
-      setSelectedSpeaker({id : newSpeakerList[0].deviceId, label : newSpeakerList[0].label});
+      setSelectedSpeaker({ id: newSpeakerList[0].deviceId, label: newSpeakerList[0].label });
     }
-    
+
   }
 
 
@@ -218,8 +218,8 @@ const MicBTN = () => {
         bgColor={localMicOn ? "bg-gray-750" : "bg-white"}
         borderColor={localMicOn && "#ffffff33"}
         isFocused={localMicOn}
-        focusIconColor={localMicOn && "white"}
-        tooltip={"Toggle Mic"}
+        focusIconColor={localMicOn && "black"}
+        tooltip={"Đổi micro"}
         renderRightComponent={() => {
           return (
             <>
@@ -243,7 +243,7 @@ const MicBTN = () => {
                           <ChevronDownIcon
                             className="h-4 w-4"
                             style={{
-                              color: mMeeting.localMicOn ? "white" : "black",
+                              color: mMeeting.localMicOn ? "black" : "black",
                             }}
                           />
                         </button>
@@ -259,7 +259,7 @@ const MicBTN = () => {
                       leaveTo="opacity-0 translate-y-1"
                     >
                       <Popover.Panel className="absolute left-1/2 bottom-full z-10 mt-3 w-72 -translate-x-1/2 transform px-4 sm:px-0 pb-4">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className={" bg-gray-750 py-1"}>
                             <div>
                               <div className="flex items-center p-3 pb-0">
@@ -270,16 +270,14 @@ const MicBTN = () => {
                               <div className="flex flex-col">
                                 {mics.map(({ deviceId, label }, index) => (
                                   <div
-                                    className={`px-3 py-1 my-1 pl-6 text-white text-left ${
-                                      deviceId === selectedMic.id &&
+                                    className={`px-3 py-1 my-1 pl-6 text-black text-left ${deviceId === selectedMic.id &&
                                       "bg-gray-150"
-                                    }`}
+                                      }`}
                                   >
                                     <button
-                                      className={`flex flex-1 w-full text-left ${
-                                        deviceId === selectedMic.id &&
+                                      className={`flex flex-1 w-full text-left ${deviceId === selectedMic.id &&
                                         "bg-gray-150"
-                                      }`}
+                                        }`}
                                       key={`mics_${deviceId}`}
                                       onClick={() => {
                                         setSelectedMic({ id: deviceId });
@@ -303,16 +301,14 @@ const MicBTN = () => {
                               <div className="flex flex-col ">
                                 {speakers.map(({ deviceId, label }, index) => (
                                   <div
-                                    className={`px-3 py-1 my-1 pl-6 text-white ${
-                                      deviceId === selectedSpeaker.id &&
+                                    className={`px-3 py-1 my-1 pl-6 text-black ${deviceId === selectedSpeaker.id &&
                                       "bg-gray-150"
-                                    }`}
+                                      }`}
                                   >
                                     <button
-                                      className={`flex flex-1 w-full text-left ${
-                                        deviceId === selectedSpeaker.id &&
+                                      className={`flex flex-1 w-full text-left ${deviceId === selectedSpeaker.id &&
                                         "bg-gray-150"
-                                      }`}
+                                        }`}
                                       key={`speakers_${deviceId}`}
                                       onClick={() => {
                                         setSelectedSpeaker({ id: deviceId });
@@ -334,14 +330,10 @@ const MicBTN = () => {
               </Popover>
               <div
                 style={{ zIndex: 999 }}
-                className={`${
-                  tooltipShow ? "" : "hidden"
-                } overflow-hidden flex flex-col items-center justify-center pb-4`}
+                className={`${tooltipShow ? "" : ""
+                  } flex flex-col items-center justify-center pb-4`}
                 ref={tooltipRef}
               >
-                <div className={"rounded-md p-1.5 bg-black "}>
-                  <p className="text-base text-white ">{"Change microphone"}</p>
-                </div>
               </div>
             </>
           );
@@ -399,7 +391,7 @@ const WebCamBTN = () => {
         borderColor={localWebcamOn && "#ffffff33"}
         isFocused={localWebcamOn}
         focusIconColor={localWebcamOn && "white"}
-        tooltip={"Toggle Webcam"}
+        tooltip={"Đổi camera"}
         renderRightComponent={() => {
           return (
             <>
@@ -423,7 +415,7 @@ const WebCamBTN = () => {
                           <ChevronDownIcon
                             className="h-4 w-4"
                             style={{
-                              color: localWebcamOn ? "white" : "black",
+                              color: localWebcamOn ? "black" : "black",
                             }}
                           />
                         </button>
@@ -439,7 +431,7 @@ const WebCamBTN = () => {
                       leaveTo="opacity-0 translate-y-1"
                     >
                       <Popover.Panel className="absolute left-1/2 bottom-full z-10 mt-3 w-72 -translate-x-1/2 transform px-4 sm:px-0 pb-4">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="rounded-lg border-2 border-solid border-[#00000033] shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className={" bg-gray-750 py-1"}>
                             <div>
                               <div className="flex items-center p-3 pb-0">
@@ -450,16 +442,14 @@ const WebCamBTN = () => {
                               <div className="flex flex-col">
                                 {webcams.map(({ deviceId, label }, index) => (
                                   <div
-                                    className={`px-3 py-1 my-1 pl-6 text-white ${
-                                      deviceId === selectedWebcam.id &&
+                                    className={`px-3 py-1 my-1 pl-6 text-black ${deviceId === selectedWebcam.id &&
                                       "bg-gray-150"
-                                    }`}
+                                      }`}
                                   >
                                     <button
-                                      className={`flex flex-1 w-full text-left ${
-                                        deviceId === selectedWebcam.id &&
+                                      className={`flex flex-1 w-full text-left ${deviceId === selectedWebcam.id &&
                                         "bg-gray-150"
-                                      }`}
+                                        }`}
                                       key={`output_webcams_${deviceId}`}
                                       onClick={() => {
                                         setSelectedWebcam({ id: deviceId });
@@ -482,14 +472,10 @@ const WebCamBTN = () => {
               </Popover>
               <div
                 style={{ zIndex: 999 }}
-                className={`${
-                  tooltipShow ? "" : "hidden"
-                } overflow-hidden flex flex-col items-center justify-center pb-4`}
+                className={`${tooltipShow ? "" : ""
+                  } flex flex-col items-center justify-center pb-4`}
                 ref={tooltipRef}
               >
-                <div className={"rounded-md p-1.5 bg-black "}>
-                  <p className="text-base text-white ">{"Change webcam"}</p>
-                </div>
               </div>
             </>
           );
@@ -568,17 +554,6 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
         Icon={RecordingIcon}
         onClick={_handleClick}
         isFocused={isRecording}
-        tooltip={
-          recordingState === Constants.recordingEvents.RECORDING_STARTED
-            ? "Stop Recording"
-            : recordingState === Constants.recordingEvents.RECORDING_STARTING
-            ? "Starting Recording"
-            : recordingState === Constants.recordingEvents.RECORDING_STOPPED
-            ? "Start Recording"
-            : recordingState === Constants.recordingEvents.RECORDING_STOPPING
-            ? "Stopping Recording"
-            : "Start Recording"
-        }
         lottieOption={isRecording ? defaultOptions : null}
         isRequestProcessing={isRequestProcessing}
       />
@@ -591,19 +566,12 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
     return isMobile || isTab ? (
       <MobileIconButton
         id="screen-share-btn"
-        tooltipTitle={
-          presenterId
-            ? localScreenShareOn
-              ? "Stop Presenting"
-              : null
-            : "Present Screen"
-        }
         buttonText={
           presenterId
             ? localScreenShareOn
-              ? "Stop Presenting"
+              ? "Dừng chia sẻ màn hình"
               : null
-            : "Present Screen"
+            : "Chia sẻ màn hình"
         }
         isFocused={localScreenShareOn}
         Icon={ScreenShareIcon}
@@ -616,8 +584,8 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
               ? false
               : true
             : isMobile
-            ? true
-            : false
+              ? true
+              : false
         }
       />
     ) : (
@@ -627,13 +595,6 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
           toggleScreenShare();
         }}
         isFocused={localScreenShareOn}
-        tooltip={
-          presenterId
-            ? localScreenShareOn
-              ? "Stop Presenting"
-              : null
-            : "Present Screen"
-        }
         disabled={presenterId ? (localScreenShareOn ? false : true) : false}
       />
     );
@@ -650,7 +611,7 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
           leave();
           setIsMeetingLeft(true);
         }}
-        tooltip="Leave Meeting"
+        tooltip="Rời phòng họp"
       />
     );
   };
@@ -677,7 +638,7 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
           );
         }}
         isFocused={sideBarMode === "CHAT"}
-        tooltip="View Chat"
+        tooltip="Xem chat"
       />
     );
   };
@@ -686,9 +647,9 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
     const { participants } = useMeeting();
     return isMobile || isTab ? (
       <MobileIconButton
-        tooltipTitle={"Participants"}
+        tooltipTitle={"Người tham gia"}
         isFocused={sideBarMode === sideBarModes.PARTICIPANTS}
-        buttonText={"Participants"}
+        buttonText={"Người tham gia"}
         disabledOpacity={1}
         Icon={ParticipantsIcon}
         onClick={() => {
@@ -707,7 +668,7 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
           );
         }}
         isFocused={sideBarMode === sideBarModes.PARTICIPANTS}
-        tooltip={"View \nParticipants"}
+        tooltip={"Xem \Nngười tham gia"}
         badge={`${new Map(participants)?.size}`}
       />
     );
@@ -719,7 +680,7 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
     return (
       <div className="flex items-center justify-center lg:ml-0 ml-4 mt-4 xl:mt-0">
         <div className="flex border-2 border-gray-850 p-2 rounded-md items-center justify-center">
-          <h1 className="text-white text-base ">{meetingId}</h1>
+          <h1 className="text-black text-base ">{meetingId}</h1>
           <button
             className="ml-2"
             onClick={() => {
@@ -731,9 +692,9 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
             }}
           >
             {isCopied ? (
-              <CheckIcon className="h-5 w-5 text-green-400" />
+              <CheckIcon className="h-5 w-5 text-green-500" />
             ) : (
-              <ClipboardIcon className="h-5 w-5 text-white" />
+              <ClipboardIcon className="h-5 w-5 text-black" />
             )}
           </button>
         </div>
@@ -819,17 +780,16 @@ export function BottomBar({ bottomBarHeight, setIsMeetingLeft }) {
           >
             <div className="fixed inset-0 overflow-y-hidden">
               <div className="flex h-full items-end justify-end text-center">
-                <Dialog.Panel className="w-screen transform overflow-hidden bg-gray-800 shadow-xl transition-all">
+                <Dialog.Panel className="w-screen transform bg-gray-800 shadow-xl transition-all">
                   <div className="grid container bg-gray-800 py-6">
                     <div className="grid grid-cols-12 gap-2">
                       {otherFeatures.map(({ icon }) => {
                         return (
                           <div
-                            className={`grid items-center justify-center ${
-                              icon === BottomBarButtonTypes.MEETING_ID_COPY
-                                ? "col-span-7 sm:col-span-5 md:col-span-3"
-                                : "col-span-4 sm:col-span-3 md:col-span-2"
-                            }`}
+                            className={`grid items-center justify-center ${icon === BottomBarButtonTypes.MEETING_ID_COPY
+                              ? "col-span-7 sm:col-span-5 md:col-span-3"
+                              : "col-span-4 sm:col-span-3 md:col-span-2"
+                              }`}
                           >
                             {icon === BottomBarButtonTypes.RAISE_HAND ? (
                               <RaiseHandBTN isMobile={isMobile} isTab={isTab} />

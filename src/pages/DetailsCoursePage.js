@@ -84,10 +84,10 @@ function DetailsCoursePage() {
 
     return (
         <div className="course-detail-wrapper bg-white shadow-2xl rounded-md">
-            <div className="flex justify-between gap-4 p-4 w-full">
+            <div className="flex gap-4 p-4 w-full">
                 <img
                     src={course.images}
-                    className="rounded-lg object-cover"
+                    className="w-[460px] h-[260px] rounded-lg object-cover"
                     alt=""
                 />
                 <div className="info-course flex flex-col justify-between px-4">
