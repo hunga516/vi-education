@@ -10,7 +10,7 @@ function AdminSidebarRight({ className }) {
     const [history, setHistory] = useState([])
     const [usersOnlineState, setUsersOnlineState] = useState()
     const { userId } = useContext(AuthContext)
-    const socket = io('http://localhost:3001');
+    const socket = io(`${process.env.REACT_APP_API_URL}`);
 
     const location = useLocation()
     const params = location.pathname.split("/").pop()

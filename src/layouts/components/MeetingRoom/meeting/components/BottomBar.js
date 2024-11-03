@@ -260,7 +260,7 @@ const MicBTN = () => {
                     >
                       <Popover.Panel className="absolute left-1/2 bottom-full z-10 mt-3 w-72 -translate-x-1/2 transform px-4 sm:px-0 pb-4">
                         <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className={" bg-gray-750 py-1"}>
+                          <div className={"bg-white rounded-md py-1"}>
                             <div>
                               <div className="flex items-center p-3 pb-0">
                                 <p className="ml-3 text-sm text-gray-900">

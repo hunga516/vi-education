@@ -35,7 +35,7 @@ function AdminLessonPage() {
     }, [activeButton]) // Chỉ theo dõi activeButton
 
     useEffect(() => {
-        const socket = io('http://localhost:3001');
+        const socket = io(`${process.env.REACT_APP_API_URL}`);
 
         const getAllLessons = async () => {
             try {

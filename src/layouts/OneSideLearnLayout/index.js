@@ -18,7 +18,7 @@ function OneSideLearnLayout({ children }) {
                 />
 
                 {/* Content Wrapper */}
-                <div className="w-[1200px] mt-[70px] ml-[250px]">
+                <div className="w-[1190px] mt-[70px] ml-[250px]">
                     {children}
                 </div>
             </div>

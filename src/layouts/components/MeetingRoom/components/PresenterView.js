@@ -116,7 +116,7 @@ export function PresenterView({ height }) {
                 style={{ height: 48, width: 48, color: "white" }}
               />
               <div className="mt-4 w-full">
-                <p className="text-black text-xl font-semibold">
+                <p className="text-white text-xl font-semibold">
                   Bạn đang chia sẻ màn hình đến mọi người
                 </p>
               </div>
@@ -128,7 +128,7 @@ export function PresenterView({ height }) {
                     mMeeting.toggleScreenShare();
                   }}
                 >
-                  STOP PRESENTING
+                  DỪNG CHIA SẺ
                 </button>
               </div>
             </div>

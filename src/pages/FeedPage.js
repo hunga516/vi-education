@@ -132,23 +132,23 @@ function FeedPage() {
                 </div>
             </div>
             <div className="hot-posts mt-4 grid grid-cols-6 gap-2">
-                <div className="item-grid relative pb-56 bg-red-400">
-
+                <div className="item-grid relative rounded-lg bg-red-400">
+                    <img className="h-56 rounded-lg" src="https://plus.unsplash.com/premium_photo-1664117436431-aaa0d75814fe?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbHBhcGVyJTIwZm9yJTIwbW9iaWxlJTIwNGt8ZW58MHx8MHx8fDA%3D" alt="" />
                 </div>
-                <div className="item-grid relative pb-56 bg-red-400">
-
+                <div className="item-grid relative rounded-lg bg-red-400">
+                    <img className="h-56 rounded-lg" src="https://plus.unsplash.com/premium_photo-1664117436431-aaa0d75814fe?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbHBhcGVyJTIwZm9yJTIwbW9iaWxlJTIwNGt8ZW58MHx8MHx8fDA%3D" alt="" />
                 </div>
-                <div className="item-grid relative pb-56 bg-red-400">
-
+                <div className="item-grid relative rounded-lg bg-red-400">
+                    <img className="h-56 rounded-lg" src="https://plus.unsplash.com/premium_photo-1664117436431-aaa0d75814fe?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbHBhcGVyJTIwZm9yJTIwbW9iaWxlJTIwNGt8ZW58MHx8MHx8fDA%3D" alt="" />
                 </div>
-                <div className="item-grid relative pb-56 bg-red-400">
-
+                <div className="item-grid relative rounded-lg bg-red-400">
+                    <img className="h-56 rounded-lg" src="https://plus.unsplash.com/premium_photo-1664117436431-aaa0d75814fe?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbHBhcGVyJTIwZm9yJTIwbW9iaWxlJTIwNGt8ZW58MHx8MHx8fDA%3D" alt="" />
                 </div>
-                <div className="item-grid relative pb-56 bg-red-400">
-
+                <div className="item-grid relative rounded-lg bg-red-400">
+                    <img className="h-56 rounded-lg" src="https://plus.unsplash.com/premium_photo-1664117436431-aaa0d75814fe?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbHBhcGVyJTIwZm9yJTIwbW9iaWxlJTIwNGt8ZW58MHx8MHx8fDA%3D" alt="" />
                 </div>
-                <div className="item-grid relative pb-56 bg-red-400">
-
+                <div className="item-grid relative rounded-lg bg-red-400">
+                    <img className="h-56 rounded-lg" src="https://plus.unsplash.com/premium_photo-1664117436431-aaa0d75814fe?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2FsbHBhcGVyJTIwZm9yJTIwbW9iaWxlJTIwNGt8ZW58MHx8MHx8fDA%3D" alt="" />
                 </div>
             </div>
             {posts ? (

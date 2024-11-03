@@ -47,7 +47,7 @@ const ChatInput = ({ inputHeight }) => {
       className="w-full flex items-center px-2"
       style={{ height: inputHeight }}
     >
-      <div class="relative  w-full">
+      <div class="relative w-full">
         <span class="absolute inset-y-0 right-0 flex mr-2 rotate-90 ">
           <button
             disabled={message.length < 2}
@@ -72,7 +72,7 @@ const ChatInput = ({ inputHeight }) => {
         </span>
         <input
           type="text"
-          className="px-2 py-2 text-base text-black ring-1 ring-slate-400/60 border bg-gray-750 rounded pr-10 pl-2 focus:outline-none w-full"
+          className="px-2 py-2 text-sm text-black ring-1 ring-slate-300 border bg-white rounded pr-10 pl-2 focus:outline-none w-full"
           placeholder="Nhập nội dung bạn muốn gửi"
           autocomplete="off"
           ref={input}

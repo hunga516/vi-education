@@ -25,7 +25,7 @@ const SideBarTabView = ({
     <div
       className="bg-blue-100 rounded-md drop-shadow-md"
       style={{
-        height,
+        height: 600,
         width: sideBarContainerWidth,
         paddingTop: panelPadding,
         paddingLeft: panelPadding,
@@ -37,7 +37,7 @@ const SideBarTabView = ({
         <div
           className="bg-gray-750"
           style={{
-            height: height,
+            height: 650,
             borderRadius: 10,
             overflow: "hidden",
           }}
@@ -52,8 +52,8 @@ const SideBarTabView = ({
                   borderBottom: "1px solid #70707033",
                 }}
               >
-                <p className="text-base text-white font-bold">
-                  {sideBarMode === "PARTICIPANTS"
+                <p className="text-sm text-black font-semibold">
+                  {sideBarMode === "Người tham gia"
                     ? `${sideBarMode.charAt(0).toUpperCase() +
                     sideBarMode.slice(1).toLowerCase() || ""
                     } (${new Map(participants)?.size})`
@@ -61,7 +61,7 @@ const SideBarTabView = ({
                     sideBarMode.slice(1).toLowerCase() || ""}
                 </p>
                 <button
-                  className="text-white"
+                  className="text-black"
                   onClick={handleClose}
                   style={{ margin: 0, padding: 0 }}
                 >

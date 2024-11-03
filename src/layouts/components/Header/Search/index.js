@@ -95,7 +95,7 @@ function Search() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="px-2 py-2">Khong co ket qua</p>
+                                    <p className="px-2 py-2">Chưa làm model gợi ý xong bạn ơi</p>
                                 )}
                             </PopperWrapper>
                         )}>

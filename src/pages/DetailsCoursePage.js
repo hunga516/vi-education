@@ -54,7 +54,7 @@ function DetailsCoursePage() {
         if (course.author) {
             const getAuthorCourses = async () => {
                 try {
-                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses/?author=${course.author._id}`)
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/courses?author=${course.author._id}`)
                     setAuthorCourses(response.data.courses)
                 } catch (error) {
                     console.log(error);
@@ -179,7 +179,7 @@ function DetailsCoursePage() {
 
                                 <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
                                     <FaClock />
-                                    Tham gia 1 ngày trước
+                                    1 ngày trước
                                 </span>
                                 <span className="mt-2 flex gap-1 items-center text-sm leading-4 text-slate-700">
                                     <IoBook />
@@ -192,7 +192,7 @@ function DetailsCoursePage() {
                             </div>
 
                             <h2 className="mt-8 text-md leading-7 text-slate-800">Khoá học nổi bật</h2>
-                            <div className="h-[500px] overflow-hidden mt-2 grid grid-cols-2 gap-2">
+                            <div className="h-[500px] overflow-hidden mt-2 flex flex-col gap-1  ">
                                 {authorCourses.map((course) => (
                                     <Link to={`/courses/${course._id}`} className="info-course">
                                         <img className="rounded-md w-full h-[120px] object-cover" src={course.images} />

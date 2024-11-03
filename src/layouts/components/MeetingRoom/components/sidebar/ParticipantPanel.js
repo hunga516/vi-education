@@ -13,20 +13,12 @@ function ParticipantListItem({ participantId, raisedHand }) {
     useParticipant(participantId);
 
   return (
-    <div className="mt-2 m-2 p-2 bg-gray-700 rounded-lg mb-0">
+    <div className="mt-2 m-2 p-2 bg-gray-600/80 rounded-lg mb-0">
       <div className="flex flex-1 items-center justify-center relative">
-        <div
-          style={{
-            color: "#212032",
-            backgroundColor: "#757575",
-          }}
-          className="h-10 w-10 text-lg mt-0 rounded overflow-hidden flex relative items-center justify-center"
-        >
-          {displayName?.charAt(0).toUpperCase()}
-        </div>
+        <img src="https://i.pinimg.com/originals/45/30/ad/4530ad36b6c1f5a43070cae41ec5bf48.jpg" className="w-10 h-10 object-cover rounded-lg" alt="" />
         <div className="ml-2 mr-1 flex flex-1">
-          <p className="text-base text-white overflow-hidden whitespace-pre-wrap overflow-ellipsis">
-            {isLocal ? "You" : nameTructed(displayName, 15)}
+          <p className="text-sm font-medium tracking-wide text-white overflow-hidden whitespace-pre-wrap overflow-ellipsis">
+            {isLocal ? "Bạn" : nameTructed(displayName, 15)}
           </p>
         </div>
         {raisedHand && (

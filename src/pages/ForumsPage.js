@@ -10,7 +10,7 @@ function ForumsPage() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get('http://localhost:3001/posts')
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts`)
             setPosts(res.data)
         }
         fetchPosts()

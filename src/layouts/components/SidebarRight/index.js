@@ -20,7 +20,7 @@ function SidebarRight({ className }) {
     const [room_id, setRoom_id] = useState()
 
     const toggleIsMessageModal = () => {
-        setRoom_id('672749bafdea5ca359d71360')
+        setRoom_id('6727c323453fe9b189293a20')
         setIsMessageModal(!isMessageModal)
     }
 
@@ -39,24 +39,23 @@ function SidebarRight({ className }) {
                         <p className="text-slate-500 text-xs">30 thành viên</p>
                     </div>
 
-
                     <div className="flex flex-col gap-1 mt-2 h-[350px] overflow-y-auto">
                         <div
                             onClick={toggleIsMessageModal}
                             className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
-                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwVBCGAZHx-jTIwF4P76fQPWmYpQyctBIOjA&s" alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
                                 </div>
-                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                                <p className="text-slate-800 text-sm leading-4 text-nowrap text-ellipsis overflow-hidden w-32">Những đứa trẻ thích Đà Lạt</p>
                             </div>
                             <button className="">
                                 +
                             </button>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -65,7 +64,7 @@ function SidebarRight({ className }) {
                             </div >
                         </div >
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -74,7 +73,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -83,7 +82,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -92,7 +91,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -101,7 +100,7 @@ function SidebarRight({ className }) {
                             </div >
                         </div >
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -110,7 +109,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -119,7 +118,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -138,17 +137,58 @@ function SidebarRight({ className }) {
 
 
                     <div className="flex flex-col gap-1 mt-2 h-[230px] overflow-y-auto">
+                        <div
+                            onClick={toggleIsMessageModal}
+                            className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center cursor-pointer">
+                                <div className="relative">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwVBCGAZHx-jTIwF4P76fQPWmYpQyctBIOjA&s" alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4 text-nowrap text-ellipsis overflow-hidden w-32">Những đứa trẻ thích Đà Lạt</p>
+                            </div>
+                            <button className="">
+                                +
+                            </button>
+                        </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
-                                </div >
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center cursor-pointer">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center cursor-pointer">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center cursor-pointer">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
                                 <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
                             </div >
                         </div >
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -157,7 +197,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -166,7 +206,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -175,43 +215,7 @@ function SidebarRight({ className }) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
-                                <div className="relative">
-                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
-                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
-                                </div>
-                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
-                            </div >
-                        </div >
-                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
-                                <div className="relative">
-                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
-                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
-                                </div>
-                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
-                                <div className="relative">
-                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
-                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
-                                </div>
-                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
-                                <div className="relative">
-                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
-                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
-                                </div>
-                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center cursor-pointer">
                                 <div className="relative">
                                     <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
                                     <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
@@ -223,7 +227,7 @@ function SidebarRight({ className }) {
                 </div >
             </div >
             {isMessageModal && (
-                <MessageModal room_id={room_id} />
+                <MessageModal room_id={room_id} toggleIsMessageModal={toggleIsMessageModal} />
             )}
         </aside >
     )

@@ -41,13 +41,12 @@ const WaitingToJoinScreen = () => {
 
   return (
     <div
-      className="bg-gray-800"
+      className="bg-white drop-shadow-md"
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
-        // backgroundColor: theme.palette.darkTheme.main,
+        height: "70vh",
       }}
     >
       <div className="flex flex-col">

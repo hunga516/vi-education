@@ -21,7 +21,7 @@ function AdminCoursePage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
 
-    const socket = io('http://localhost:3001');
+    const socket = io(`${process.env.REACT_APP_API_URL}`);
 
     useEffect(() => {
         // Đặt lại currentPage về 1 khi activeButton thay đổi

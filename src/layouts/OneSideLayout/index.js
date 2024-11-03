@@ -18,7 +18,7 @@ function OnSideLayout({ children }) {
                 />
 
                 {/* Content Wrapper */}
-                <div className="w-[1200px] mt-[80px] px-8 ml-[250px]">
+                <div className="w-[1190px] mt-[80px] px-8 ml-[250px]">
                     {children}
                 </div>
             </div>

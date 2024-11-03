@@ -1,4 +1,3 @@
-
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
@@ -78,7 +77,7 @@ function SidebarLeft({ className }) {
                                     to={item.to}
                                     className={`${location.pathname === item.to
                                         ? 'bg-gray-200 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-bluePrimary'
-                                        : ''} flex items - center px - 3 py - 2 text - gray - 600 transition - color rounded - lg relative`}
+                                        : ''} flex items-center px-3 py-2 text-gray-600 transition-colors rounded-lg relative`}
                                 >
                                     <item.icon size="18px" className="text-gray-600" />
                                     <span className="mx-2 text-sm font-medium">{item.title}</span>
@@ -88,9 +87,9 @@ function SidebarLeft({ className }) {
                     )}
 
                 </nav>
-                <div className="mt-2 rounded-md drop-shadow-md w-full">
+                <div className="mt-28 rounded-md drop-shadow-md w-full">
                     <img src={images.sony} alt="" className="w-full h-32 rounded-lg object-cover" />
-                    <p className="text-xs mt-2 p-2 rounded-md text-white bg-gradient-to-tr from-blue-600 to bg-pink-600">Đăng ký sớm để nhận nhiều ưu đãi</p>
+                    <p className="text-xs mt-2 p-2 rounded-md text-white bg-gradient-to-tr from-blue-600 to-pink-600">Đăng ký sớm để nhận nhiều ưu đãi</p>
                 </div>
 
                 <div>
