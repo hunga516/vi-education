@@ -22,6 +22,7 @@ function DefaultLayout({ children }) {
                     {children}
                 </div>
             </div>
+            <SidebarRight className="fixed right-0 top-[61px] z-10 w-[250px]" />
         </div>
     );
 }

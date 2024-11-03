@@ -1,4 +1,5 @@
-import { useContext } from "react";
+
+import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
@@ -9,38 +10,19 @@ import { MdOutlineForum } from "react-icons/md";
 import { PiUsers } from "react-icons/pi";
 import { RiHome5Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import images from "../../../assets/images";
+import MessageModal from "../../../components/Modal/Message/MessageModal";
 
 function SidebarRight({ className }) {
     const LoadingContextValue = useContext(LoadingContext);
     const location = useLocation();
+    const [isMessageModal, setIsMessageModal] = useState(false)
+    const [room_id, setRoom_id] = useState()
 
-    const NAV_ITEMS = [
-        {
-            icon: RiHome5Line,
-            title: 'Trang chủ',
-            to: '/home'
-        },
-        {
-            icon: MdOndemandVideo,
-            title: 'Reels',
-            to: '/reels'
-        },
-        {
-            icon: MdOutlineForum,
-            title: 'Diễn đàn',
-            to: '/forums'
-        },
-        {
-            icon: PiUsers,
-            title: 'Bạn bè',
-            to: '/friends'
-        },
-        {
-            icon: IoMdTrendingUp,
-            title: 'Thịnh hành',
-            to: '/trending'
-        }
-    ]
+    const toggleIsMessageModal = () => {
+        setRoom_id('672749bafdea5ca359d71360')
+        setIsMessageModal(!isMessageModal)
+    }
 
     return (
         <aside
@@ -50,107 +32,201 @@ function SidebarRight({ className }) {
                 // backgroundImage: `url(${images.background})`
             }}
         >
-            <div class="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 border-l-[1px] border-gray-400/30">
-                <nav class="-mx-3 space-y-3 ">
-                    {LoadingContextValue ? (
-                        <>
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                            <Skeleton width={200} height={24} />
-                        </>
-                    ) : (
-                        <>
-                            {NAV_ITEMS.map((item, index) => (
-                                <Link
-                                    key={index}
-                                    to={item.to}
-                                    className={`flex items-center px-3 py-2 text-gray-600 transition-color rounded-lg hover:bg-white hover:drop-shadow hover:text-gray-700 ${location.pathname === item.to ? 'bg-white' : ''
-                                        }`}
-                                >
-                                    <item.icon size="18px" className="text-gray-600" />
-
-                                    <span class="mx-2 text-sm font-medium">{item.title}</span>
-                                </Link>
-                            ))}
-                        </>
-                    )}
-
-                </nav>
-
-                <div>
-                    <div class="flex items-center justify-between gap-2">
-                        {LoadingContextValue ? (
-                            <>
-                                <Skeleton width={190} height={24} />
-                                <Skeleton width={25} height={24} />
-                            </>
-                        ) : (
-                            <>
-                                <h2 class="text-base font-semibold text-gray-800">Khoá học gần đây</h2>
-                                <button class="p-0.5 hover:bg-gray-100 duration-200 transition-colors text-gray-500 border rounded-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                    </svg>
-                                </button>
-                            </>
-                        )}
-
+            <div className="w-full h-[100vh]">
+                <div className="px-2 py-2 mt-4 bg-white rounded-md drop-shadow-md">
+                    <div className="flex justify-between items-center">
+                        <p className="text-slate-800 text-sm font-semibold tracking-wide">Đang hoạt động</p>
+                        <p className="text-slate-500 text-xs">30 thành viên</p>
                     </div>
 
-                    <nav class="mt-4 -mx-3 space-y-3 ">
-                        {LoadingContextValue ? (
-                            <>
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                                <Skeleton width={239} height={24} />
-                            </>
-                        ) : (
-                            <>
-                                <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100  hover:text-gray-700">
-                                    <div class="flex items-center gap-x-2 ">
-                                        <span class="w-2 h-2 bg-pink-500 rounded-full"></span>
-                                        <span>Học lập trình Javascript</span>
-                                    </div>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 rtl:rotate-180">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-                                </button>
+                    <div className="flex flex-col gap-1 mt-2 h-[350px] overflow-y-auto">
+                        <div
+                            onClick={toggleIsMessageModal}
+                            className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                            <button className="">
+                                +
+                            </button>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div >
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div >
+                        </div >
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div >
+                        </div >
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                    </div >
+                </div >
 
-                                <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-700 transition-colors duration-300 transform drop-shadow bg-white rounded-lg">
-                                    <div class="flex items-center gap-x-2 ">
-                                        <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-                                        <span>Backend với NodeJS & Express</span>
-                                    </div>
+                <div className="p-2 mt-4 bg-white rounded-md drop-shadow-md">
+                    <div className="flex justify-between items-center">
+                        <p className="text-slate-800 text-sm font-semibold tracking-wide">Nhóm chát cộng đồng</p>
+                        <p className="text-slate-500 text-xs">4 nhóm</p>
+                    </div>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 rtl:rotate-180">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-                                </button>
 
-                                <button class="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100  hover:text-gray-700">
-                                    <div class="flex items-center gap-x-2 ">
-                                        <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                                        <span>Design Figma UI</span>
-                                    </div>
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 rtl:rotate-180">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-                                </button>
-                            </>
-                        )}
-                    </nav>
-                </div>
-            </div>
+                    <div className="flex flex-col gap-1 mt-2 h-[230px] overflow-y-auto">
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div >
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div >
+                        </div >
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div >
+                        </div >
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <img src={images.sony} alt="" className="w-8 h-8 rounded-full" />
+                                    <div className="absolute w-2 h-2 right-0 bg-green-500 rounded-full bottom-0 ring-2 ring-white"></div>
+                                </div>
+                                <p className="text-slate-800 text-sm leading-4">Le Ngoc Loc</p>
+                            </div>
+                        </div>
+                    </div >
+                </div >
+            </div >
+            {isMessageModal && (
+                <MessageModal room_id={room_id} />
+            )}
         </aside >
     )
 }
 
-export default SidebarRight
+export default SidebarRight;
