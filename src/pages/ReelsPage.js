@@ -88,10 +88,12 @@ function ReelsPage() {
                                 </>
                             )}
                         </div>
-                        {LoadingContextValue ? (
+                        {!LoadingContextValue ? (
                             <Skeleton height={600} width={400} />
                         ) : (
-                            <Comment />
+                            // <Comment />
+                            <>
+                            </>
                         )}
                     </div>
                 </div>

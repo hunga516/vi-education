@@ -87,7 +87,7 @@ function SidebarLeft({ className }) {
                     )}
 
                 </nav>
-                <div className="mt-28 rounded-md drop-shadow-md w-full">
+                <div className="mt-20 rounded-md drop-shadow-md w-full">
                     <img src={images.sony} alt="" className="w-full h-32 rounded-lg object-cover" />
                     <p className="text-xs mt-2 p-2 rounded-md text-white bg-gradient-to-tr from-blue-600 to-pink-600">Đăng ký sớm để nhận nhiều ưu đãi</p>
                 </div>
