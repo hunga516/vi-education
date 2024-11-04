@@ -10,16 +10,17 @@ function AdminSidebarRight({ className }) {
     const [history, setHistory] = useState([])
     const [usersOnlineState, setUsersOnlineState] = useState()
     const { userId } = useContext(AuthContext)
-    const socket = io(`${process.env.REACT_APP_API_URL}`, {
-        reconnectionAttempts: 5, // Số lần thử kết nối lại
-        timeout: 10000, // Thời gian timeout
-        transports: ['polling'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
-    });
+
 
     const location = useLocation()
     const params = location.pathname.split("/").pop()
 
     useEffect(() => {
+        const socket = io(`${process.env.REACT_APP_API_URL}`, {
+            reconnectionAttempts: 5, // Số lần thử kết nối lại
+            timeout: 10000, // Thời gian timeout
+            transports: ['polling'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
+        });
         const getAllHistory = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/${params}/history?limit=3`)

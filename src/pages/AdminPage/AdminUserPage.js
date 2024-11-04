@@ -21,11 +21,7 @@ function AdminCoursePage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
 
-    const socket = io(`${process.env.REACT_APP_API_URL}`, {
-        reconnectionAttempts: 5, // Số lần thử kết nối lại
-        timeout: 10000, // Thời gian timeout
-        transports: ['polling'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
-    });
+
 
     useEffect(() => {
         // Đặt lại currentPage về 1 khi activeButton thay đổi
@@ -33,6 +29,11 @@ function AdminCoursePage() {
     }, [activeButton])
 
     useEffect(() => {
+        const socket = io(`${process.env.REACT_APP_API_URL}`, {
+            reconnectionAttempts: 5, // Số lần thử kết nối lại
+            timeout: 10000, // Thời gian timeout
+            transports: ['polling'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
+        });
         const getAllUsers = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/users?page=${currentPage}`)
