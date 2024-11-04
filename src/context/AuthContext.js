@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
                 setUserOffline(userId)
                 setUser(null);
                 console.log("User not logged in.");
-                navigate("/reels");
+                navigate("/home");
             }
         });
 
