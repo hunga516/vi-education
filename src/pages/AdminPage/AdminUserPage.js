@@ -24,7 +24,7 @@ function AdminCoursePage() {
     const socket = io(`${process.env.REACT_APP_API_URL}`, {
         reconnectionAttempts: 5, // Số lần thử kết nối lại
         timeout: 10000, // Thời gian timeout
-        transports: ['websocket'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
+        transports: ['polling'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
     });
 
     useEffect(() => {
