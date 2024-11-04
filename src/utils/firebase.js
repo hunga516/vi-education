@@ -8,13 +8,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyCgXcs9G0afqhocLQtWh-cuY2f1x7hObvA",
-    authDomain: "forum-gtavi.firebaseapp.com",
-    projectId: "forum-gtavi",
-    storageBucket: "forum-gtavi.appspot.com",
-    messagingSenderId: "307343759270",
-    appId: "1:307343759270:web:ef7014612f89e7ad57a167",
-    measurementId: "G-3B1BFXF4HY"
+    apiKey: `${process.env.REACT_FBASE_API}`,
+    authDomain: `${process.env.REACT_AUTHDOMAIN}`,
+    projectId: `${process.env.REACT_PROJECTID}`,
+    storageBucket: `${process.env.REACT_STOREDBUCKET}`,
+    messagingSenderId: `${process.env.REACT_MESSAGEINGSENDID}`,
+    appId: `${process.env.REAC_APPID}`,
+    measurementId: `${process.env.REACT_MEANSUREID}`,
 };
 
 // Initialize Firebase
