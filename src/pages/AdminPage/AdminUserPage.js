@@ -21,7 +21,11 @@ function AdminCoursePage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
 
-    const socket = io(`${process.env.REACT_APP_API_URL}`);
+    const socket = io(`${process.env.REACT_APP_API_URL}`, {
+        reconnectionAttempts: 5, // Số lần thử kết nối lại
+        timeout: 10000, // Thời gian timeout
+        transports: ['websocket'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
+    });
 
     useEffect(() => {
         // Đặt lại currentPage về 1 khi activeButton thay đổi

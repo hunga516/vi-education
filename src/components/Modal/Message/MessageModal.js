@@ -19,7 +19,11 @@ function MessageModal({ room_id, toggleIsMessageModal }) {
     const messageEndRef = useRef(null);
 
     useEffect(() => {
-        const socket = io(`${process.env.REACT_APP_API_URL}`);
+        const socket = io(`${process.env.REACT_APP_API_URL}`, {
+            reconnectionAttempts: 5, // Số lần thử kết nối lại
+            timeout: 10000, // Thời gian timeout
+            transports: ['websocket'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
+        });
 
         const getAllMessagesInRoom = async () => {
             try {
