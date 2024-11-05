@@ -8,7 +8,7 @@ function OnSideLayout({ children }) {
         <div className="min-h-screen">
             <Header />
             <SidebarLeft className="fixed left-0 top-[61px] z-10 w-[250px]" />
-            <div className="layout-wrapper wrapper flex bg-white/70 backdrop-blur-md w-full pl-4 pr-6 relative">
+            <div className="layout-wrapper wrapper flex bg-white/70 backdrop-blur-md w-100vh relative">
 
                 {/* Background Image */}
                 <img
@@ -19,7 +19,7 @@ function OnSideLayout({ children }) {
                 <div className="w-[250px] flex-shrink-0"></div>
 
                 {/* Content Wrapper */}
-                <div className=" mt-[80px] px-8 flex-1">
+                <div className="min-w-96 mt-[80px] px-8 flex-1">
                     {children}
                 </div>
             </div>

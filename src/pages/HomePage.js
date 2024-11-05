@@ -39,8 +39,8 @@ function HomePage() {
 
     return (
         <>
-            <div className="home-page-wrapper bg-white rounded-md shadow-2xl px-5 py-4">
-                {/* <div className="w-full rounded-2xl">
+            <div className="home-page-wrapper w-full bg-white rounded-md shadow-2xl px-5 py-4">
+                <div className="container w-full rounded-2xl">
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={20}
@@ -76,7 +76,7 @@ function HomePage() {
                             />
                         </SwiperSlide>
                     </Swiper>
-                </div> */}
+                </div>
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
                 <div className="grid grid-cols-4 gap-2 mt-2">
