@@ -18,7 +18,7 @@ function DefaultLayout({ children }) {
                 />
 
                 {/* Content Wrapper */}
-                <div className="w-[900px] mt-[80px] px-8 ml-[250px] mr-[250px]">
+                <div className="w-[800px] mt-[80px] px-8 ml-[250px] mr-[250px]">
                     {children}
                 </div>
             </div>

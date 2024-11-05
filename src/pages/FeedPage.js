@@ -155,40 +155,23 @@ function FeedPage() {
                 posts?.map((post, index) => (
                     <div className="">
                         <div key={index} className={`w-full mx-auto rounded-bl-md rounded-br-md border-b-[1px] first:mt-4`}>
-                            <div className="video-info-comment flex flex-col gap-4 p-4 bg-white rounded-tr-md rounded-tl-md shadow-2xl">
-                                <div className="video-info-container flex justify-between items-center">
-                                    <div className="user-info flex flex-row gap-3">
-                                        <img src={post.author.photoURL} alt="avatar" className="rounded-full w-12" />
-                                        <div className="user-details flex flex-col justify-between">
-                                            <h1 className="font-semibold">{post.author.displayName}</h1>
-                                            <h2 className="text-sm">{post.author.email}</h2>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col gap-2 items-end">
-                                        <BsThreeDots className="text-2xl text-slate-600" />
-                                        <p className="text-slate-600 text-sm tracking-wide">{post.createdAt}</p>
-                                    </div>
+                            <div className="video-info-comment flex gap-2 p-4 bg-white rounded-tr-md rounded-tl-md shadow-2xl">
+                                <img src={post.author.photoURL} alt="avatar" className="rounded-full w-8 h-8" />
+                                <div className="video-container rounded-lg w-full h-auto">
+                                    <div className="text-sm font-medium">{post.author.displayName}</div>
+                                    <div className="text-slate-800 mb-4">{post.content}</div>
+                                    {post.media ? (
+                                        <video
+                                            className="w-full rounded-lg object-cover"
+                                            src={post.media}
+                                            type="video/mp4"
+                                            controls
+                                        >
+                                        </video>
+                                    ) : (
+                                        <Skeleton width={836} height={557} />
+                                    )}
                                 </div>
-                                <p className="video-description tracking-wide text-gray-600 ">
-                                    {renderContentWithHighlight(post.content)}
-                                </p>
-                                <div className="music-info flex items-center gap-2">
-                                    <PiMusicNotesSimpleFill />
-                                    <span className="text-sm opacity-80">nhạc nền - Không có</span>
-                                </div>
-                            </div>
-                            <div className="video-container w-full h-auto shadow-2xl">
-                                {post.media ? (
-                                    <video
-                                        className="w-full object-cover"
-                                        src={post.media}
-                                        type="video/mp4"
-                                        controls
-                                    >
-                                    </video>
-                                ) : (
-                                    <Skeleton width={836} height={557} />
-                                )}
                             </div>
                             <div className="count-sosial-interaction flex items-center justify-between px-4 py-2 bg-white">
                                 <div className="flex gap-8 justify-between w-full">
