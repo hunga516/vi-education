@@ -57,7 +57,7 @@ function SidebarLeft({ className }) {
                 // backgroundImage: `url(${images.background})`
             }}
         >
-            <div className="flex flex-col justify-between flex-1 pt-5 px-5 pb-4 border-r-[1px] border-gray-400/30">
+            <div className="flex flex-col justify-between flex-1 pt-5 px-5 pb-4">
                 <nav className="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (
                         <div className="flex flex-col gap-1 mx-auto">
@@ -76,7 +76,7 @@ function SidebarLeft({ className }) {
                                     key={index}
                                     to={item.to}
                                     className={`${location.pathname === item.to
-                                        ? 'bg-gray-200 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-bluePrimary'
+                                        ? 'bg-white ring-1 ring-black/10 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-bluePrimary'
                                         : ''} flex items-center px-3 py-2 text-gray-600 transition-colors rounded-lg relative`}
                                 >
                                     <item.icon size="18px" className="text-gray-600" />
@@ -87,10 +87,10 @@ function SidebarLeft({ className }) {
                     )}
 
                 </nav>
-                <div className="mt-12 rounded-md drop-shadow-md w-full">
+                {/* <div className="mt-12 rounded-md drop-shadow-md w-full">
                     <img src={images.sony} alt="" className="w-full h-32 rounded-lg object-cover" />
                     <p className="text-xs mt-2 p-2 rounded-md text-white bg-gradient-to-tr from-blue-600 to-pink-600">Đăng ký sớm để nhận nhiều ưu đãi</p>
-                </div>
+                </div> */}
 
                 <div>
                     <div className="flex items-center justify-between gap-2">

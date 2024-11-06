@@ -129,14 +129,14 @@ function SidebarRight({ className }) {
                     </div >
                 </div >
 
-                <div className="p-2 mt-4 bg-white rounded-md drop-shadow-md">
+                <div className="p-2 mt-2 h-full bg-white rounded-md drop-shadow-md">
                     <div className="flex justify-between items-center">
                         <p className="text-slate-800 text-sm font-semibold tracking-wide">Nhóm chát cộng đồng</p>
                         <p className="text-slate-500 text-xs">4 nhóm</p>
                     </div>
 
 
-                    <div className="flex flex-col gap-1 mt-2 h-[230px] overflow-y-auto">
+                    <div className="flex flex-col gap-1 mt-2 h-[300px] overflow-y-auto">
                         <div
                             onClick={toggleIsMessageModal}
                             className="flex items-center justify-between bg-slate-200/60 rounded-lg px-2 py-2">

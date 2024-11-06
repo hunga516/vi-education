@@ -40,7 +40,7 @@ function HomePage() {
     return (
         <>
             <div className="home-page-wrapper w-full bg-white rounded-md shadow-2xl px-5 py-4">
-                <div className="container w-full rounded-2xl">
+                <div className="w-full container rounded-2xl">
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={20}
@@ -55,7 +55,7 @@ function HomePage() {
                             <img
                                 src={"https://aptech.vn/wp-content/uploads/2021/05/lap-trinh-java.png"}
                                 loading="lazy" // Thêm thuộc tính này
-                                className="w-full rounded-2xl"
+                                className="rounded-2xl"
                                 alt=""
                             />
                         </SwiperSlide>
@@ -63,7 +63,7 @@ function HomePage() {
                             <img
                                 src={"https://aptech.vn/wp-content/uploads/2021/05/lap-trinh-java.png"}
                                 loading="lazy" // Thêm thuộc tính này
-                                className="w-full rounded-2xl"
+                                className=" rounded-2xl"
                                 alt=""
                             />
                         </SwiperSlide>
@@ -71,7 +71,7 @@ function HomePage() {
                             <img
                                 src={"https://aptech.vn/wp-content/uploads/2021/05/lap-trinh-java.png"}
                                 loading="lazy" // Thêm thuộc tính này
-                                className="w-full rounded-2xl"
+                                className=" rounded-2xl"
                                 alt=""
                             />
                         </SwiperSlide>

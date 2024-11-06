@@ -103,8 +103,8 @@ function FeedPage() {
 
 
     return (
-        <>
-            <div className="upload-feed-posts py-4 w-full bg-white backdrop-blur-md shadow-2xl rounded-md">
+        <div className="">
+            <div className="upload-feed-posts py-4 w-full bg-white backdrop-blur-md shadow-sm ring-1 ring-slate-200/70 rounded-md">
                 <div className="flex gap-4 mx-4 pb-4 border-b-[1px] border-b-slate-300">
                     <img src={user?.photoURL} alt="" className="w-10 h-10 rounded-full" />
                     <div className="flex-1">
@@ -155,7 +155,7 @@ function FeedPage() {
                 posts?.map((post, index) => (
                     <div className="">
                         <div key={index} className={`w-full mx-auto rounded-bl-md rounded-br-md border-b-[1px] first:mt-4`}>
-                            <div className="video-info-comment flex gap-2 p-4 bg-white rounded-tr-md rounded-tl-md shadow-2xl">
+                            <div className="video-info-comment flex gap-2 p-4 bg-white rounded-tr-md rounded-tl-md shadow-sm ring-1 ring-slate-200/70">
                                 <img src={post.author.photoURL} alt="avatar" className="rounded-full w-8 h-8" />
                                 <div className="video-container rounded-lg w-full h-auto">
                                     <div className="text-sm font-medium">{post.author.displayName}</div>
@@ -169,7 +169,7 @@ function FeedPage() {
                                         >
                                         </video>
                                     ) : (
-                                        <Skeleton width={836} height={557} />
+                                        <Skeleton width={500} height={557} />
                                     )}
                                 </div>
                             </div>
@@ -207,15 +207,15 @@ function FeedPage() {
                     </div>
                 ))
             ) : (
-                <div className="wrapper-feed-page p-4 mt-6 bg-white backdrop-blur-md shadow-2xl rounded-md">
-                    <Skeleton height={800} width={836} />
+                <div className="wrapper-feed-page p-4 mt-6 bg-white backdrop-blur-md shadow-sm ring-1 ring-slate-200/70 rounded-md">
+                    <Skeleton height={500} width={810} />
                 </div>
             )
             }
             {isShowUploadPost && (
                 <UploadPostModal toggleIsShowUploadPost={toggleIsShowUploadPost} />
             )}
-        </>
+        </div>
     )
 }
 
