@@ -79,11 +79,11 @@ function HomePage() {
                 </div>
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
-                <div className="grid grid-cols-4 gap-2 mt-2">
+                <div className="flex flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-4 gap-2 mt-2">
                     {courses && courses.length > 0 ? (
                         courses.map((item, index) => (
                             <Link to={`/courses/${item._id}`} className="course-item-info" key={index}>
-                                <img src={item.images} alt="course" className="object-cover rounded-tl-xl rounded-tr-xl" />
+                                <img src={item.images} alt="course" className="object-cover w-full rounded-tl-xl rounded-tr-xl" />
                                 <div className="course-info-content flex flex-col justify-between gap-2 h-40 px-5 py-4 rounded-bl-xl rounded-br-xl bg-[#F7F7F7]"> {/* Thêm padding mà không thay đổi kích thước */}
                                     <h3 className="text-sm font-semibold text-gray-800 overflow-hidden text-ellipsis">{item.title}</h3>
                                     <p className="text-pink-600 font-medium">2.399.000 vnđ</p>

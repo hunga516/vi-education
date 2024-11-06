@@ -51,13 +51,13 @@ function SidebarLeft({ className }) {
 
     return (
         <aside
-            className={`${className} flex flex-col w-[250px] drop-shadow-md box-border`}
+            className={`${className} flex flex-col w-40 md:w-64 drop-shadow-md box-border`}
             style={{
                 height: 'calc(100vh - 61px)',
                 // backgroundImage: `url(${images.background})`
             }}
         >
-            <div className="flex flex-col justify-between flex-1 pt-5 px-5 pb-4">
+            <div className="md:flex md:flex-col md:justify-between flex-1 pt-5 px-5 pb-4">
                 <nav className="-mx-3 space-y-3 ">
                     {LoadingContextValue ? (
                         <div className="flex flex-col gap-1 mx-auto">
@@ -92,7 +92,7 @@ function SidebarLeft({ className }) {
                     <p className="text-xs mt-2 p-2 rounded-md text-white bg-gradient-to-tr from-blue-600 to-pink-600">Đăng ký sớm để nhận nhiều ưu đãi</p>
                 </div> */}
 
-                <div>
+                <div className="hidden md:block">
                     <div className="flex items-center justify-between gap-2">
                         <>
                             <h2 className="text-base font-semibold text-gray-800">Khoá học gần đây</h2>
