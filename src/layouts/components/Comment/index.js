@@ -9,7 +9,7 @@ import { LuSendHorizonal } from "react-icons/lu";
 function Comment({ comments, getAllCommentsByPostId, post_id }) {
 
     return (
-        <div className="comment-wrapper rounded-bl-md rounded-br-md shadow-2xl pb-4 flex flex-1 flex-col w-[400p] ring-black/5 bg-white">
+        <div className="comment-wrapper rounded-lg ring-1 ring-slate-400/30 pb-4 flex flex-1 flex-col w-[400p] bg-white">
             <div
                 className="text-bluePrimary py-2 px-4 text-xs tracking-wide leading-6 hover:underline hover:decoration-blue-500 hover:cursor-pointer"
                 onClick={() => getAllCommentsByPostId(post_id)}

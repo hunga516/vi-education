@@ -3,15 +3,16 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext, LoadingContext } from "../context";
 
 import { FaHeart, FaCommentDots, FaBookmark, FaShare } from "react-icons/fa";
-import { FaCirclePlus } from "react-icons/fa6";
-import { AiOutlinePlus } from "react-icons/ai";
 import { BsCameraVideoFill } from "react-icons/bs";
 import { BiImages } from "react-icons/bi";
 import { FaRegSmile } from "react-icons/fa";
-import Button from "../components/Button/index.js";
-import { PiMusicNotesSimpleFill } from "react-icons/pi";
-import { BsThreeDots } from "react-icons/bs";
-import { AiOutlineLike } from "react-icons/ai";
+import { FaRegHeart } from "react-icons/fa";
+import { FiMessageSquare } from "react-icons/fi";
+import { BiRepost } from "react-icons/bi";
+import { FaRegChartBar } from "react-icons/fa";
+import { CiSaveDown2 } from "react-icons/ci";
+import { FaRegStickyNote } from "react-icons/fa";
+import { MdOutlineFileUpload } from "react-icons/md";
 
 import images from "../assets/images"
 import video from "../assets/video";
@@ -155,11 +156,11 @@ function FeedPage() {
                 posts?.map((post, index) => (
                     <div className="">
                         <div key={index} className={`w-full mx-auto rounded-bl-md rounded-br-md border-b-[1px] first:mt-4`}>
-                            <div className="video-info-comment flex gap-2 p-4 bg-white rounded-tr-md rounded-tl-md shadow-sm ring-1 ring-slate-200/70">
-                                <img src={post.author.photoURL} alt="avatar" className="rounded-full w-8 h-8" />
+                            <div className="video-info-comment flex gap-4 p-4 bg-white rounded-tr-md rounded-tl-md shadow-sm ring-1 ring-slate-200/70">
+                                <img src={post.author.photoURL} alt="avatar" className="rounded-full w-10 h-10" />
                                 <div className="video-container rounded-lg w-full h-auto">
                                     <div className="text-sm font-medium">{post.author.displayName}</div>
-                                    <div className="text-slate-800 mb-4">{post.content}</div>
+                                    <div className="text-slate-1000 mb-4">{post.content}</div>
                                     {post.media ? (
                                         <video
                                             className="w-full rounded-lg object-cover"
@@ -171,38 +172,35 @@ function FeedPage() {
                                     ) : (
                                         <Skeleton width={500} height={557} />
                                     )}
-                                </div>
-                            </div>
-                            <div className="count-sosial-interaction flex items-center justify-between px-4 py-2 bg-white">
-                                <div className="flex gap-8 justify-between w-full">
-                                    <div className="flex gap-2 items-center">
-                                        <AiOutlineLike className="text-sm text-slate-600" />
-                                        <p className="text-sm">51 người thích</p>
+                                    <div className="w-full py-2 mt-2 grid grid-cols-5">
+                                        <div className="flex items-center gap-2 mx-auto cursor-pointer">
+                                            <FaRegHeart className="text-sm text-slate-600" />
+                                            <p className="text-sm text-slate-600">22</p>
+                                        </div>
+                                        <div onClick={() => getCommentsByPostId(post._id)} className="flex items-center gap-2 mx-auto cursor-pointer">
+                                            <FiMessageSquare className="text-sm text-slate-600" />
+                                            <p className="text-sm text-slate-600">22</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mx-auto cursor-pointer">
+                                            <BiRepost className="text-[18px] text-slate-600" />
+                                            <p className="text-sm text-slate-600">22</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mx-auto cursor-pointer">
+                                            <FaRegChartBar className="text-sm text-slate-600" />
+                                            <p className="text-sm text-slate-600">1.88k</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mx-auto cursor-pointer">
+                                            <FaRegStickyNote className="text-sm font-medium text-slate-600" />
+                                            <MdOutlineFileUpload className="text-base font-medium text-slate-600" />
+                                        </div>
                                     </div>
-                                    <div className="flex gap-2 items-center">
-                                        <p className="text-sm">22 bình luận</p>
+                                    <div className="w-full">
+                                        {comments && commentsOfPost_id === post._id && (
+                                            <Comment post_id={post._id} comments={comments} getAllCommentsByPostId={getAllCommentsByPostId} />
+                                        )}
                                     </div>
                                 </div>
                             </div>
-                            <div className="social-interaction border-t-[1px] border-b-[1px] border-slate-200/60 flex justify-between">
-                                <div className="grid grid-cols-3 w-full">
-                                    <button className="flex gap-2 justify-center hover:bg-slate-200/60 bg-white p-2 text-slate-600 items-center">
-                                        <img src={images.like} alt="" className="w-6 h-6 object-cover" />
-                                        <p>Thích</p>
-                                    </button>
-                                    <button onClick={() => getCommentsByPostId(post._id)} className="flex gap-2 justify-center hover:bg-slate-200/60 bg-white p-2 text-slate-600 items-center">
-                                        <img src={images.comment} alt="" className="w-6 h-6 object-cover" />
-                                        <p>Bình luận</p>
-                                    </button>
-                                    <button className="flex gap-2 justify-center hover:bg-slate-200/60 bg-white p-2 text-slate-600 items-center">
-                                        <img src={images.share} alt="" className="w-6 h-6 object-cover" />
-                                        <p>Chia sẻ</p>
-                                    </button>
-                                </div>
-                            </div>
-                            {comments && commentsOfPost_id === post._id && (
-                                <Comment post_id={post._id} comments={comments} getAllCommentsByPostId={getAllCommentsByPostId} />
-                            )}
                         </div>
                     </div>
                 ))
