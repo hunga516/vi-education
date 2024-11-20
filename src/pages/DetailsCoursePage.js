@@ -14,6 +14,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { IoPlayCircle } from "react-icons/io5";
 
 import Button from "../components/Button";
+import { renderContentWithHighlight } from "../utils/renderContentWithHighlight";
 
 function DetailsCoursePage() {
     const params = useParams()
@@ -83,7 +84,7 @@ function DetailsCoursePage() {
 
 
     return (
-        <div className="course-detail-wrapper bg-white shadow-2xl rounded-md">
+        <div className="course-detail-wrapper bg-white shadow-2xl rounded-md pb-20">
             <div className="flex gap-4 p-4 w-full">
                 <img
                     src={course.images}
@@ -163,7 +164,8 @@ function DetailsCoursePage() {
                                 ))
                             )}
                         </div>
-                        <div dangerouslySetInnerHTML={{ __html: course.content }} className="w-full">
+                        <div className="w-full mt-12">
+                            {renderContentWithHighlight(course.content)}
                         </div>
                     </div>
                     <div className="w-1/3 p-4 flex flex-col border-l border-1">

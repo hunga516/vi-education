@@ -8,6 +8,8 @@ import { MdOndemandVideo } from "react-icons/md";
 import { MdOutlineForum } from "react-icons/md";
 import { PiUsers } from "react-icons/pi";
 import { RiHome5Line } from "react-icons/ri";
+import { RiDashboardFill } from "react-icons/ri";
+
 import { CgFeed } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import images from "../../../assets/images";
@@ -35,17 +37,25 @@ function SidebarLeft({ className }) {
         {
             icon: MdOutlineForum,
             title: 'Diễn đàn',
-            to: '/forums'
+            description: "Beta",
+            // to: '/forums'
         },
         {
             icon: PiUsers,
             title: 'Bạn bè',
-            to: '/friends'
+            description: "Beta",
+            // to: '/friends'
         },
         {
             icon: IoMdTrendingUp,
             title: 'Thịnh hành',
-            to: '/trending'
+            description: "Beta",
+            // to: '/trending'
+        },
+        {
+            icon: RiDashboardFill,
+            title: 'Trang giảng viên',
+            to: '/admin/lessons'
         }
     ]
 
@@ -81,6 +91,9 @@ function SidebarLeft({ className }) {
                                 >
                                     <item.icon size="18px" className="text-gray-600" />
                                     <span className="mx-2 text-sm font-medium">{item.title}</span>
+                                    {item.description && (
+                                        <p className="text-[10px] text-red-400 bg-red-200 ring-1 ring-red-400 px-1 rounded-lg">{item?.description}</p>
+                                    )}
                                 </Link>
                             ))}
                         </>

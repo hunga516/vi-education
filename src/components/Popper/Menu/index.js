@@ -21,7 +21,7 @@ function Menu({ children, items, onChange, payload }) {
             interactive={true}
             render={attrs => (
                 <PopperWrapper>
-                    <div className="content">
+                    <div className="content z-50">
                         {history.length > 1 && <Header title="Ngôn ngữ" onBack={() => {
                             setHistory(prev => prev.slice(0, history.length - 1))
                         }} />}

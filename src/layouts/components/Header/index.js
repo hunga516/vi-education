@@ -10,6 +10,8 @@ import { IoLanguage, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineContactSupport, MdLiveTv, MdLogout } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
+import { TiMessages } from "react-icons/ti";
+import { FaBell } from "react-icons/fa6";
 
 import Menu from "../../../components/Popper/Menu";
 import Button from "../../../components/Button";
@@ -19,6 +21,7 @@ import { AuthContext, LoadingContext } from '../../../context';
 import { AuthModalContext } from '../../../context';
 import LoginModal from '../../../components/Modal/LoginModal';
 import SignUpModal from '../../../components/Modal/SignUpModal';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const LoadingContextValue = useContext(LoadingContext);
@@ -108,13 +111,13 @@ function Header() {
         <>
             <div className="header-wrapper fixed z-10 w-full flex justify-center drop-shadow bg-white/70 backdrop-blur-md border-[#1618231F]">
                 <div className="header-inner w-[1426px] flex justify-between items-center h-[60px] pl-3 pr-6">
-                    <div className="logo h-[42px]">
+                    <div className="logo">
                         {LoadingContextValue ? (
                             <Skeleton width={118} height={42} />
                         ) : (
-                            <></>
-                            // <icons.logo />
-                            // <img src={images.logoEducation} alt="logo" />
+                            <Link to="/" className='text-base font-bold font-sans tracking-widest bg-gradient-to-r from-blue-400 to bg-sky-400 bg-clip-text text-transparent'>
+                                vi education
+                            </Link>
                         )}
                     </div>
 
@@ -136,12 +139,12 @@ function Header() {
                                     <>
                                         <Tippy content="Tin nhắn" placement='bottom'>
                                             <div className="messages">
-                                                <FiSend className="w-[25px] h-[25px] ml-[8px]" />
+                                                <TiMessages className="text-slate-600 w-[25px] h-[25px] ml-[8px]" />
                                             </div>
                                         </Tippy>
                                         <Tippy content="Thông báo" placement='bottom'>
                                             <div className="notice relative">
-                                                <RiInboxArchiveLine className="w-[25px] h-[25px]" />
+                                                <FaBell className="text-slate-600 w-[25px] h-[25px]" />
                                                 <span className="absolute top-[-4px] right-[-4px] w-[16px] h-[16px] bg-primary text-white text-xs flex items-center justify-center rounded-full">
                                                     9
                                                 </span>

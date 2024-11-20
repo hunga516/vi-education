@@ -39,7 +39,7 @@ function HomePage() {
 
     return (
         <>
-            <div className="home-page-wrapper w-full bg-white rounded-md shadow-2xl px-5 py-4">
+            <div className="home-page-wrapper w-full bg-white rounded-md shadow-2xl p-8">
                 <div className="w-full container rounded-2xl">
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}

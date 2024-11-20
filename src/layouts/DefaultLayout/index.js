@@ -18,11 +18,11 @@ function DefaultLayout({ children }) {
                 /> */}
 
                 {/* Content Wrapper */}
-                <div className="mt-[78px] p-8 rounded-md bg-white/80 shadow-md ml-[250px] mr-[280px]">
+                <div className="w-full mt-20 p-8 rounded-md bg-white/80 shadow-md md:ml-64 ml-40 mr-[280px]">
                     {children}
                 </div>
             </div>
-            <SidebarRight className="fixed right-0 top-[61px] z-10 w-[280px]" />
+            <SidebarRight className="fixed right-0 top-[63px] z-10 w-[280px]" />
         </div>
     );
 }

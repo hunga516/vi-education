@@ -122,10 +122,9 @@ function AdminDashboardPage() {
                 <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
                     <div className="">
                         <div className="relative w-full max-w-full flex justify-between flex-1">
-                            <p className="text-slate-800 text-sm ">Bình luận vi phạm</p>
-                            <p className="text-slate-500/40 text-xs tracking-wide">Cập nhật 10 phút trước</p>
+                            <p className="text-slate-800 text-sm ">Số lượng khóa học và bài viết</p>
+                            <p className="text-slate-500/70 text-xs tracking-wide">Cập nhật 10 phút trước</p>
                         </div>
-                        <h1 className="text-2xl font-bold text-blueGray-200">Số lượng khóa học và bài viết</h1>
                     </div>
                 </div>
                 <div className="p-4 flex-auto">
