@@ -53,9 +53,9 @@ function LearnCoursesPage() {
                         <h1 className="text-slate-800 text-xl font-bold">{lesson.title}</h1>
                         <p className="text-slate-600 text-sm mt-2">{lesson.description}</p>
                     </div>
-                    <Button className="note-button text-slate-600 ring-red-800" type="upload">
+                    <Button onClick={() => toggleIsShowCreateTakeNoteModal()} className="note-button text-slate-600 ring-red-800" type="upload">
                         <FaNoteSticky className="text-sm text-slate-600" />
-                        <p onClick={() => toggleIsShowCreateTakeNoteModal()} className="text-sm leading-6">Thêm ghi chú</p>
+                        <p className="text-sm leading-6">Thêm ghi chú</p>
                     </Button>
                 </div>
                 <div className="w-full mt-12">
