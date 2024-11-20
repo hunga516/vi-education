@@ -50,10 +50,10 @@ function ReelsPage() {
     return (
         <>
             {VIDEO_ITEMS.map((item, index) => (
-                <div key={index} className={`flex gap-3 items-center mx-auto w-full first:mt-0 mt-[20px]`}>
-                    <div className="video-container relative w-[350px] h-auto">
+                <div key={index} className={`grid grid-cols-2 gap-3 items-center mx-auto w-full first:mt-0 mt-[20px]`}>
+                    <div className="video-container relative max-w-[350px] h-auto">
                         {LoadingContextValue ? (
-                            <Skeleton className="rounded-md" width={350} height={600} />
+                            <Skeleton className="rounded-md" width="100%" height={600} />
                         ) : (
                             <>
                                 <video className="rounded-md w-full object-cover" src={item} type="video/mp4">
@@ -61,7 +61,7 @@ function ReelsPage() {
                                 <div className="social-interaction absolute bottom-0 right-0 flex flex-col items-center justify-end p-4">
                                     <div className="avatar relative mb-6">
                                         {LoadingContextValue ? (
-                                            <Skeleton height={48} width={48} />
+                                            <Skeleton height={48} width="100%" />
                                         ) : (
                                             <img className="h-[48px] w-[48px] rounded-full" src={images.sony} alt="avatar" />
                                         )}
@@ -71,7 +71,7 @@ function ReelsPage() {
                                         <div key={index} className="flex flex-col items-center mb-4">
                                             <button className="love-react flex text-white justify-center items-center rounded-full h-[40px] w-[40px] bg-black bg-opacity-50 text-[18px] mb-1">
                                                 {LoadingContextValue ? (
-                                                    <Skeleton circle={true} height={40} width={40} />
+                                                    <Skeleton circle={true} height={40} width="100%" />
                                                 ) : (
                                                     <item.icon />
                                                 )}
@@ -88,7 +88,7 @@ function ReelsPage() {
                         )}
                     </div>
                     {!LoadingContextValue ? (
-                        <Skeleton height={622} width={485} />
+                        <Skeleton height={622} width="100%" />
                     ) : (
                         // <Comment />
                         <>

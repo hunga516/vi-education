@@ -190,7 +190,7 @@ function FeedPage() {
                                         >
                                         </video>
                                     ) : (
-                                        <Skeleton width={500} height={557} />
+                                        <Skeleton width="100%" height={557} />
                                     )}
                                     <div className="w-full py-2 mt-2 grid grid-cols-5">
                                         <div className="flex items-center gap-2 mx-auto cursor-pointer">
@@ -226,7 +226,7 @@ function FeedPage() {
                 ))
             ) : (
                 <div className="wrapper-feed-page p-4 mt-6 bg-white backdrop-blur-md shadow-sm ring-1 ring-slate-200/70 rounded-md">
-                    <Skeleton height={500} width={810} />
+                    <Skeleton height={500} width="100%" />
                 </div>
             )
             }
