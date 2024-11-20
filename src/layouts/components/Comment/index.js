@@ -9,7 +9,6 @@ import { useContext, useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { AuthContext } from "../../../context";
 import axios from "axios";
-import { io } from "socket.io-client";
 
 function Comment({ comments, getAllCommentsByPostId, post_id }) {
     const { userId } = useContext(AuthContext)
@@ -22,7 +21,7 @@ function Comment({ comments, getAllCommentsByPostId, post_id }) {
     })
 
     const handleOnChange = (e) => {
-        setFormData(setContent(e.target.value))
+        setFormData({ ...formData, content: e.target.value })
     }
 
     const handleSubmit = async () => {

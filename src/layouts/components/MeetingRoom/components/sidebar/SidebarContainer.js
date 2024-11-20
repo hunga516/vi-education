@@ -23,7 +23,7 @@ const SideBarTabView = ({
 
   return (
     <div
-      className="bg-blue-100 rounded-md drop-shadow-md"
+      className="bg-blue-100 rounded-md drop-shadow-md mt-20"
       style={{
         height: 600,
         width: sideBarContainerWidth,
