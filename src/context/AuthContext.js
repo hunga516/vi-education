@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
                 setUser(null);
                 console.log("User not logged in.");
                 navigate("/");
+                AuthModalContextValue.toggleLoginModal();
             }
         });
 

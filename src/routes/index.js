@@ -22,7 +22,7 @@ import AdminDashboardPage from "../pages/AdminPage/AdminDashboardPage";
 export const publicRoute = [
     { path: '/', element: HomePage, layout: OnSideLayout }, //đã có defaultlayout lúc duyệt ra, có thể xoá layout ở đây nếu là default
     { path: '/feed', element: FeedPage, layout: DefautLayout },
-    { path: '/meeting', element: Meeting, layout: OnSideLayout },
+    { path: '/meeting', element: Meeting, layout: NoneLayout },
     { path: '/reels', element: ReelsPage, layout: DefautLayout },
     { path: '/sign-in', element: PopupLogin, layout: NoneLayout },
     { path: '/forums', element: ForumsPage },

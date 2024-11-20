@@ -30,9 +30,8 @@ function AdminLessonPage() {
 
 
     useEffect(() => {
-        // Đặt lại currentPage về 1 khi activeButton thay đổi
         setCurrentPage(1);
-    }, [activeButton]) // Chỉ theo dõi activeButton
+    }, [activeButton])
 
     useEffect(() => {
         const socket = io(`${process.env.REACT_APP_API_URL}`, {

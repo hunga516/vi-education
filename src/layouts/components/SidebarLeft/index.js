@@ -9,6 +9,7 @@ import { MdOutlineForum } from "react-icons/md";
 import { PiUsers } from "react-icons/pi";
 import { RiHome5Line } from "react-icons/ri";
 import { RiDashboardFill } from "react-icons/ri";
+import { BsCameraVideoFill } from "react-icons/bs";
 
 import { CgFeed } from "react-icons/cg";
 import { Link } from "react-router-dom";
@@ -98,8 +99,19 @@ function SidebarLeft({ className }) {
                             ))}
                         </>
                     )}
-
                 </nav>
+                <div className="flex flex-col gap-2 -mt-56">
+                    <p className="text-slate-600 text-xs font-semibold leading-3">Chức năng mới</p>
+                    <Link
+                        to={"/meeting"}
+                        className={`
+                            ? 'bg-white ring-1 ring-black/10 before:absolute before:right-[-9px] before:h-8 before:w-[2px] before:bg-bluePrimary'
+                            : ''} flex items-center px-3 py-2 text-gray-600 bg-gradient-to-tr from-purple-500 to-sky-800 text-white transition-colors rounded-lg relative `}
+                    >
+                        <BsCameraVideoFill size="18px" className="text-white" />
+                        <span className="mx-2 text-sm font-medium">vi meeting</span>
+                    </Link>
+                </div>
                 {/* <div className="mt-12 rounded-md drop-shadow-md w-full">
                     <img src={images.sony} alt="" className="w-full h-32 rounded-lg object-cover" />
                     <p className="text-xs mt-2 p-2 rounded-md text-white bg-gradient-to-tr from-blue-600 to-pink-600">Đăng ký sớm để nhận nhiều ưu đãi</p>

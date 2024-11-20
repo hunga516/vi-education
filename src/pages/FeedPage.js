@@ -20,6 +20,7 @@ import Comment from "../layouts/components/Comment";
 import UploadPostModal from "../components/Modal/UploadPostModal";
 import axios from "axios";
 import { renderContentWithHighlight } from "../utils/renderContentWithHighlight.js";
+import { io } from "socket.io-client";
 
 function FeedPage() {
     const [isShowUploadPost, setIsShowUploadPost] = useState(false)
@@ -29,6 +30,25 @@ function FeedPage() {
     const [comments, setComments] = useState()
     const [commentsOfPost_id, setCommentsOfPost_id] = useState()
     const [isShowComments, setIsShowComments] = useState()
+
+    useEffect(() => {
+        const socket = io(`${process.env.REACT_APP_API_URL}`, {
+            reconnectionAttempts: 5, // Số lần thử kết nối lại
+            timeout: 10000, // Thời gian timeout
+            transports: ['polling'], // Sử dụng WebSocket nếu có thể để giảm thiểu lỗi kết nối
+        });
+
+
+        socket.on('comments:create', (newComment) => {
+            if (commentsOfPost_id === newComment.post_id) {
+                setComments((prevComments) => [...prevComments, newComment]);
+            }
+        });
+
+        return () => {
+            socket.off('comments:create')
+        }
+    }, [])
 
     const ACTION_ITEMS = [
         {
@@ -160,7 +180,7 @@ function FeedPage() {
                                 <img src={post.author.photoURL} alt="avatar" className="rounded-full w-10 h-10" />
                                 <div className="video-container rounded-lg w-full h-auto">
                                     <div className="text-sm font-medium">{post.author.displayName}</div>
-                                    <div className="text-slate-1000 mb-4">{post.content}</div>
+                                    <div className="text-slate-1000 mb-4">{renderContentWithHighlight(post.content)}</div>
                                     {post.media ? (
                                         <video
                                             className="w-full rounded-lg object-cover"

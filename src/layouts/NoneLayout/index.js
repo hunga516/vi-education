@@ -1,8 +1,13 @@
+import Header from "../components/Header"
+
 function NoneLayout({ children }) {
     return (
-        <div>
-            {children}
-        </div>
+        <>
+            <Header />
+            <div className="">
+                {children}
+            </div>
+        </>
     )
 }
 

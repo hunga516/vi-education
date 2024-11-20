@@ -60,7 +60,7 @@ export function PresenterView({ height }) {
 
   return (
     <div
-      className={` bg-gray-750 rounded m-2 relative overflow-hidden w-full h-[630px]
+      className={` bg-gray-750 rounded m-2 relative mt-20 overflow-hidden w-full h-[630px]
       }] `}
     >
       <audio autoPlay playsInline controls={false} ref={audioPlayer} />

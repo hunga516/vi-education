@@ -398,7 +398,7 @@ export function JoiningScreen({
 
   return (
     <div className="w-full">
-      <div className=" flex flex-col flex-1 bg-white shadow-2xl">
+      <div className=" flex h-[100vh] flex-col flex-1 bg-white shadow-2xl">
         <div className="flex flex-1 flex-col md:flex-row items-center justify-center p-4">
           <div className="container grid md:grid-flow-col grid-flow-row ">
             <div className="grid grid-cols-12">

@@ -5,8 +5,36 @@ import { IoText } from "react-icons/io5";
 import { MdOutlineAttachFile } from "react-icons/md";
 import { PiSmileySticker } from "react-icons/pi";
 import { LuSendHorizonal } from "react-icons/lu";
+import { useContext, useEffect, useState } from "react";
+import { ImSpinner2 } from "react-icons/im";
+import { AuthContext } from "../../../context";
+import axios from "axios";
+import { io } from "socket.io-client";
 
 function Comment({ comments, getAllCommentsByPostId, post_id }) {
+    const { userId } = useContext(AuthContext)
+    const [content, setContent] = useState()
+    const [isLoadingBtn, setIsLoadingBtn] = useState(false)
+    const [formData, setFormData] = useState({
+        content: content,
+        author: userId,
+        post_id: post_id
+    })
+
+    const handleOnChange = (e) => {
+        setFormData(setContent(e.target.value))
+    }
+
+    const handleSubmit = async () => {
+        setIsLoadingBtn(true)
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/comments`, formData)
+            setContent('')
+            setIsLoadingBtn(false)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="comment-wrapper rounded-lg ring-1 ring-slate-400/30 pb-4 flex flex-1 flex-col w-[400p] bg-white">
@@ -60,15 +88,19 @@ function Comment({ comments, getAllCommentsByPostId, post_id }) {
                 ))}
             </div>
             <div className="comment-input relative flex gap-1 items-center mt-4 drop-shadow-md px-4">
-                <input type="text" placeholder="Thêm bình luận..." className="w-full outline-none px-4 py-2 border rounded-md" />
+                <input type="text" name="content" onChange={handleOnChange} placeholder="Thêm bình luận..." className="w-full outline-none px-4 py-2 border rounded-md" />
                 <div className="absolute text-xl text-slate-600 right-0 bottom-0 -translate-y-3 -translate-x-24 flex gap-2 items-center">
                     <FaPlus />
                     <IoText />
                     <MdOutlineAttachFile />
                     <PiSmileySticker />
                 </div>
-                <button className="w-16 h-[42px] rounded-md flex items-center justify-center bg-bluePrimary">
-                    <LuSendHorizonal className="text-xl text-white" />
+                <button onClick={handleSubmit} className="w-16 h-[42px] rounded-md flex items-center justify-center bg-bluePrimary">
+                    {isLoadingBtn ? (
+                        <ImSpinner2 className="text-xl text-white/50 animate-spin " />
+                    ) : (
+                        <LuSendHorizonal className="text-xl text-white" />
+                    )}
                 </button>
             </div>
         </div>
