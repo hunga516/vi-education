@@ -100,7 +100,7 @@ function SidebarLeft({ className }) {
                         </>
                     )}
                 </nav>
-                <div className="flex flex-col gap-2 -mt-56">
+                <div className="flex flex-col gap-2 mt-2">
                     <p className="text-slate-600 text-xs font-semibold leading-3">Chức năng mới</p>
                     <Link
                         to={"/meeting"}

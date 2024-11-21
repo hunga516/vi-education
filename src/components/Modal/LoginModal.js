@@ -1,7 +1,7 @@
 import images from "../../assets/images";
 import { useContext } from "react";
 import { createPortal } from "react-dom";
-import { AuthContext } from "../../context";
+import { AuthContext, AuthModalContext } from "../../context";
 
 import { PiBookOpenUserFill } from "react-icons/pi";
 import { IoArrowBack } from "react-icons/io5";
@@ -10,6 +10,8 @@ import { FaFacebook } from "react-icons/fa";
 
 function LoginModal({ className, toggleLoginModal }) {
     const AuthContextValue = useContext(AuthContext)
+    const AuthModalContextValue = useContext(AuthModalContext)
+
 
 
     return createPortal(
@@ -61,7 +63,7 @@ function LoginModal({ className, toggleLoginModal }) {
 
                     <p class="mt-10 text-center text-sm text-gray-500">
                         Chưa có tài khoản?
-                        <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Đăng ký ngay</a>
+                        <button onClick={AuthModalContextValue.toggleSignUpModal} class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Đăng ký ngay</button>
                     </p>
 
                     <div className="line-container flex items-center mt-4">
@@ -77,7 +79,9 @@ function LoginModal({ className, toggleLoginModal }) {
                             <FcGoogle className="text-2xl" />
                             <div className="font-normal">Google</div>
                         </button>
-                        <button className="flex flex-1 items-center justify-center gap-2 px-3 py-2 bg-slate-200 rounded-3xl ring-inset ring-1 ring-slate-300">
+                        <button
+                            onClick={AuthContextValue.handleSignIn}
+                            className="flex flex-1 items-center justify-center gap-2 px-3 py-2 bg-slate-200 rounded-3xl ring-inset ring-1 ring-slate-300">
                             <FaFacebook className="text-2xl text-blue-600" />
                             <div className="font-normal">Facebook</div>
                         </button>
