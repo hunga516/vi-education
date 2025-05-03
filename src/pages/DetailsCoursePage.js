@@ -84,8 +84,8 @@ function DetailsCoursePage() {
 
 
     return (
-        <div className="course-detail-wrapper bg-white shadow-2xl rounded-md pb-20">
-            <div className="flex gap-4 p-4 w-full">
+        <div className="course-detail-wrapper pb-20">
+            <div className="flex gap-4 p-2 mt-2 w-full">
                 <img
                     src={course.images}
                     className="w-[460px] h-[260px] rounded-lg object-cover"

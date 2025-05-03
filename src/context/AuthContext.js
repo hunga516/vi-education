@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth, googleAuthProvider } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AuthModalContext } from "./AuthModalContext";
 import { createUserInDatabase, getUserByEmail } from "../utils/request";
 import axios from "axios";
@@ -13,6 +13,12 @@ export const AuthProvider = ({ children }) => {
     const [userId, setUserId] = useState()
     const navigate = useNavigate();
     const AuthModalContextValue = useContext(AuthModalContext)
+    const [searchParams] = useSearchParams();
+
+   useEffect(() => {
+       console.log(searchParams.get("name"));
+       console.log(searchParams.get("age"));
+   }, [])
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {

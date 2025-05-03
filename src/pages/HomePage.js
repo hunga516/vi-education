@@ -39,8 +39,8 @@ function HomePage() {
 
     return (
         <>
-            <div className="home-page-wrapper w-full bg-white rounded-md shadow-2xl p-8">
-                <div className="w-full container rounded-2xl">
+            <div className="home-page-wrapper w-full p-2 mt-2">
+                <div className="w-full h-full container rounded-2xl">
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={20}
@@ -79,7 +79,7 @@ function HomePage() {
                 </div>
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
-                <div className="flex flex-col md:grid md:grid-cols-2 lg:grid lg:grid-cols-4 gap-2 mt-2">
+                <div className="flex flex-col md:grid md:grid-cols-4 lg:grid lg:grid-cols-4 gap-2 mt-2">
                     {courses && courses.length > 0 ? (
                         courses.map((item, index) => (
                             <Link to={`/courses/${item._id}`} className="course-item-info" key={index}>
