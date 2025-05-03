@@ -6,19 +6,19 @@ import SidebarLeftLearn from "../components/SidebarLeftLearn";
 function OneSideLearnLayout({ children }) {
     return (
         <div className="min-h-screen">
-            <Header />
-            <SidebarLeftLearn className="fixed left-0 top-[61px] z-10 w-[250px]" />
-            <div className="layout-wrapper wrapper flex justify-center bg-white/70 backdrop-blur-md w-full pl-4 pr-6 relative">
+            {/* <Header /> */}
+            {/* <SidebarLeftLearn className="fixed left-0 top-[61px] z-10 w-[250px]" /> */}
+            <div className="layout-wrapper wrapper w-full px-4 relative">
 
-                {/* Background Image */}
+                {/* Background Image
                 <img
                     src={images.background}
                     alt=""
                     className="absolute z-[-100] w-full left-1/2 -translate-x-1/2 transform scale-x-[-1]"
-                />
+                /> */}
 
                 {/* Content Wrapper */}
-                <div className="w-[1190px] mt-[70px] ml-[250px]">
+                <div className="mt-4">
                     {children}
                 </div>
             </div>

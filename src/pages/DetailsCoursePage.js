@@ -85,10 +85,10 @@ function DetailsCoursePage() {
 
     return (
         <div className="course-detail-wrapper pb-20">
-            <div className="flex gap-4 p-2 mt-2 w-full">
+            <div className="flex flex-col md:flex-row gap-4 p-2 mt-2 w-full">
                 <img
                     src={course.images}
-                    className="w-[460px] h-[260px] rounded-lg object-cover"
+                    className="w-full rounded-lg object-cover"
                     alt=""
                 />
                 <div className="info-course flex flex-col justify-between px-4">
@@ -96,8 +96,8 @@ function DetailsCoursePage() {
                         {course.title}
                         <MdQuestionMark className="text-slate-600" />
                     </h1>
-                    <p className="text-sm font-normal text-slate-600 text-justify">{course.description}</p>
-                    <div className="info-2-course flex gap-4 items-center justify-between">
+                    <p className="text-sm mt-4 font-normal text-slate-600 text-justify">{course.description}</p>
+                    <div className="info-2-course mt-6 flex gap-4 items-center justify-between">
                         <div className="flex gap-4">
                             <div className="flex gap-2 items-center text-sm font-sans leading-6 text-slate-500">
                                 <MdWork />
@@ -123,8 +123,8 @@ function DetailsCoursePage() {
                             </div>
                         </div> */}
                     </div>
-                    <div className="flex gap-4 justify-between items-center">
-                        <div className="flex gap-2">
+                    <div className="mt-2">
+                        <div className="grid grid-row-2 md:grid-row-4 gap-y-2">
                             <Button className={"px-4 text-sm leading-6 tracking-wide"} type="primary" >
                                 <FaPlusCircle />
                                 Đăng ký học ngay
@@ -138,7 +138,7 @@ function DetailsCoursePage() {
                 </div>
             </div>
             {course.author && (
-                <div className="author-course mt-8 flex flex-row gap-4 p-4 rounded-lg flex-shrink-0">
+                <div className="author-course mt-8 flex flex-col md:flex-row gap-4 md:gap-20 p-4 rounded-lg flex-shrink-0">
                     <div className="w-full flex flex-col">
                         <div className="container-accordion mt-9 flex flex-col gap-1 w-full pb-20">
                             {chapters && (
@@ -168,7 +168,7 @@ function DetailsCoursePage() {
                             {renderContentWithHighlight(course.content)}
                         </div>
                     </div>
-                    <div className="w-1/3 p-4 flex flex-col border-l border-1">
+                    <div className="p-4 flex flex-col">
                         <div className="info-author text-center mt-2 relative">
                             <div>
                                 <img

@@ -20,26 +20,26 @@ export const AuthProvider = ({ children }) => {
        console.log(searchParams.get("age"));
    }, [])
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (currentUser) {
-                console.log("User logged in:", currentUser.email);
-                const user = await getUserByEmail(currentUser.email);
-                setUserId(user._id);
-                console.log("User id is: ", user._id);
-                setUser(currentUser)
-                setUserOnline(user._id)
-            } else {
-                setUserOffline(userId)
-                setUser(null);
-                console.log("User not logged in.");
-                navigate("/");
-                AuthModalContextValue.toggleLoginModal();
-            }
-        });
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    //         if (currentUser) {
+    //             console.log("User logged in:", currentUser.email);
+    //             const user = await getUserByEmail(currentUser.email);
+    //             setUserId(user._id);
+    //             console.log("User id is: ", user._id);
+    //             setUser(currentUser)
+    //             setUserOnline(user._id)
+    //         } else {
+    //             setUserOffline(userId)
+    //             setUser(null);
+    //             console.log("User not logged in.");
+    //             navigate("/");
+    //             AuthModalContextValue.toggleLoginModal();
+    //         }
+    //     });
 
-        return () => unsubscribe();
-    }, [navigate]);
+    //     return () => unsubscribe();
+    // }, [navigate]);
 
     const handleSignIn = async () => {
         try {
@@ -81,7 +81,6 @@ export const AuthProvider = ({ children }) => {
             await axios.post(`${process.env.REACT_APP_API_URL}/users/online`, { userId })
         } catch (error) {
             console.log(error);
-
         }
     }
 

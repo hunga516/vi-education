@@ -40,7 +40,7 @@ function HomePage() {
     return (
         <>
             <div className="home-page-wrapper w-full p-2 mt-2">
-                <div className="w-full h-full container rounded-2xl">
+                {/* <div className="w-full h-full container rounded-2xl">
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={20}
@@ -76,7 +76,7 @@ function HomePage() {
                             />
                         </SwiperSlide>
                     </Swiper>
-                </div>
+                </div> */}
                 <h1 className="font-semibold text-gray-900 leading-9 mt-6">Khoá học mới nhất</h1>
                 {/* list courses */}
                 <div className="flex flex-col md:grid md:grid-cols-4 lg:grid lg:grid-cols-4 gap-2 mt-2">

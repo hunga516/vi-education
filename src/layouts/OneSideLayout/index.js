@@ -17,7 +17,7 @@ function OnSideLayout({ children }) {
                     className="absolute z-[-100] w-full left-1/2 -translate-x-1/2 transform scale-x-[-1]"
                 /> */}
                 {/* Content Wrapper */}
-                <div className="min-w-96 flex-1">
+                <div className="">
                     {children}
                 </div>
             </div>
