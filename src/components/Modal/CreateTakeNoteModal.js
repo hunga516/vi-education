@@ -13,7 +13,8 @@ import { renderContentWithHighlight } from "../../utils/renderContentWithHighlig
 
 function CreateTakeNoteModal({ toggleIsShowCreateTakeNoteModal }) {
     const [isDropDown, setIsDropDown] = useState(false)
-    const { userId } = useContext(AuthContext)
+    // const { userId } = useContext(AuthContext)
+    const userId = "66ed7b2fe7e1fe197f2599c2"
     const [takenotes, setTakeNotes] = useState()
     const [countTakeNotes, setCountTakeNotes] = useState(0)
     const [isShowCreateInput, setIsShowCreateInput] = useState(false)

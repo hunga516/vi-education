@@ -6,7 +6,7 @@ import SidebarRight from "../components/SidebarRight";
 function DefaultLayout({ children }) {
     return (
         <div className="min-h-screen">
-            <Header />
+            {/* <Header /> */}
             {/*<SidebarLeft className="fixed left-0 top-[61px] z-10 w-[250px]" />*/}
             <div className="layout-wrapper wrapper flex justify-center bg-slate-200 backdrop-blur-md w-full px-2 relative">
                 {/* Content Wrapper */}
